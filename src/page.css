@@ -30,7 +30,7 @@
 
 /* Hairline scroll-progress at the top of every page (tape-strip style). */
 .dt-tape {
-  position: absolute; top: 0; left: 0; right: 0;
+  position: fixed; top: 0; left: 0; right: 0;
   height: 3px;
   background: rgba(255,255,255,0.06);
   z-index: 50;
@@ -99,10 +99,8 @@
   border-color: var(--accent);
 }
 
-/* Sticky-style page header inside artboard — uses position absolute since
-   artboards are static. */
 .dt-nav {
-  position: absolute;
+  position: fixed;
   top: 3px; left: 0; right: 0;
   z-index: 40;
   background: rgba(20,20,20,0.6);
