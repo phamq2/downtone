@@ -79,7 +79,7 @@ window.DTPage = function DTPage({ variant = "signature", colorPair = null }) {
       <div className="dt-nav">
         <div className="dt-nav-inner">
           <a
-            href="https://downtone.nyc"
+            href="https://www.downtone.nyc"
             className="dt-nav-logo"
             role="img"
             aria-label="Downtone"
