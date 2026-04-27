@@ -78,13 +78,15 @@ window.DTPage = function DTPage({ variant = "signature", colorPair = null }) {
       {/* Nav */}
       <div className="dt-nav">
         <div className="dt-nav-inner">
-          <span
+          <a
+            href="https://downtone.nyc"
             className="dt-nav-logo"
             role="img"
             aria-label="Downtone"
             style={{
               "--logo-mask": "url('assets/Downtone-logo-white.svg')",
-              width: 110
+              width: 110,
+              display: "block"
             }}
           />
           <div className="dt-nav-links">

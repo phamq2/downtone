@@ -3,273 +3,32 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Downtone — 301 Grand St, NYC</title>
+<title>Downtone — Investor Brief</title>
 <link rel="stylesheet" href="colors_and_type.css">
+<link rel="stylesheet" href="page.css">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html, body {
-    height: 100%;
-    background: #0F0F0F;
-    color: #F5F1EA;
-    font-family: 'Outfit', system-ui, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-  }
-
-  /* ── Poster collage grid ── */
-  .collage {
-    position: fixed;
-    inset: 0;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(2, 50vh);
-    gap: 3px;
-    z-index: 0;
-  }
-  .collage-item {
-    overflow: hidden;
-    position: relative;
-  }
-  .collage-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
-    filter: saturate(0.85) contrast(1.05);
-    transition: transform 8s ease;
-  }
-  .collage:hover .collage-item img { transform: scale(1.04); }
-
-  /* Dark overlay */
-  .overlay {
-    position: fixed;
-    inset: 0;
-    background: linear-gradient(
-      to bottom,
-      rgba(10,10,10,0.55) 0%,
-      rgba(10,10,10,0.70) 40%,
-      rgba(10,10,10,0.85) 75%,
-      rgba(10,10,10,0.97) 100%
-    );
-    z-index: 1;
-  }
-
-  /* ── Content ── */
-  .content {
-    position: relative;
-    z-index: 2;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 80px 24px 64px;
-    text-align: center;
-  }
-
-  .logo {
-    height: 24px;
-    width: auto;
-    margin-bottom: 48px;
-    background-color: #FF9B00;
-    -webkit-mask: url('assets/Downtone-logo-white.svg') center/contain no-repeat;
-    mask: url('assets/Downtone-logo-white.svg') center/contain no-repeat;
-    display: block;
-  }
-
-  .eyebrow {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: #FF9B00;
-    margin-bottom: 24px;
-  }
-
-  .headline {
-    font-family: 'Outfit', sans-serif;
-    font-weight: 900;
-    font-size: clamp(52px, 8vw, 112px);
-    line-height: 0.90;
-    letter-spacing: -0.045em;
-    text-transform: uppercase;
-    margin-bottom: 40px;
-    max-width: 900px;
-  }
-
-  .manifesto {
-    font-family: 'Instrument Serif', Georgia, serif;
-    font-style: italic;
-    font-size: clamp(18px, 2.5vw, 26px);
-    line-height: 1.45;
-    color: rgba(245,241,234,0.75);
-    max-width: 620px;
-    margin-bottom: 64px;
-  }
-
-  /* ── Newsletter ── */
-  .signup-label {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: rgba(245,241,234,0.45);
-    margin-bottom: 16px;
-  }
-
-  .signup-form {
-    display: flex;
-    gap: 0;
-    max-width: 440px;
-    width: 100%;
-    border: 1px solid rgba(245,241,234,0.50);
-  }
-
-  .signup-form input[type="email"] {
-    flex: 1;
-    background: rgba(255,255,255,0.12);
-    border: none;
-    padding: 14px 20px;
-    font-family: 'Outfit', sans-serif;
-    font-size: 14px;
-    color: #F5F1EA;
-    outline: none;
-  }
-  .signup-form input[type="email"]::placeholder { color: rgba(245,241,234,0.55); }
-
-  .signup-form button {
-    background: #FF9B00;
-    color: #0F0F0F;
-    border: none;
-    padding: 14px 24px;
-    font-family: 'Outfit', sans-serif;
-    font-weight: 700;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: opacity 150ms;
-    white-space: nowrap;
-  }
-  .signup-form button:hover { opacity: 0.85; }
-
-  .signup-note {
-    font-size: 11px;
-    color: rgba(245,241,234,0.30);
-    margin-top: 12px;
-    letter-spacing: 0.06em;
-  }
-
-  .success-msg {
-    display: none;
-    font-family: 'Instrument Serif', serif;
-    font-style: italic;
-    font-size: 18px;
-    color: #FF9B00;
-    margin-top: 8px;
-  }
-
-  /* ── Footer links ── */
-  .footer-links {
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
-    z-index: 2;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px;
-    border-top: 1px solid rgba(245,241,234,0.10);
-  }
-
-  .footer-left {
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(245,241,234,0.40);
-  }
-
-  .footer-right {
-    display: flex;
-    gap: 32px;
-    align-items: center;
-  }
-
-  .footer-link {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: rgba(245,241,234,0.55);
-    text-decoration: none;
-    border: none;
-    transition: color 200ms;
-  }
-  .footer-link:hover { color: #FF9B00; }
-  .footer-link.accent {
-    color: #FF9B00;
-    border-bottom: 1px solid #FF9B00;
-    padding-bottom: 1px;
-  }
-
-  @media (max-width: 768px) {
-    .collage { grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(4, 25vh); }
-    .footer-links { padding: 16px 24px; flex-direction: column; gap: 12px; text-align: center; position: relative; }
-    .content { padding: 64px 24px 32px; }
-  }
+  html, body { margin: 0; padding: 0; height: 100%; background: #0F0F0F; }
+  body { font-family: 'Outfit', system-ui, sans-serif; color: #F5F1EA; overflow: hidden; }
+  #root { width: 100vw; height: 100vh; }
 </style>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 </head>
 <body>
+<div id="root"></div>
 
-<!-- Poster collage background -->
-<div class="collage" aria-hidden="true">
-  <div class="collage-item"><img src="assets/posters/Affiches-Listening sessions-1-01.jpg" alt=""></div>
-  <div class="collage-item"><img src="assets/posters/Affiches-Listening sessions-1-02.jpg" alt=""></div>
-  <div class="collage-item"><img src="assets/posters/Affiches-Listening sessions-1-03.jpg" alt=""></div>
-  <div class="collage-item"><img src="assets/posters/Affiches-Listening sessions-1-04.jpg" alt=""></div>
-  <div class="collage-item"><img src="assets/posters/Affiches-Listening sessions-1-05.jpg" alt=""></div>
-  <div class="collage-item"><img src="assets/posters/Affiches-Listening sessions-1-06.jpg" alt=""></div>
-  <div class="collage-item"><img src="assets/posters/Affiches-Listening sessions-1-07.jpg" alt=""></div>
-  <div class="collage-item"><img src="assets/posters/Affiches-Listening sessions-1-08.jpg" alt=""></div>
-  <div class="collage-item"><img src="assets/posters/Affiches-Listening sessions-1-09.jpg" alt=""></div>
-  <div class="collage-item"><img src="assets/posters/Affiches-Listening sessions-1-10.jpg" alt=""></div>
-</div>
+<script type="text/babel" src="data.jsx"></script>
+<script type="text/babel" src="hero.jsx"></script>
+<script type="text/babel" src="sections-mid.jsx"></script>
+<script type="text/babel" src="sections-bottom.jsx"></script>
+<script type="text/babel" src="page.jsx"></script>
 
-<div class="overlay"></div>
-
-<!-- Main content -->
-<div class="content">
-  <div class="logo" style="width: 120px;" role="img" aria-label="Downtone"></div>
-
-  <div class="eyebrow">301 Grand St · New York · Opening 2026</div>
-
-  <h1 class="headline">Hi-Fi<br/>to the<br/>People.</h1>
-
-  <p class="manifesto">
-    A sound-led cultural space in Lower Manhattan. Coffee by day, cocktails and curated listening by night. A permanent home for a community that's been showing up for 12 years.
-  </p>
-
-  <div class="signup-label">Get notified when we open</div>
-  <form class="signup-form" id="mc-form" action="https://soundliberation.us7.list-manage.com/subscribe/post?u=bcd58663a0a7b180330beb993&id=a2b6f96782&f_id=00f2a9e4f0" method="post" target="_blank" novalidate>
-    <input type="email" name="EMAIL" placeholder="your@email.com" required>
-    <!-- Mailchimp bot protection -->
-    <div aria-hidden="true" style="position:absolute;left:-5000px">
-      <input type="text" name="b_bcd58663a0a7b180330beb993_a2b6f96782" tabindex="-1" value="">
-    </div>
-    <button type="submit">Notify me</button>
-  </form>
-  <div class="signup-note">No spam. Just the opening date.</div>
-</div>
-
-<!-- Footer -->
-<div class="footer-links">
-  <div class="footer-left">© Downtone · 301 Grand St, NYC 10002</div>
-  <div class="footer-right">
-    <a href="https://www.instagram.com/downtone.nyc" class="footer-link" target="_blank">Instagram</a>
-    <a href="mailto:info@downtone.nyc" class="footer-link">Contact</a>
-    <a href="https://invest.downtone.nyc" class="footer-link accent">Investor Brief →</a>
-  </div>
-</div>
-
+<script type="text/babel" data-presets="env,react">
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <DTPage variant="editorial" colorPair="black-amber" />
+);
+</script>
 </body>
 </html>
