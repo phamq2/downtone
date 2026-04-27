@@ -1,0 +1,359 @@
+/* Per-variant theme tokens. The artboard sets --bg, --accent, --field2 (a second
+   dark base used for color-blocked sections). Photo treatment + grain react to it. */
+
+.dt-page {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Outfit', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.dt-page * { box-sizing: border-box; }
+
+/* Selection */
+.dt-page ::selection { background: var(--accent); color: var(--bg); }
+
+/* Grain — subtle film texture on every flat color field. Toggleable. */
+.dt-grain::after {
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  z-index: 1;
+}
+
+/* Hairline scroll-progress at the top of every page (tape-strip style). */
+.dt-tape {
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  background: rgba(255,255,255,0.06);
+  z-index: 50;
+}
+.dt-tape-fill {
+  height: 100%;
+  background: var(--accent);
+  width: 0%;
+  transition: width 80ms linear;
+}
+
+/* VU-meter ticks — used in the tape strip and the timeline. */
+.dt-vu-row {
+  display: flex; gap: 3px; align-items: flex-end;
+  height: 56px;
+}
+.dt-vu-tick {
+  flex: 1;
+  background: var(--accent);
+  min-height: 4px;
+  transform-origin: bottom;
+  transition: opacity 250ms cubic-bezier(.22,1,.36,1);
+}
+
+/* Eyebrow caps */
+.dt-eyebrow {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+}
+
+.dt-mode-tag {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  color: var(--accent);
+}
+
+/* Hairline divider — 1px @ 15% fg */
+.dt-rule { height: 1px; background: rgba(245,241,234,0.15); border: 0; margin: 0; }
+
+/* Buttons */
+.dt-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  padding: 14px 22px;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  background: transparent;
+  color: var(--fg);
+  cursor: pointer;
+  transition: opacity 250ms cubic-bezier(.22,1,.36,1), transform 200ms;
+  white-space: nowrap;
+}
+.dt-btn:hover { opacity: 0.7; }
+.dt-btn:active { transform: scale(0.98); }
+.dt-btn-primary {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+}
+
+/* Sticky-style page header inside artboard — uses position absolute since
+   artboards are static. */
+.dt-nav {
+  position: absolute;
+  top: 3px; left: 0; right: 0;
+  z-index: 40;
+  background: rgba(20,20,20,0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(245,241,234,0.10);
+}
+.dt-nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 48px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+.dt-nav-logo {
+  height: 18px;
+  width: auto;
+  display: block;
+  /* Tinted to the current pair's accent via CSS mask. The <img>'s src is used
+     as the alpha mask; the element's background fills the visible pixels. */
+  background-color: var(--accent);
+  -webkit-mask: var(--logo-mask) center/contain no-repeat;
+          mask: var(--logo-mask) center/contain no-repeat;
+}
+.dt-nav-links {
+  flex: 1;
+  display: flex; gap: 22px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: rgba(245,241,234,0.55);
+}
+.dt-nav-link {
+  cursor: pointer;
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+}
+.dt-nav-link.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* Section */
+.dt-section {
+  position: relative;
+  padding: 120px 48px;
+}
+.dt-section-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dt-section-eyebrow {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 56px;
+}
+.dt-section-eyebrow .dot {
+  width: 8px; height: 8px; background: var(--accent); border-radius: 50%;
+}
+.dt-section-num {
+  font-family: 'Bandit', 'Outfit', sans-serif;
+  font-size: 14px;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
+
+/* Big headlines — uppercase, tight tracking */
+.dt-h-display {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 900;
+  font-size: clamp(56px, 7vw, 104px);
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.dt-h-1 {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: 56px;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.dt-h-2 {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: 38px;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.dt-serif {
+  font-family: 'Instrument Serif', Georgia, serif;
+}
+
+.dt-serif-it {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+}
+
+/* Body */
+.dt-body { color: rgba(245,241,234,0.78); font-size: 15px; line-height: 1.7; }
+.dt-body-lg { color: rgba(245,241,234,0.85); font-size: 18px; line-height: 1.6; }
+.dt-fg-soft { color: rgba(245,241,234,0.55); }
+
+/* Stat */
+.dt-stat-num {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 900;
+  font-size: 56px;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--accent);
+}
+.dt-stat-num-bandit {
+  font-family: 'Bandit', 'Outfit', sans-serif;
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 1;
+  letter-spacing: 0;
+  color: var(--accent);
+}
+.dt-stat-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: rgba(245,241,234,0.55);
+  margin-top: 8px;
+}
+
+/* Color-blocked card — flat, no rounding, no shadow */
+.dt-card {
+  background: var(--field2);
+  padding: 40px;
+  position: relative;
+}
+.dt-card-bright {
+  background: var(--accent);
+  color: var(--bg);
+  padding: 40px;
+}
+
+/* Hairline list */
+.dt-hairline-list > * + * {
+  border-top: 1px solid rgba(245,241,234,0.15);
+}
+
+/* Marquee */
+@keyframes dt-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.dt-marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
+}
+.dt-marquee-track {
+  display: flex;
+  gap: 64px;
+  animation: dt-marquee 60s linear infinite;
+  flex-shrink: 0;
+  padding-right: 64px;
+}
+
+/* Slider — restyle the native range */
+.dt-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 4px;
+  background: rgba(245,241,234,0.15);
+  outline: none;
+  border-radius: 0;
+  cursor: pointer;
+}
+.dt-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  background: var(--accent);
+  border-radius: 50%;
+  cursor: pointer;
+  border: 0;
+  box-shadow: 0 0 0 4px rgba(0,0,0,0.0); /* keep flat */
+}
+.dt-slider::-moz-range-thumb {
+  width: 22px; height: 22px;
+  background: var(--accent);
+  border-radius: 50%; border: 0;
+  cursor: pointer;
+}
+
+/* Tape ticker for hero */
+.dt-tape-strip {
+  display: flex; gap: 1px;
+  height: 22px;
+  align-items: stretch;
+}
+.dt-tape-strip-tick {
+  flex: 1;
+  background: rgba(245,241,234,0.10);
+}
+.dt-tape-strip-tick.on {
+  background: var(--accent);
+}
+
+/* Breathing pulse for "now" indicators */
+@keyframes dt-breathe {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.4; }
+}
+.dt-breathe { animation: dt-breathe 2.4s cubic-bezier(.22,1,.36,1) infinite; }
+
+/* Photo card defaults */
+.dt-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.92) contrast(1.05);
+}
+
+/* full-bleed image with vignette to dark base */
+.dt-photo-bleed {
+  position: relative;
+  overflow: hidden;
+}
+.dt-photo-bleed::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 30%, var(--bg) 100%);
+  pointer-events: none;
+}
+
+/* "D" mark for editorial poster moments */
+.dt-d-mark {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 900;
+  font-size: 720px;
+  line-height: 0.78;
+  letter-spacing: -0.08em;
+  color: var(--accent);
+  position: absolute;
+  user-select: none;
+  pointer-events: none;
+}

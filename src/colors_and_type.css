@@ -1,0 +1,303 @@
+/* ==========================================================================
+   Downtone — Colors & Type
+   Core design tokens. Import this file first on any Downtone surface.
+   ========================================================================== */
+
+/* ---------- Fonts ------------------------------------------------------- */
+
+@font-face {
+  font-family: 'Outfit';
+  src: url('fonts/Outfit-VariableFont_wght.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face { font-family: 'Outfit'; src: url('fonts/Outfit-Thin.ttf')       format('truetype'); font-weight: 100; }
+@font-face { font-family: 'Outfit'; src: url('fonts/Outfit-ExtraLight.ttf') format('truetype'); font-weight: 200; }
+@font-face { font-family: 'Outfit'; src: url('fonts/Outfit-Light.ttf')      format('truetype'); font-weight: 300; }
+@font-face { font-family: 'Outfit'; src: url('fonts/Outfit-Regular.ttf')    format('truetype'); font-weight: 400; }
+@font-face { font-family: 'Outfit'; src: url('fonts/Outfit-Medium.ttf')     format('truetype'); font-weight: 500; }
+@font-face { font-family: 'Outfit'; src: url('fonts/Outfit-SemiBold.ttf')   format('truetype'); font-weight: 600; }
+@font-face { font-family: 'Outfit'; src: url('fonts/Outfit-Bold.ttf')       format('truetype'); font-weight: 700; }
+@font-face { font-family: 'Outfit'; src: url('fonts/Outfit-ExtraBold.ttf')  format('truetype'); font-weight: 800; }
+@font-face { font-family: 'Outfit'; src: url('fonts/Outfit-Black.ttf')      format('truetype'); font-weight: 900; }
+
+@font-face {
+  font-family: 'Instrument Serif';
+  src: url('fonts/InstrumentSerif-Regular.otf') format('opentype');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  src: url('fonts/InstrumentSerif-Italic.otf') format('opentype');
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: 'Bandit';
+  src: url('fonts/Bandit-Regular.otf') format('opentype');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+
+/* ---------- Tokens ------------------------------------------------------ */
+
+:root {
+  /* Dark bases — field colors. Always prefer one of these over pure #000. */
+  --dt-dark-green:   #002100;
+  --dt-dark-olive:   #201900;
+  --dt-dark-purple:  #1E0039;
+  --dt-dark-plum:    #21132D;
+  --dt-dark-black:   #141414;
+  --dt-dark-mauve:   #362734;
+  --dt-dark-wine:    #330000;
+
+  /* Bright accents — one at a time, full saturation. */
+  --dt-pink:    #FFA0F1;
+  --dt-peach:   #FFC0B9;
+  --dt-lilac:   #A19AFF;
+  --dt-magenta: #FF6BF0;
+  --dt-red:     #FF0000;
+  --dt-orange:  #FF5D00;
+  --dt-blue:    #005CFF;
+  --dt-amber:   #FF9B00;
+  --dt-green:   #00EB72;
+
+  /* Neutrals (used sparingly). */
+  --dt-paper:   #F5F1EA;  /* soft off-white for long body copy */
+  --dt-ink:     #141414;  /* same as dark-black */
+  --dt-hairline: rgba(255,255,255,0.15);
+
+  /* Semantic — default dark theme */
+  --bg:      var(--dt-dark-black);
+  --fg1:     #F5F1EA;              /* primary text on dark */
+  --fg2:     rgba(245,241,234,0.70); /* secondary text */
+  --fg3:     rgba(245,241,234,0.45); /* tertiary / captions */
+  --accent:  var(--dt-green);       /* default bright */
+  --border:  var(--dt-hairline);
+
+  /* Typography */
+  --font-sans:    'Outfit', system-ui, -apple-system, sans-serif;
+  --font-serif:   'Instrument Serif', Georgia, serif;
+  --font-display: 'Bandit', 'Outfit', sans-serif;
+
+  /* Type scale (rem) */
+  --fs-hero:     clamp(3.5rem, 8vw, 8rem);   /* 56 → 128 */
+  --fs-display:  clamp(2.5rem, 5vw, 5rem);   /* 40 → 80 */
+  --fs-h1:       clamp(2rem, 4vw, 3.5rem);   /* 32 → 56 */
+  --fs-h2:       clamp(1.5rem, 3vw, 2.5rem); /* 24 → 40 */
+  --fs-h3:       clamp(1.25rem, 2vw, 1.75rem);
+  --fs-h4:       1.25rem;
+  --fs-body:     1rem;
+  --fs-small:    0.875rem;
+  --fs-eyebrow:  0.75rem;
+
+  /* Line-heights */
+  --lh-tight:  1.02;
+  --lh-snug:   1.15;
+  --lh-body:   1.55;
+
+  /* Tracking */
+  --tr-tight:  -0.04em;
+  --tr-normal: 0;
+  --tr-caps:   0.08em;
+  --tr-eye:    0.14em;
+
+  /* Spacing rhythm */
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 24px; --sp-6: 32px; --sp-7: 48px; --sp-8: 64px;
+  --sp-9: 96px; --sp-10: 128px; --sp-11: 192px; --sp-12: 256px;
+
+  /* Radii — mostly sharp */
+  --r-0: 0;
+  --r-pill: 999px;
+
+  /* Motion */
+  --ease-house: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast:   150ms;
+  --dur:        250ms;
+  --dur-slow:   400ms;
+}
+
+/* ---------- Semantic element styling ----------------------------------- */
+
+html, body {
+  background: var(--bg);
+  color: var(--fg1);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, .h1 {
+  font-family: var(--font-sans);
+  font-weight: 900;
+  font-size: var(--fs-h1);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tr-tight);
+  text-transform: uppercase;
+  margin: 0;
+}
+h2, .h2 {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: var(--fs-h2);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tr-tight);
+  text-transform: uppercase;
+  margin: 0;
+}
+h3, .h3 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: var(--fs-h3);
+  line-height: var(--lh-snug);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+h4, .h4 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: var(--fs-h4);
+  line-height: var(--lh-snug);
+  margin: 0;
+}
+p {
+  margin: 0 0 var(--sp-4) 0;
+  color: var(--fg1);
+  max-width: 62ch;
+  text-wrap: pretty;
+}
+small, .small {
+  font-size: var(--fs-small);
+  color: var(--fg2);
+}
+
+.hero-type {
+  font-family: var(--font-sans);
+  font-weight: 900;
+  font-size: var(--fs-hero);
+  line-height: 0.92;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+
+.display-serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--fs-display);
+  line-height: var(--lh-snug);
+  letter-spacing: -0.01em;
+}
+
+.display-bandit {
+  font-family: var(--font-display);
+  font-size: var(--fs-display);
+  line-height: 0.95;
+  letter-spacing: 0;
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: var(--tr-eye);
+  color: var(--fg2);
+}
+
+.mode-tag {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.25rem;
+  color: var(--accent);
+}
+
+code, pre, .mono {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 0.9em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  transition: opacity var(--dur) var(--ease-house);
+}
+a:hover { opacity: 0.7; }
+
+/* ---------- Utilities -------------------------------------------------- */
+
+.grain {
+  position: relative;
+}
+.grain::after {
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' /></filter><rect width='100%' height='100%' filter='url(%23n)' /></svg>");
+}
+
+.breathing {
+  animation: dt-breathe 3.4s var(--ease-house) infinite;
+}
+@keyframes dt-breathe {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.62; }
+}
+
+.hairline-top    { border-top: 1px solid var(--border); }
+.hairline-bottom { border-bottom: 1px solid var(--border); }
+
+/* ---------- Approved color pairings ----------------------------------- */
+/*  Apply to a section/card — sets bg + accent together.                 */
+
+.pair-green-pink      { background: #002100; color: #F5F1EA; --accent: #FFA0F1; }
+.pair-olive-peach     { background: #201900; color: #F5F1EA; --accent: #FFC0B9; }
+.pair-olive-lilac     { background: #201900; color: #F5F1EA; --accent: #A19AFF; }
+.pair-olive-magenta   { background: #201900; color: #F5F1EA; --accent: #FF6BF0; }
+.pair-wine-red        { background: #330000; color: #F5F1EA; --accent: #FF0000; }
+.pair-purple-orange   { background: #1E0039; color: #F5F1EA; --accent: #FF5D00; }
+.pair-plum-blue       { background: #21132D; color: #F5F1EA; --accent: #005CFF; }
+.pair-black-amber     { background: #141414; color: #F5F1EA; --accent: #FF9B00; }
+.pair-mauve-green     { background: #362734; color: #F5F1EA; --accent: #00EB72; }
+.pair-wine-lilac      { background: #330000; color: #F5F1EA; --accent: #A19AFF; }
+
+/* ---------- Buttons ---------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: var(--tr-caps);
+  padding: 14px 24px;
+  border-radius: var(--r-pill);
+  border: 1px solid currentColor;
+  background: transparent;
+  color: var(--fg1);
+  cursor: pointer;
+  transition: opacity var(--dur) var(--ease-house), transform var(--dur) var(--ease-house);
+}
+.btn:hover   { opacity: 0.7; }
+.btn:active  { transform: scale(0.98); }
+.btn-primary { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+.btn-ghost   { border-color: var(--border); }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--border);
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: var(--tr-eye);
+  color: var(--fg1);
+}
+.chip-accent { background: var(--accent); color: var(--bg); border-color: var(--accent); }
