@@ -339,6 +339,8 @@ function Row({ label, cum, mult, note, hl }) {
 }
 
 window.DTFunding = function DTFunding() {
+  const { USE_OF_FUNDS, fmt } = window.DT_DATA;
+  const total = USE_OF_FUNDS.reduce((s, [, v]) => s + v, 0);
   return (
     <section id="funding" className="dt-section" style={{ background: "var(--field2)" }}>
       <div className="dt-section-inner">
@@ -363,23 +365,69 @@ window.DTFunding = function DTFunding() {
           </div>
         </div>
         <div style={{ display: "flex", marginBottom: 56 }}>
-          <div style={{ flex: 450, textAlign: "center", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(245,241,234,0.55)" }}>Operator Bridge Capital</div>
+          <div style={{ flex: 450, textAlign: "center", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(245,241,234,0.55)" }}>Operator Capital</div>
           <div style={{ flex: 250, textAlign: "center", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(245,241,234,0.55)" }}>Investor Interest</div>
           <div style={{ flex: 450, textAlign: "center", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--accent)" }}>Your Opportunity</div>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
-          <div className="dt-card" style={{ background: "var(--bg)" }}>
-            <div className="dt-eyebrow" style={{ marginBottom: 16 }}>Capital Deployed</div>
-            <div className="dt-body">
-              The operator has deployed $450K in personal bridge capital. This capital is at risk until replaced by the SBA loan or investor proceeds.
-            </div>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 16 }}>
+          <div className="dt-eyebrow">Use of Funds · $1.15M Total</div>
+          <div style={{ display: "flex", gap: 20 }}>
+            {[["var(--accent)", "Spent"], ["rgba(245,241,234,0.15)", "Remaining"]].map(([bg, label]) => (
+              <div key={label} style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(245,241,234,0.45)" }}>
+                <div style={{ width: 8, height: 8, background: bg }}/> {label}
+              </div>
+            ))}
           </div>
-          <div className="dt-card" style={{ background: "var(--bg)" }}>
-            <div className="dt-eyebrow" style={{ marginBottom: 16 }}>Early Activation</div>
-            <div className="dt-body">
-              Phase 0 is under development — specialty coffee, curated programming, and community events that validate assumptions and build community.
+        </div>
+        <div>
+          <div style={{
+            display: "grid", gridTemplateColumns: "180px 1fr 64px 80px",
+            gap: 16, padding: "6px 0 10px",
+            borderBottom: "1px solid rgba(245,241,234,0.15)"
+          }}>
+            <div/>
+            <div/>
+            <div className="dt-eyebrow dt-fg-soft" style={{ textAlign: "right", fontSize: 10 }}>Spent</div>
+            <div className="dt-eyebrow dt-fg-soft" style={{ textAlign: "right", fontSize: 10 }}>Remaining</div>
+          </div>
+          {USE_OF_FUNDS.map(([label, budget, spent], i) => {
+            const scale = 400000;
+            const budgetPct = Math.min(budget / scale, 1) * 100;
+            const spentPct = Math.min(spent / scale, 1) * 100;
+            return (
+              <div key={i} style={{
+                display: "grid", gridTemplateColumns: "180px 1fr 64px 80px",
+                alignItems: "center", gap: 16,
+                padding: "9px 0",
+                borderTop: "1px solid rgba(245,241,234,0.08)"
+              }}>
+                <div>
+                  <div style={{ fontSize: 12, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em", color: "rgba(245,241,234,0.80)" }}>{label}</div>
+                  <div style={{ fontFamily: "Bandit", fontSize: 13, color: "rgba(245,241,234,0.40)", marginTop: 2 }}>{fmt(budget)}</div>
+                </div>
+                <div style={{ height: 16, background: "rgba(245,241,234,0.06)", position: "relative" }}>
+                  <div style={{ position: "absolute", left: 0, top: 0, height: "100%", width: budgetPct + "%", background: "rgba(245,241,234,0.15)" }}/>
+                  <div style={{ position: "absolute", left: 0, top: 0, height: "100%", width: spentPct + "%", background: "var(--accent)" }}/>
+                </div>
+                <div style={{ fontFamily: "Bandit", fontSize: 13, color: "var(--accent)", textAlign: "right" }}>{fmt(spent)}</div>
+                <div style={{ fontFamily: "Bandit", fontSize: 13, color: "rgba(245,241,234,0.45)", textAlign: "right" }}>{fmt(budget - spent)}</div>
+              </div>
+            );
+          })}
+          <div style={{
+            display: "grid", gridTemplateColumns: "180px 1fr 64px 80px",
+            alignItems: "center", gap: 16,
+            padding: "10px 0",
+            borderTop: "1px solid rgba(245,241,234,0.25)"
+          }}>
+            <div>
+              <div style={{ fontSize: 12, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.06em" }}>Total</div>
+              <div style={{ fontFamily: "Bandit", fontSize: 13, color: "rgba(245,241,234,0.40)", marginTop: 2 }}>$1.15M</div>
             </div>
+            <div/>
+            <div style={{ fontFamily: "Bandit", fontSize: 14, color: "var(--accent)", textAlign: "right" }}>$155K</div>
+            <div style={{ fontFamily: "Bandit", fontSize: 14, color: "rgba(245,241,234,0.45)", textAlign: "right" }}>$995K</div>
           </div>
         </div>
       </div>
@@ -392,11 +440,9 @@ window.DTTimeline = function DTTimeline() {
   const { PHASES } = window.DT_DATA;
   const { useState } = React;
   const activeIdx = PHASES.findIndex(p => p.kind === "active");
-  const [sel, setSel] = useState(activeIdx >= 0 ? activeIdx : 0);
+  const [hovered, setHovered] = useState(activeIdx >= 0 ? activeIdx : 0);
   const N = PHASES.length;
-
-  // Track-fill: stops at the selected node's center
-  const fillPct = (sel / (N - 1)) * 100;
+  const ph = PHASES[hovered];
 
   return (
     <section id="timeline" className="dt-section">
@@ -404,7 +450,7 @@ window.DTTimeline = function DTTimeline() {
         <div className="dt-section-eyebrow">
           <span className="dt-section-num">05 / Timeline</span>
           <span className="dot"/>
-          <span className="dt-eyebrow dt-fg-soft">Click a phase — it’s phased to de-risk</span>
+          <span className="dt-eyebrow dt-fg-soft">Phased to de-risk</span>
         </div>
 
         <h2 className="dt-h-1" style={{ marginBottom: 16 }}>Project Timeline.</h2>
@@ -412,119 +458,85 @@ window.DTTimeline = function DTTimeline() {
           A phased approach that builds momentum before opening.
         </div>
 
-        {/* Interactive track */}
-        <div style={{ position: "relative", padding: "0 0 56px", marginBottom: 16 }}>
-          {/* Base track + accent fill — both inset by half a column so they
-              start/end at the first/last dot's center, not at the gutter. */}
+        {/* Track */}
+        <div style={{ position: "relative", marginBottom: 0 }}>
+          {/* Full-width track line through dot centers */}
           <div style={{
             position: "absolute",
-            left:  `calc(${100 / (N * 2)}%)`,
-            right: `calc(${100 / (N * 2)}%)`,
-            top: 19, height: 1,
-            background: "rgba(245,241,234,0.20)"
-          }}/>
-          <div style={{
-            position: "absolute",
-            left: `calc(${100 / (N * 2)}%)`,
-            top: 18, height: 3,
-            width: `calc((100% - ${(100 / N)}%) * ${fillPct / 100})`,
-            background: "var(--accent)",
-            transition: "width 380ms cubic-bezier(.22,1,.36,1)"
+            left: 0, right: 0,
+            top: 6, height: 1,
+            background: "rgba(245,241,234,0.15)"
           }}/>
 
-          <div style={{ display: "grid", gridTemplateColumns: `repeat(${N}, 1fr)`, position: "relative" }}>
-            {PHASES.map((ph, i) => {
-              const isSel = i === sel;
-              const isActive = ph.kind === "active";
-              const reached = i <= sel;
+          {/* Nodes */}
+          <div style={{ display: "grid", gridTemplateColumns: `repeat(${N}, 1fr)` }}>
+            {PHASES.map((p, i) => {
+              const isHov = i === hovered;
+              const isActive = p.kind === "active";
               return (
-                <button key={i} type="button" onClick={() => setSel(i)}
-                  style={{
-                    background: "transparent", border: 0, padding: "0 16px 0 0",
-                    cursor: "pointer", textAlign: "left", color: "inherit",
-                    fontFamily: "inherit"
-                  }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 12, height: 40 }}>
-                    <div style={{ position: "relative", width: 22, height: 22, marginLeft: 0 }}>
-                      {isActive && (
-                        <div className="dt-breathe" style={{
-                          position: "absolute", inset: 0, borderRadius: "50%",
-                          background: "var(--accent)", opacity: 0.30
-                        }}/>
-                      )}
-                      <div style={{
-                        position: "absolute",
-                        inset: isSel ? 2 : 4,
-                        borderRadius: "50%",
-                        background: reached ? "var(--accent)" : "var(--bg)",
-                        border: reached ? "0" : "1px solid rgba(245,241,234,0.40)",
-                        boxShadow: isSel ? "0 0 0 2px var(--accent)" : "none",
-                        transition: "inset 200ms ease, box-shadow 200ms ease, background 200ms ease"
+                <div key={i}
+                  onMouseEnter={() => setHovered(i)}
+                  style={{ cursor: "default", paddingBottom: 32 }}>
+                  {/* Dot */}
+                  <div style={{ position: "relative", width: 12, height: 12, marginBottom: 24 }}>
+                    {isActive && (
+                      <div className="dt-breathe" style={{
+                        position: "absolute", inset: -5, borderRadius: "50%",
+                        background: "var(--accent)", opacity: 0.15
                       }}/>
-                    </div>
-                    <div className="dt-eyebrow" style={{
-                      color: reached ? "var(--accent)" : "rgba(245,241,234,0.55)",
-                      transition: "color 200ms"
-                    }}>{ph.date}</div>
+                    )}
+                    <div style={{
+                      width: 12, height: 12, borderRadius: "50%",
+                      background: isHov ? "var(--accent)" : "var(--bg)",
+                      border: "1px solid " + (isHov ? "var(--accent)" : "rgba(245,241,234,0.40)"),
+                      transition: "background 200ms, border-color 200ms"
+                    }}/>
                   </div>
-                  <div style={{ marginTop: 24, fontFamily: "Bandit", fontSize: 22, color: "var(--accent)" }}>{ph.tag}</div>
+                  {/* Name + date */}
                   <div style={{
-                    fontWeight: 800, fontSize: 26, letterSpacing: "-0.02em",
-                    textTransform: "uppercase", marginTop: 4,
-                    color: isSel ? "var(--fg)" : "rgba(245,241,234,0.55)",
+                    fontWeight: 800, fontSize: 18, textTransform: "uppercase",
+                    letterSpacing: "-0.02em", marginBottom: 4,
+                    color: isHov ? "var(--fg)" : "rgba(245,241,234,0.45)",
                     transition: "color 200ms"
-                  }}>{ph.name}</div>
-                </button>
+                  }}>{p.name}</div>
+                  <div className="dt-eyebrow" style={{
+                    color: isHov ? "var(--accent)" : "rgba(245,241,234,0.30)",
+                    transition: "color 200ms"
+                  }}>{p.date}</div>
+                </div>
               );
             })}
           </div>
         </div>
 
-        {/* Detail panel for the selected phase */}
+        {/* Detail panel */}
         <div style={{
-          background: "var(--field2)",
-          padding: "40px 48px",
+          borderTop: "1px solid rgba(245,241,234,0.15)",
+          paddingTop: 40,
           display: "grid",
           gridTemplateColumns: "1fr 2fr",
-          gap: 48,
-          alignItems: "start",
-          minHeight: 240
+          gap: 64,
+          alignItems: "start"
         }}>
           <div>
-            <div className="dt-eyebrow" style={{ color: "var(--accent)" }}>
-              {PHASES[sel].kind === "active" ? "Now · in progress"
-                : PHASES[sel].kind === "next" ? "Next up"
-                : "Then"}
+            <div className="dt-eyebrow" style={{ color: "var(--accent)", marginBottom: 16 }}>
+              {ph.kind === "active" ? "Now · in progress" : ph.kind === "next" ? "Next up" : "Then"}
             </div>
-            <div className="dt-serif-it" style={{ fontSize: 32, color: "var(--fg)", lineHeight: 1.2, marginTop: 12 }}>
-              {PHASES[sel].headline}
+            <div className="dt-serif-it" style={{ fontSize: 28, lineHeight: 1.25, marginBottom: 12 }}>
+              {ph.headline}
             </div>
-            <div className="dt-fg-soft" style={{ fontSize: 13, marginTop: 16 }}>
-              {PHASES[sel].date}
-            </div>
+            <div className="dt-fg-soft" style={{ fontSize: 13 }}>{ph.date}</div>
           </div>
-          <div className="dt-hairline-list">
-            {PHASES[sel].points.map((pt, j) => (
-              <div key={j} style={{
-                padding: "14px 0",
-                fontSize: 15, lineHeight: 1.55,
-                color: "rgba(245,241,234,0.88)",
-                display: "flex", gap: 16, alignItems: "baseline"
-              }}>
-                <span className="dt-fg-soft" style={{ fontFamily: "Bandit", fontSize: 14, minWidth: 22 }}>
-                  {String(j + 1).padStart(2, "0")}
-                </span>
-                <span>{pt}</span>
-              </div>
-            ))}
+          <div style={{ fontSize: 16, lineHeight: 1.7, color: "rgba(245,241,234,0.80)" }}>
+            {ph.narrative}
           </div>
         </div>
 
         <div style={{
           display: "flex", justifyContent: "space-between",
-          paddingTop: 24, marginTop: 16,
+          paddingTop: 24, marginTop: 40,
           borderTop: "1px solid rgba(245,241,234,0.15)",
-          color: "rgba(245,241,234,0.55)",
+          color: "rgba(245,241,234,0.40)",
           fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase"
         }}>
           <span>May 2026 — Today</span>

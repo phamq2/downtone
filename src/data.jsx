@@ -48,11 +48,28 @@ window.DT_DATA = (function() {
     ["S", 105], ["O", 110], ["N", 105], ["D", 110]
   ];
 
+  // [label, budget, spent]
+  const USE_OF_FUNDS = [
+    ["Build Out",          390000,      0],
+    ["Working Capital",    290000,      0],
+    ["Equipment & FF&E",   158000,  18750],
+    ["Soft Costs",          99000,  44425],
+    ["Pre-Opening",         95000,      0],
+    ["Lease & Building",    83000,  75000],
+    ["Legal & Permits",     35000,  16629]
+  ];
+
+  const DOW = [
+    ["Mon", 70], ["Tue", 78], ["Wed", 88],
+    ["Thu", 105], ["Fri", 135], ["Sat", 145], ["Sun", 100]
+  ];
+
   const PHASES = [
     {
       tag: "00", name: "Phase 0", date: "May–Sep 2026",
       kind: "active",
       headline: "Soft launch · coffee + programming",
+      narrative: "We open the doors before the buildout begins. Phase 0 is a lean operation — coffee, pastry, and curated programming in the raw space. It lets us validate revenue assumptions with real customers, build the email list, and prove the concept before a dollar of investor capital is deployed. Funded entirely by operator capital.",
       points: [
         "Coffee program launches",
         "Curated events + programming",
@@ -65,6 +82,7 @@ window.DT_DATA = (function() {
       tag: "01", name: "Construction", date: "Sep–Nov 2026",
       kind: "next",
       headline: "Buildout, hiring & sound system",
+      narrative: "With Phase 0 data in hand, we break ground. The full ground floor gets built out — bar, kitchen, acoustics, and the hi-fi sound system that defines the Downtone experience. SBA and investor capital are deployed here. We hire the core team: GM, bar lead, and baristas. Permitting and inspections run in parallel.",
       points: [
         "Full ground floor buildout",
         "SBA + investor capital deployed",
@@ -77,6 +95,7 @@ window.DT_DATA = (function() {
       tag: "02", name: "Launch", date: "Dec 2026+",
       kind: "future",
       headline: "Day-to-night operations begin",
+      narrative: "Downtone opens fully — coffee in the morning, cocktails at night, listening sessions on the weekends. The Sound Room programming begins immediately. We're projecting positive EBITDA by the end of Year 1 and a stabilized, fully optimized operation by mid-Year 2. This is what everything has been building toward.",
       points: [
         "Day-to-night operations",
         "Coffee → cocktails → listening",
@@ -148,5 +167,5 @@ window.DT_DATA = (function() {
     { id: "wine-lilac",    bg: "#330000", accent: "#A19AFF", field2: "#220000" }
   ];
 
-  return { NAV, TIER_MIN, PERKS, YR_DIST, YR_TOTAL, DAYPARTS, SEASON, PHASES, FIN_ROWS, RISKS, WHY, PAIRS, fmt };
+  return { NAV, TIER_MIN, PERKS, YR_DIST, YR_TOTAL, DAYPARTS, SEASON, DOW, USE_OF_FUNDS, PHASES, FIN_ROWS, RISKS, WHY, PAIRS, fmt };
 })();

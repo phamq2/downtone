@@ -35,71 +35,10 @@ window.DTWhy = function DTWhy() {
   );
 };
 
-window.DTCommunity = function DTCommunity() {
-  // Listening session photos as proof of community
-  const sessions = [
-    ["assets/photos/session-01-devon-turnbull.jpg", "Vol. 01", "An evening of dub & ambient"],
-    ["assets/photos/session-06-charlotte-hayes.jpg", "Vol. 06", "Late night, hi-fi"],
-    ["assets/photos/session-08-lily-morgan.jpg", "Vol. 08", "Sunday afternoon listening"]
-  ];
-  return (
-    <section className="dt-section" style={{ background: "var(--field2)", paddingTop: 96, paddingBottom: 96 }}>
-      <div className="dt-section-inner">
-        <div className="dt-section-eyebrow">
-          <span className="dt-section-num">·</span>
-          <span className="dot"/>
-          <span className="dt-eyebrow dt-fg-soft">Proof of community · 12+ years</span>
-        </div>
-
-        <div style={{ display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: 64, alignItems: "end", marginBottom: 56 }}>
-          <h2 className="dt-h-1">Listening Is<br/>Becoming A<br/>Destination.</h2>
-          <div className="dt-body-lg">
-            A decade of sessions. A community without a home. Downtone is the home.
-          </div>
-        </div>
-
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
-          {sessions.map(([src, vol, name], i) => (
-            <div key={i} style={{ position: "relative", aspectRatio: "4 / 5", overflow: "hidden", background: "var(--bg)" }}>
-              <img src={src} className="dt-photo" alt={name} style={{ position: "absolute", inset: 0 }}/>
-              <div style={{
-                position: "absolute", inset: 0,
-                background: "linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.85) 100%)"
-              }}/>
-              <div style={{ position: "absolute", left: 24, right: 24, bottom: 24 }}>
-                <div className="dt-eyebrow" style={{ color: "var(--accent)" }}>Listening Session · {vol}</div>
-                <div className="dt-serif-it" style={{ fontSize: 28, color: "rgba(245,241,234,0.95)", marginTop: 4 }}>
-                  {name}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div style={{
-          marginTop: 48,
-          display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 32,
-          paddingTop: 32, borderTop: "1px solid rgba(245,241,234,0.15)"
-        }}>
-          {[
-            ["12+", "Years of programming"],
-            ["35+", "Sessions hosted"],
-            ["6", "Continents reached"],
-            ["1", "First permanent home"]
-          ].map(([v, k]) => (
-            <div key={k}>
-              <div style={{ fontFamily: "Bandit", fontSize: 56, color: "var(--accent)", lineHeight: 1 }}>{v}</div>
-              <div className="dt-stat-label">{k}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
+window.DTCommunity = function DTCommunity() { return null; };
 
 window.DTAssumptions = function DTAssumptions() {
-  const { DAYPARTS, SEASON } = window.DT_DATA;
+  const { DAYPARTS, SEASON, DOW } = window.DT_DATA;
   return (
     <section id="assumptions" className="dt-section">
       <div className="dt-section-inner">
@@ -151,14 +90,30 @@ window.DTAssumptions = function DTAssumptions() {
           <div>
             <div className="dt-eyebrow" style={{ marginBottom: 16 }}>Monthly Seasonality</div>
             <div className="dt-fg-soft" style={{ fontSize: 12, marginBottom: 16 }}>Revenue index vs. annual avg (100 = avg)</div>
-            <div style={{ display: "flex", gap: 6, alignItems: "flex-end", height: 200, paddingTop: 24 }}>
+            <div style={{ display: "flex", gap: 6, alignItems: "flex-end", marginBottom: 40 }}>
               {SEASON.map(([m, v], i) => {
-                const h = ((v - 60) / 60) * 100;
+                const h = Math.max(4, ((v - 60) / 60) * 120);
                 return (
                   <div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
                     <div className="dt-fg-soft" style={{ fontSize: 11 }}>{v}</div>
-                    <div style={{ width: "100%", height: h + "%", background: "var(--accent)", minHeight: 4 }}/>
+                    <div style={{ width: "100%", height: h, background: "var(--accent)" }}/>
                     <div className="dt-fg-soft" style={{ fontSize: 11 }}>{m}</div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="dt-eyebrow" style={{ marginBottom: 16 }}>Day-of-Week Sensitivity</div>
+            <div className="dt-fg-soft" style={{ fontSize: 12, marginBottom: 16 }}>Revenue index vs. weekly avg (100 = avg)</div>
+            <div style={{ display: "flex", gap: 6, alignItems: "flex-end" }}>
+              {DOW.map(([d, v], i) => {
+                const h = Math.max(4, ((v - 60) / 90) * 120);
+                const isWeekend = i >= 4;
+                return (
+                  <div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
+                    <div className="dt-fg-soft" style={{ fontSize: 11 }}>{v}</div>
+                    <div style={{ width: "100%", height: h, background: isWeekend ? "var(--accent)" : "rgba(245,241,234,0.25)" }}/>
+                    <div className="dt-fg-soft" style={{ fontSize: 11 }}>{d}</div>
                   </div>
                 );
               })}
