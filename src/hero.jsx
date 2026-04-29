@@ -48,8 +48,8 @@ window.DTHero = function DTHero({ variant = "signature", scrollPct = 0 }) {
             ))}
           </div>
           <div style={{ display: "flex", gap: 12, marginTop: 56 }}>
-            <button className="dt-btn dt-btn-primary">Schedule a Zoom</button>
-            <button className="dt-btn">Investor summary ↓</button>
+            <a href="https://app.fyxer.com/e/quoc-pham-198/30" target="_blank" rel="noopener noreferrer" className="dt-btn dt-btn-primary" style={{ textDecoration: "none" }}>Schedule a Meeting</a>
+            <a href="assets/Downtone-Concept.pdf" target="_blank" rel="noopener noreferrer" className="dt-btn" style={{ textDecoration: "none" }}>Concept Deck ↓</a>
           </div>
         </div>
       </section>
@@ -168,8 +168,8 @@ window.DTHero = function DTHero({ variant = "signature", scrollPct = 0 }) {
         </div>
 
         <div style={{ display: "flex", gap: 12, marginTop: 56 }}>
-          <button className="dt-btn dt-btn-primary">Schedule a Zoom</button>
-          <button className="dt-btn">Investor summary ↓</button>
+          <a href="https://app.fyxer.com/e/quoc-pham-198/30" target="_blank" rel="noopener noreferrer" className="dt-btn dt-btn-primary" style={{ textDecoration: "none" }}>Schedule a Meeting</a>
+          <a href="assets/Downtone-Concept.pdf" target="_blank" rel="noopener noreferrer" className="dt-btn" style={{ textDecoration: "none" }}>Concept Deck ↓</a>
         </div>
       </div>
     </section>
@@ -224,14 +224,32 @@ window.DTVenueMoment = function DTVenueMoment({ variant }) {
       <div style={{
         position: "relative",
         height: 520,
-        backgroundImage: "url('assets/photos/venue-banner.jpg')",
+        backgroundImage: "url('assets/map-nyc.jpg')",
         backgroundSize: "cover",
-        backgroundPosition: "center"
+        backgroundPosition: "52% 58%"
       }}>
         <div style={{
           position: "absolute", inset: 0,
           background: "linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 60%, transparent 100%)"
         }}/>
+        {/* Location pin */}
+        <div style={{
+          position: "absolute", top: "50%", left: "50%", zIndex: 2,
+          transform: "translate(-50%, -100%)",
+          display: "flex", flexDirection: "column", alignItems: "center",
+          pointerEvents: "none"
+        }}>
+          <svg width="28" height="36" viewBox="0 0 28 36" fill="none">
+            <path d="M14 0C6.268 0 0 6.268 0 14c0 9.333 14 22 14 22S28 23.333 28 14C28 6.268 21.732 0 14 0z" fill="var(--accent)"/>
+            <circle cx="14" cy="14" r="5" fill="var(--bg)"/>
+          </svg>
+          <div style={{
+            marginTop: 8, fontSize: 10, letterSpacing: "0.14em",
+            textTransform: "uppercase", color: "var(--accent)",
+            fontFamily: "Outfit", fontWeight: 700,
+            background: "rgba(0,0,0,0.6)", padding: "4px 8px"
+          }}>301 Grand St</div>
+        </div>
         <div style={{
           position: "relative", maxWidth: 1200, margin: "0 auto",
           padding: "80px 48px", height: "100%",
