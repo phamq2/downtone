@@ -98,9 +98,9 @@ window.DTPage = function DTPage({ variant = "signature", colorPair = null }) {
               </span>
             ))}
           </div>
-          <button className="dt-btn dt-btn-primary" style={{ padding: "10px 18px", fontSize: 11 }}>
-            Schedule a Zoom
-          </button>
+          <a href="https://app.fyxer.com/e/quoc-pham-198/30" target="_blank" rel="noopener noreferrer" className="dt-btn dt-btn-primary" style={{ padding: "10px 18px", fontSize: 11, textDecoration: "none" }}>
+            Schedule a Meeting
+          </a>
         </div>
       </div>
 

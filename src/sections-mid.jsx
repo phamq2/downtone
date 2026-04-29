@@ -29,23 +29,23 @@ window.DTOverview = function DTOverview() {
             </div>
           </div>
 
-          <div className="dt-card" style={{ padding: 48 }}>
-            <div className="dt-eyebrow" style={{ marginBottom: 32 }}>Headline numbers</div>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32 }}>
-              {[
-                ["$1.15M", "Total capital"],
-                ["$700K", "Equity raise"],
-                ["~28%", "IRR (base)"],
-                ["~3.0 yrs", "Payback"],
-                ["~2.0×", "5-yr multiple"],
-                ["1.6×", "Pref threshold"]
-              ].map(([v, k]) => (
-                <div key={k}>
-                  <div className="dt-stat-num" style={{ fontSize: 40 }}>{v}</div>
-                  <div className="dt-stat-label">{k}</div>
-                </div>
-              ))}
-            </div>
+          <div style={{ position: "relative", aspectRatio: "4/5", borderRadius: 2, overflow: "hidden" }}>
+            <div style={{
+              position: "absolute", inset: 0,
+              backgroundImage: "url('assets/photos/venue-frontage.jpg')",
+              backgroundSize: "cover",
+              backgroundPosition: "center"
+            }}/>
+            <div style={{
+              position: "absolute", inset: 0,
+              background: "rgba(0,0,0,0.18)"
+            }}/>
+            <div style={{
+              position: "absolute", inset: 0,
+              background: "var(--accent)",
+              opacity: 0.28,
+              mixBlendMode: "color"
+            }}/>
           </div>
         </div>
       </div>

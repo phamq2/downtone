@@ -35,7 +35,18 @@ window.DTWhy = function DTWhy() {
   );
 };
 
-window.DTCommunity = function DTCommunity() { return null; };
+window.DTCommunity = function DTCommunity() {
+  return (
+    <section style={{ padding: 0, overflow: "hidden" }}>
+      <div style={{
+        height: 520,
+        backgroundImage: "url('assets/posters-collage.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center"
+      }}/>
+    </section>
+  );
+};
 
 window.DTAssumptions = function DTAssumptions() {
   const { DAYPARTS, SEASON, DOW } = window.DT_DATA;
@@ -307,16 +318,19 @@ window.DTContact = function DTContact() {
             <div style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 12, opacity: 0.7 }}>Contact</div>
             <div style={{ fontWeight: 800, fontSize: 22, textTransform: "uppercase", letterSpacing: "-0.01em" }}>Quoc Pham</div>
             <div style={{ fontStyle: "italic", fontFamily: "Instrument Serif", fontSize: 18, marginTop: 4 }}>Founder / Creative Director</div>
-            <div style={{ marginTop: 16, fontSize: 15 }}>(206) 819-8383<br/>quoc@downtone.nyc</div>
+            <div style={{ marginTop: 16, fontSize: 15 }}>
+              (206) 819-8383<br/>
+              <a href="mailto:quoc@downtone.nyc" style={{ color: "inherit" }}>quoc@downtone.nyc</a>
+            </div>
           </div>
           <div style={{ padding: 40, borderRight: "1px solid rgba(0,0,0,0.2)" }}>
             <div style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 12, opacity: 0.7 }}>Schedule</div>
-            <div style={{ fontWeight: 800, fontSize: 22, textTransform: "uppercase" }}>Zoom →</div>
-            <div style={{ marginTop: 16, fontSize: 15 }}>calendly.com/downtone<br/>30 min · video</div>
+            <a href="https://app.fyxer.com/e/quoc-pham-198/30" target="_blank" rel="noopener noreferrer" style={{ fontWeight: 800, fontSize: 22, textTransform: "uppercase", color: "inherit", textDecoration: "none" }}>Meeting →</a>
+            <div style={{ marginTop: 16, fontSize: 15 }}>30 min · video</div>
           </div>
           <div style={{ padding: 40 }}>
             <div style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 12, opacity: 0.7 }}>Web</div>
-            <div style={{ fontWeight: 800, fontSize: 22, textTransform: "uppercase" }}>downtone.nyc</div>
+            <a href="https://www.downtone.nyc" target="_blank" rel="noopener noreferrer" style={{ fontWeight: 800, fontSize: 22, textTransform: "uppercase", color: "inherit", textDecoration: "none" }}>downtone.nyc →</a>
             <div style={{ marginTop: 16, fontSize: 15 }}>301 Grand St<br/>New York · 10002</div>
           </div>
         </div>
