@@ -2,6 +2,7 @@
 
 window.DTWhy = function DTWhy() {
   const { WHY } = window.DT_DATA;
+  const mobile = useMobile();
   return (
     <section id="why" className="dt-section">
       <div className="dt-section-inner">
@@ -11,10 +12,10 @@ window.DTWhy = function DTWhy() {
           <span className="dt-eyebrow dt-fg-soft">The cultural read</span>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1.3fr", gap: 80, alignItems: "start" }}>
-          <div style={{ position: "sticky", top: 96 }}>
+        <div style={{ display: "grid", gridTemplateColumns: mobile ? "1fr" : "1fr 1.3fr", gap: mobile ? 32 : 80, alignItems: "start" }}>
+          <div style={{ position: mobile ? "static" : "sticky", top: 96 }}>
             <h2 className="dt-h-1" style={{ marginBottom: 24 }}>Why This.<br/>Why Now.</h2>
-            <div className="dt-serif-it" style={{ fontSize: 24, color: "var(--accent)", lineHeight: 1.3 }}>
+            <div className="dt-serif-it" style={{ fontSize: mobile ? 20 : 24, color: "var(--accent)", lineHeight: 1.3 }}>
               People are looking for real spaces again.
             </div>
           </div>
@@ -36,10 +37,11 @@ window.DTWhy = function DTWhy() {
 };
 
 window.DTCommunity = function DTCommunity() {
+  const mobile = useMobile();
   return (
     <section style={{ padding: 0, overflow: "hidden" }}>
       <div style={{
-        height: 520,
+        height: mobile ? 240 : 520,
         backgroundImage: "url('assets/posters-collage.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center"
@@ -50,6 +52,7 @@ window.DTCommunity = function DTCommunity() {
 
 window.DTAssumptions = function DTAssumptions() {
   const { DAYPARTS, SEASON, DOW } = window.DT_DATA;
+  const mobile = useMobile();
   return (
     <section id="assumptions" className="dt-section">
       <div className="dt-section-inner">
@@ -64,17 +67,17 @@ window.DTAssumptions = function DTAssumptions() {
           Revenue is driven by four distinct dayparts across a 75-seat main floor.
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 56 }}>
+        <div style={{ display: "grid", gridTemplateColumns: mobile ? "1fr" : "1.4fr 1fr", gap: mobile ? 40 : 56 }}>
           <div>
             <div className="dt-eyebrow" style={{ marginBottom: 16 }}>Operations</div>
             <div className="dt-body" style={{ marginBottom: 24 }}>Open 7 days, 8am–2am (18 hours). Coffee + pastry AM, cocktails + curated sound PM.</div>
 
-            <div className="dt-hairline-list">
-              <div style={{ padding: "12px 0", display: "grid", gridTemplateColumns: "1.4fr 1fr 1fr 1fr", gap: 16 }} className="dt-eyebrow dt-fg-soft">
+            <div className="dt-hairline-list" style={{ overflowX: mobile ? "auto" : "visible" }}>
+              <div style={{ padding: "12px 0", display: "grid", gridTemplateColumns: "1.4fr 1fr 1fr 1fr", gap: 16, minWidth: mobile ? 340 : "auto" }} className="dt-eyebrow dt-fg-soft">
                 <div>Daypart</div><div style={{ textAlign: "right" }}>Hours</div><div style={{ textAlign: "right" }}>Avg covers</div><div style={{ textAlign: "right" }}>Avg check</div>
               </div>
               {DAYPARTS.map((r, i) => (
-                <div key={i} style={{ padding: "16px 0", display: "grid", gridTemplateColumns: "1.4fr 1fr 1fr 1fr", gap: 16, alignItems: "center" }}>
+                <div key={i} style={{ padding: "16px 0", display: "grid", gridTemplateColumns: "1.4fr 1fr 1fr 1fr", gap: 16, alignItems: "center", minWidth: mobile ? 340 : "auto" }}>
                   <div style={{ fontWeight: 800, fontSize: 16, letterSpacing: "-0.01em", textTransform: "uppercase" }}>{r[0]}</div>
                   <div className="dt-fg-soft" style={{ textAlign: "right", fontSize: 13 }}>{r[1]}</div>
                   <div style={{ textAlign: "right", fontSize: 16 }}>{r[2]}</div>
@@ -83,7 +86,7 @@ window.DTAssumptions = function DTAssumptions() {
               ))}
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 24, marginTop: 32 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 24, marginTop: 32 }}>
               {[
                 ["378", "Daily covers"],
                 ["$23.78", "Blended check"],
@@ -135,7 +138,7 @@ window.DTAssumptions = function DTAssumptions() {
         <hr className="dt-rule" style={{ margin: "64px 0 32px" }}/>
 
         <div className="dt-eyebrow" style={{ marginBottom: 24 }}>Cost Structure & Margins</div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 24 }}>
+        <div style={{ display: "grid", gridTemplateColumns: mobile ? "repeat(2, 1fr)" : "repeat(5, 1fr)", gap: 24 }}>
           {[
             ["31.7%", "COGS", "Bev 29% / Food 46%"],
             ["34.3%", "Payroll", "Hourly + salary + benefits"],
@@ -154,7 +157,7 @@ window.DTAssumptions = function DTAssumptions() {
         <hr className="dt-rule" style={{ margin: "48px 0 32px" }}/>
 
         <div className="dt-eyebrow" style={{ marginBottom: 24 }}>Space Metrics</div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 24 }}>
+        <div style={{ display: "grid", gridTemplateColumns: mobile ? "repeat(3, 1fr)" : "repeat(5, 1fr)", gap: 24 }}>
           {[
             ["1,400", "Main flr · sqft"],
             ["2,600", "Total · sqft"],
@@ -175,6 +178,7 @@ window.DTAssumptions = function DTAssumptions() {
 
 window.DTFinancials = function DTFinancials() {
   const { FIN_ROWS } = window.DT_DATA;
+  const mobile = useMobile();
   return (
     <section id="financials" className="dt-section" style={{ background: "var(--field2)" }}>
       <div className="dt-section-inner">
@@ -238,7 +242,7 @@ window.DTFinancials = function DTFinancials() {
 
         <div style={{ marginTop: 48, paddingTop: 32, borderTop: "1px solid var(--accent)" }}>
           <div className="dt-eyebrow" style={{ marginBottom: 16 }}>Projected Milestones · 3% Annual Growth</div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+          <div style={{ display: "grid", gridTemplateColumns: mobile ? "1fr" : "1fr 1fr", gap: 16 }}>
             {[["Year 10", "$4.3M", "$555K"], ["Year 15", "$5.0M", "$643K"]].map(([y, r, e]) => (
               <div key={y} style={{ background: "var(--bg)", padding: 32, display: "flex", gap: 32, alignItems: "center" }}>
                 <div style={{ fontFamily: "Bandit", fontSize: 32, color: "var(--accent)" }}>{y}</div>
@@ -261,6 +265,7 @@ window.DTFinancials = function DTFinancials() {
 
 window.DTRisks = function DTRisks() {
   const { RISKS } = window.DT_DATA;
+  const mobile = useMobile();
   return (
     <section id="risks" className="dt-section">
       <div className="dt-section-inner">
@@ -277,10 +282,11 @@ window.DTRisks = function DTRisks() {
 
         <div className="dt-hairline-list">
           {RISKS.map(([t, b], i) => (
-            <div key={i} style={{ padding: "32px 0", display: "grid", gridTemplateColumns: "80px 1fr 2fr", gap: 24, alignItems: "start" }}>
-              <div style={{ fontFamily: "Bandit", fontSize: 40, color: "var(--accent)", lineHeight: 1 }}>0{i + 1}</div>
+            <div key={i} style={{ padding: "32px 0", display: "grid", gridTemplateColumns: mobile ? "1fr" : "80px 1fr 2fr", gap: mobile ? 8 : 24, alignItems: "start" }}>
+              <div style={{ fontFamily: "Bandit", fontSize: mobile ? 28 : 40, color: "var(--accent)", lineHeight: 1 }}>0{i + 1}</div>
               <div style={{ fontWeight: 800, fontSize: 18, letterSpacing: "-0.01em", textTransform: "uppercase" }}>{t}</div>
-              <div className="dt-body">{b}</div>
+              {!mobile && <div className="dt-body">{b}</div>}
+              {mobile && <div className="dt-body" style={{ gridColumn: "1 / -1" }}>{b}</div>}
             </div>
           ))}
         </div>
@@ -290,31 +296,32 @@ window.DTRisks = function DTRisks() {
 };
 
 window.DTContact = function DTContact() {
+  const mobile = useMobile();
   return (
-    <section id="contact" className="dt-section" style={{ background: "var(--accent)", color: "var(--bg)", paddingTop: 120, paddingBottom: 120 }}>
+    <section id="contact" className="dt-section" style={{ background: "var(--accent)", color: "var(--bg)", paddingTop: mobile ? 80 : 120, paddingBottom: mobile ? 80 : 120 }}>
       <div className="dt-section-inner">
-        <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 64, alignItems: "end" }}>
+        <div style={{ display: "grid", gridTemplateColumns: mobile ? "1fr" : "1.4fr 1fr", gap: mobile ? 24 : 64, alignItems: "end" }}>
           <h2 style={{
             fontFamily: "Outfit", fontWeight: 900,
-            fontSize: "clamp(72px, 9vw, 140px)",
+            fontSize: "clamp(56px, 9vw, 140px)",
             lineHeight: 0.88, letterSpacing: "-0.05em",
             textTransform: "uppercase", margin: 0
           }}>
-            Let’s Build<br/>Together.
+            Let's Build<br/>Together.
           </h2>
-          <div style={{ fontSize: 18, lineHeight: 1.55, fontWeight: 500 }}>
-            The next step is a conversation. We’d love to walk you through the space, share the vision, and answer questions.
+          <div style={{ fontSize: mobile ? 16 : 18, lineHeight: 1.55, fontWeight: 500 }}>
+            The next step is a conversation. We'd love to walk you through the space, share the vision, and answer questions.
           </div>
         </div>
 
         <div style={{
-          marginTop: 80,
-          display: "grid", gridTemplateColumns: "1fr 1fr 1fr",
+          marginTop: mobile ? 48 : 80,
+          display: "grid", gridTemplateColumns: mobile ? "1fr" : "1fr 1fr 1fr",
           gap: 0,
           borderTop: "1px solid rgba(0,0,0,0.2)",
           borderBottom: "1px solid rgba(0,0,0,0.2)"
         }}>
-          <div style={{ padding: 40, borderRight: "1px solid rgba(0,0,0,0.2)" }}>
+          <div style={{ padding: mobile ? 28 : 40, borderRight: mobile ? "none" : "1px solid rgba(0,0,0,0.2)", borderBottom: mobile ? "1px solid rgba(0,0,0,0.2)" : "none" }}>
             <div style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 12, opacity: 0.7 }}>Contact</div>
             <div style={{ fontWeight: 800, fontSize: 22, textTransform: "uppercase", letterSpacing: "-0.01em" }}>Quoc Pham</div>
             <div style={{ fontStyle: "italic", fontFamily: "Instrument Serif", fontSize: 18, marginTop: 4 }}>Founder / Creative Director</div>
@@ -323,12 +330,12 @@ window.DTContact = function DTContact() {
               <a href="mailto:quoc@downtone.nyc" style={{ color: "inherit" }}>quoc@downtone.nyc</a>
             </div>
           </div>
-          <div style={{ padding: 40, borderRight: "1px solid rgba(0,0,0,0.2)" }}>
+          <div style={{ padding: mobile ? 28 : 40, borderRight: mobile ? "none" : "1px solid rgba(0,0,0,0.2)", borderBottom: mobile ? "1px solid rgba(0,0,0,0.2)" : "none" }}>
             <div style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 12, opacity: 0.7 }}>Schedule</div>
             <a href="https://app.fyxer.com/e/quoc-pham-198/30" target="_blank" rel="noopener noreferrer" style={{ fontWeight: 800, fontSize: 22, textTransform: "uppercase", color: "inherit", textDecoration: "none" }}>Meeting →</a>
             <div style={{ marginTop: 16, fontSize: 15 }}>30 min · video</div>
           </div>
-          <div style={{ padding: 40 }}>
+          <div style={{ padding: mobile ? 28 : 40 }}>
             <div style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 12, opacity: 0.7 }}>Web</div>
             <a href="https://www.downtone.nyc" target="_blank" rel="noopener noreferrer" style={{ fontWeight: 800, fontSize: 22, textTransform: "uppercase", color: "inherit", textDecoration: "none" }}>downtone.nyc →</a>
             <div style={{ marginTop: 16, fontSize: 15 }}>301 Grand St<br/>New York · 10002</div>
@@ -340,11 +347,12 @@ window.DTContact = function DTContact() {
 };
 
 window.DTFooter = function DTFooter() {
+  const mobile = useMobile();
   return (
     <footer style={{
-      padding: "48px",
+      padding: mobile ? "40px 24px" : "48px",
       maxWidth: 1200, margin: "0 auto",
-      display: "grid", gridTemplateColumns: "1fr 2fr", gap: 32,
+      display: "grid", gridTemplateColumns: mobile ? "1fr" : "1fr 2fr", gap: mobile ? 24 : 32,
       borderTop: "1px solid rgba(245,241,234,0.10)"
     }}>
       <img src="assets/Downtone-logo-white.svg" alt="Downtone" style={{ height: 22, width: "auto", alignSelf: "flex-start" }}/>

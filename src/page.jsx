@@ -5,6 +5,7 @@
 window.DTPage = function DTPage({ variant = "signature", colorPair = null }) {
   const { useEffect, useRef, useState } = React;
   const { NAV, PAIRS } = window.DT_DATA;
+  const mobile = useMobile();
 
   const scrollRef = useRef(null);
   const [pct, setPct] = useState(0);
@@ -98,8 +99,8 @@ window.DTPage = function DTPage({ variant = "signature", colorPair = null }) {
               </span>
             ))}
           </div>
-          <a href="https://app.fyxer.com/e/quoc-pham-198/30" target="_blank" rel="noopener noreferrer" className="dt-btn dt-btn-primary" style={{ padding: "10px 18px", fontSize: 11, textDecoration: "none" }}>
-            Schedule a Meeting
+          <a href="https://app.fyxer.com/e/quoc-pham-198/30" target="_blank" rel="noopener noreferrer" className="dt-btn dt-btn-primary" style={{ padding: "10px 18px", fontSize: 11, textDecoration: "none", whiteSpace: "nowrap" }}>
+            {mobile ? "Meet" : "Schedule a Meeting"}
           </a>
         </div>
       </div>
