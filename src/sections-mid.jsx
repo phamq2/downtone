@@ -1,6 +1,7 @@
 // Mid-page sections: overview, opportunity, projection, funding, and timeline (VU-meter style).
 
 window.DTOverview = function DTOverview() {
+  const mobile = useMobile();
   return (
     <section id="overview" className="dt-section">
       <div className="dt-section-inner">
@@ -10,7 +11,7 @@ window.DTOverview = function DTOverview() {
           <span className="dt-eyebrow dt-fg-soft" style={{ color: "rgba(245,241,234,0.55)" }}>The brief in one minute</span>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: 64, alignItems: "start" }}>
+        <div style={{ display: "grid", gridTemplateColumns: mobile ? "1fr" : "1.1fr 1fr", gap: mobile ? 40 : 64, alignItems: "start" }}>
           <div>
             <div className="dt-serif-it" style={{ fontSize: 38, lineHeight: 1.2, color: "var(--accent)", marginBottom: 32 }}>
               A sound-led hospitality space in Lower Manhattan where listening deepens as the day turns into night.
@@ -54,6 +55,7 @@ window.DTOverview = function DTOverview() {
 };
 
 window.DTOpportunity = function DTOpportunity() {
+  const mobile = useMobile();
   return (
     <section id="opportunity" className="dt-section" style={{ background: "var(--field2)" }}>
       <div className="dt-section-inner">
@@ -68,7 +70,7 @@ window.DTOpportunity = function DTOpportunity() {
           We are offering <span style={{ color: "var(--accent)" }}>$700,000 in equity</span> to accredited investors to build and launch Downtone NYC.
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1.6fr 1fr", gap: 0, marginBottom: 56, border: "1px solid rgba(245,241,234,0.15)" }}>
+        <div style={{ display: "grid", gridTemplateColumns: mobile ? "1fr" : "1.6fr 1fr", gap: 0, marginBottom: 56, border: "1px solid rgba(245,241,234,0.15)" }}>
           <div style={{ padding: 48, borderRight: "1px solid rgba(245,241,234,0.15)" }}>
             <div className="dt-eyebrow" style={{ marginBottom: 16 }}>Class B Membership Units</div>
             <div className="dt-body" style={{ maxWidth: 540 }}>
@@ -82,7 +84,7 @@ window.DTOpportunity = function DTOpportunity() {
           </div>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
+        <div style={{ display: "grid", gridTemplateColumns: mobile ? "1fr" : "1fr 1fr", gap: 24 }}>
           <div className="dt-card" style={{ background: "var(--bg)" }}>
             <div className="dt-eyebrow" style={{ marginBottom: 24 }}>How it works</div>
             <div style={{ marginBottom: 20 }}>
@@ -120,6 +122,7 @@ window.DTOpportunity = function DTOpportunity() {
 
 window.DTProjection = function DTProjection() {
   const { useState, useMemo } = React;
+  const mobile = useMobile();
   const { TIER_MIN, PERKS, YR_DIST, YR_TOTAL, fmt } = window.DT_DATA;
   const [inv, setInv] = useState(70000);
 
@@ -161,7 +164,7 @@ window.DTProjection = function DTProjection() {
           padding: 48,
           border: "1px solid rgba(245,241,234,0.15)"
         }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1.6fr 1fr 1fr", gap: 48, alignItems: "flex-end" }}>
+          <div style={{ display: "grid", gridTemplateColumns: mobile ? "1fr 1fr" : "1.6fr 1fr 1fr", gap: mobile ? 24 : 48, alignItems: "flex-end" }}>
             <div>
               <div className="dt-eyebrow" style={{ marginBottom: 8 }}>Your investment</div>
               <div style={{ fontFamily: "Outfit", fontWeight: 900, fontSize: 64, lineHeight: 1, letterSpacing: "-0.04em" }}>
@@ -205,7 +208,7 @@ window.DTProjection = function DTProjection() {
         </div>
 
         {/* Scenarios + perks */}
-        <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 40, marginTop: 56 }}>
+        <div style={{ display: "grid", gridTemplateColumns: mobile ? "1fr" : "1.4fr 1fr", gap: 40, marginTop: 56 }}>
           <div>
             <div className="dt-eyebrow" style={{ marginBottom: 24 }}>5-year return scenarios</div>
             <table style={{ width: "100%", borderCollapse: "collapse" }}>
@@ -341,6 +344,7 @@ function Row({ label, cum, mult, note, hl }) {
 window.DTFunding = function DTFunding() {
   const { USE_OF_FUNDS, fmt } = window.DT_DATA;
   const total = USE_OF_FUNDS.reduce((s, [, v]) => s + v, 0);
+  const mobile = useMobile();
   return (
     <section id="funding" className="dt-section" style={{ background: "var(--field2)" }}>
       <div className="dt-section-inner">
@@ -353,18 +357,18 @@ window.DTFunding = function DTFunding() {
         <h2 className="dt-h-1" style={{ marginBottom: 48 }}>Funding<br/>Progress.</h2>
 
         {/* Stack — three blocks side by side */}
-        <div style={{ display: "flex", height: 88, marginBottom: 12, border: "1px solid rgba(245,241,234,0.15)" }}>
-          <div style={{ flex: 450, background: "rgba(245,241,234,0.18)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, fontWeight: 800, letterSpacing: "0.06em" }}>
+        <div style={{ display: "flex", flexDirection: mobile ? "column" : "row", height: mobile ? "auto" : 88, marginBottom: 12, border: "1px solid rgba(245,241,234,0.15)" }}>
+          <div style={{ flex: 450, background: "rgba(245,241,234,0.18)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: mobile ? 14 : 18, fontWeight: 800, letterSpacing: "0.06em", padding: mobile ? "20px 16px" : 0 }}>
             $450K DEPLOYED
           </div>
-          <div style={{ flex: 250, background: "rgba(245,241,234,0.06)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, fontWeight: 700, letterSpacing: "0.04em", color: "rgba(245,241,234,0.7)" }}>
+          <div style={{ flex: 250, background: "rgba(245,241,234,0.06)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: mobile ? 13 : 16, fontWeight: 700, letterSpacing: "0.04em", color: "rgba(245,241,234,0.7)", padding: mobile ? "16px" : 0 }}>
             $250K SOFT
           </div>
-          <div style={{ flex: 450, background: "var(--accent)", color: "var(--bg)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, fontWeight: 800, letterSpacing: "0.06em" }}>
+          <div style={{ flex: 450, background: "var(--accent)", color: "var(--bg)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: mobile ? 14 : 18, fontWeight: 800, letterSpacing: "0.06em", padding: mobile ? "20px 16px" : 0 }}>
             $450K OPEN ↘
           </div>
         </div>
-        <div style={{ display: "flex", marginBottom: 56 }}>
+        <div style={{ display: "flex", flexDirection: mobile ? "column" : "row", marginBottom: 56, gap: mobile ? 4 : 0 }}>
           <div style={{ flex: 450, textAlign: "center", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(245,241,234,0.55)" }}>Operator Capital</div>
           <div style={{ flex: 250, textAlign: "center", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(245,241,234,0.55)" }}>Investor Interest</div>
           <div style={{ flex: 450, textAlign: "center", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--accent)" }}>Your Opportunity</div>
@@ -380,9 +384,10 @@ window.DTFunding = function DTFunding() {
             ))}
           </div>
         </div>
-        <div>
+        <div style={{ overflowX: mobile ? "auto" : "visible" }}>
           <div style={{
             display: "grid", gridTemplateColumns: "180px 1fr 64px 80px",
+            minWidth: mobile ? 480 : "auto",
             gap: 16, padding: "6px 0 10px",
             borderBottom: "1px solid rgba(245,241,234,0.15)"
           }}>
@@ -439,6 +444,7 @@ window.DTFunding = function DTFunding() {
 window.DTTimeline = function DTTimeline() {
   const { PHASES } = window.DT_DATA;
   const { useState } = React;
+  const mobile = useMobile();
   const activeIdx = PHASES.findIndex(p => p.kind === "active");
   const [hovered, setHovered] = useState(activeIdx >= 0 ? activeIdx : 0);
   const N = PHASES.length;
@@ -459,17 +465,17 @@ window.DTTimeline = function DTTimeline() {
         </div>
 
         {/* Track */}
-        <div style={{ position: "relative", marginBottom: 0 }}>
+        <div style={{ position: "relative", marginBottom: 0, overflowX: mobile ? "auto" : "visible" }}>
           {/* Full-width track line through dot centers */}
-          <div style={{
+          {!mobile && <div style={{
             position: "absolute",
             left: 0, right: 0,
             top: 6, height: 1,
             background: "rgba(245,241,234,0.15)"
-          }}/>
+          }}/>}
 
           {/* Nodes */}
-          <div style={{ display: "grid", gridTemplateColumns: `repeat(${N}, 1fr)` }}>
+          <div style={{ display: "grid", gridTemplateColumns: mobile ? `repeat(${N}, minmax(80px, 1fr))` : `repeat(${N}, 1fr)` }}>
             {PHASES.map((p, i) => {
               const isHov = i === hovered;
               const isActive = p.kind === "active";
@@ -514,7 +520,7 @@ window.DTTimeline = function DTTimeline() {
           borderTop: "1px solid rgba(245,241,234,0.15)",
           paddingTop: 40,
           display: "grid",
-          gridTemplateColumns: "1fr 2fr",
+          gridTemplateColumns: mobile ? "1fr" : "1fr 2fr",
           gap: 64,
           alignItems: "start"
         }}>

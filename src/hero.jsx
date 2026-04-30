@@ -4,6 +4,7 @@
 
 window.DTHero = function DTHero({ variant = "signature", scrollPct = 0 }) {
   const { useState, useEffect, useMemo } = React;
+  const mobile = useMobile();
 
   // VU strip — driven by scroll, but also has subtle idle motion to feel alive
   const tickCount = 64;
@@ -113,30 +114,39 @@ window.DTHero = function DTHero({ variant = "signature", scrollPct = 0 }) {
 
   // SIGNATURE — most serious. Wordmark + scroll-driven VU strip.
   return (
-    <section style={{ position: "relative", padding: "140px 48px 96px", overflow: "hidden" }}>
+    <section style={{ position: "relative", padding: mobile ? "100px 24px 72px" : "140px 48px 96px", overflow: "hidden" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <div className="dt-eyebrow" style={{ marginBottom: 48 }}>
           301 Grand St &nbsp;·&nbsp; Confidential &nbsp;·&nbsp; April 2026 &nbsp;·&nbsp; Accredited investors
         </div>
-        <div style={{ display: "flex", alignItems: "flex-end", gap: 24 }}>
+        <div style={{ display: "flex", alignItems: mobile ? "flex-start" : "flex-end", flexDirection: mobile ? "column" : "row", gap: 24 }}>
           <h1 className="dt-h-display" style={{ flex: 1 }}>
             Investor<br/>Brief.
           </h1>
-          <div className="dt-serif-it" style={{
-            fontSize: 24, color: "var(--accent)", lineHeight: 1.3,
-            maxWidth: 320, paddingBottom: 16, textAlign: "right"
-          }}>
-            Good sound.<br/>Culture.<br/>Community.
-          </div>
+          {!mobile && (
+            <div className="dt-serif-it" style={{
+              fontSize: 24, color: "var(--accent)", lineHeight: 1.3,
+              maxWidth: 320, paddingBottom: 16, textAlign: "right"
+            }}>
+              Good sound.<br/>Culture.<br/>Community.
+            </div>
+          )}
         </div>
 
-        <hr className="dt-rule" style={{ margin: "56px 0 32px" }}/>
+        <hr className="dt-rule" style={{ margin: "40px 0 28px" }}/>
 
         {/* Sub-summary row */}
-        <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr 1fr 1fr 1fr", gap: 32, alignItems: "start" }}>
-          <div className="dt-body-lg" style={{ paddingRight: 24 }}>
-            A sound-led hospitality space in Lower Manhattan where listening deepens as the day turns into night. <span className="dt-fg-soft">$700K equity raise on a $1.15M project.</span>
-          </div>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: mobile ? "1fr 1fr" : "1.4fr 1fr 1fr 1fr 1fr",
+          gap: mobile ? 24 : 32,
+          alignItems: "start"
+        }}>
+          {!mobile && (
+            <div className="dt-body-lg" style={{ paddingRight: 24 }}>
+              A sound-led hospitality space in Lower Manhattan where listening deepens as the day turns into night. <span className="dt-fg-soft">$700K equity raise on a $1.15M project.</span>
+            </div>
+          )}
           {[
             ["Capital", "$1.15M"],
             ["Equity", "$700K"],
@@ -144,30 +154,32 @@ window.DTHero = function DTHero({ variant = "signature", scrollPct = 0 }) {
             ["Payback", "~3.0 yrs"]
           ].map(([k, v]) => (
             <div key={k}>
-              <div className="dt-stat-num" style={{ fontSize: 38 }}>{v}</div>
+              <div className="dt-stat-num" style={{ fontSize: mobile ? 28 : 38 }}>{v}</div>
               <div className="dt-stat-label">{k}</div>
             </div>
           ))}
         </div>
 
-        {/* Scroll-driven VU strip — feels like a tape advancing as you read. */}
-        <div style={{ marginTop: 80 }}>
-          <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
-            <div className="dt-eyebrow">Reading progress</div>
-            <div className="dt-eyebrow" style={{ color: "var(--accent)" }}>{Math.round(scrollPct * 100)}%</div>
+        {/* Scroll-driven VU strip */}
+        {!mobile && (
+          <div style={{ marginTop: 80 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
+              <div className="dt-eyebrow">Reading progress</div>
+              <div className="dt-eyebrow" style={{ color: "var(--accent)" }}>{Math.round(scrollPct * 100)}%</div>
+            </div>
+            <div style={{ display: "flex", gap: 2, height: 28 }}>
+              {ticks.map((on, i) => (
+                <div key={i} style={{
+                  flex: 1,
+                  background: on ? "var(--accent)" : "rgba(245,241,234,0.10)",
+                  transition: "background 200ms"
+                }}/>
+              ))}
+            </div>
           </div>
-          <div style={{ display: "flex", gap: 2, height: 28 }}>
-            {ticks.map((on, i) => (
-              <div key={i} style={{
-                flex: 1,
-                background: on ? "var(--accent)" : "rgba(245,241,234,0.10)",
-                transition: "background 200ms"
-              }}/>
-            ))}
-          </div>
-        </div>
+        )}
 
-        <div style={{ display: "flex", gap: 12, marginTop: 56 }}>
+        <div style={{ display: "flex", gap: 12, marginTop: mobile ? 40 : 56, flexWrap: "wrap" }}>
           <a href="https://app.fyxer.com/e/quoc-pham-198/30" target="_blank" rel="noopener noreferrer" className="dt-btn dt-btn-primary" style={{ textDecoration: "none" }}>Schedule a Meeting</a>
           <a href="assets/Downtone-Concept.pdf" target="_blank" rel="noopener noreferrer" className="dt-btn" style={{ textDecoration: "none" }}>Concept Deck ↓</a>
         </div>
@@ -218,12 +230,12 @@ window.DTMarquee = function DTMarquee({ variant = "signature" }) {
 };
 
 window.DTVenueMoment = function DTVenueMoment({ variant }) {
-  // Full-bleed venue photo with quote
+  const mobile = useMobile();
   return (
     <section style={{ position: "relative", padding: 0, overflow: "hidden" }}>
       <div style={{
         position: "relative",
-        height: 520,
+        height: mobile ? 320 : 520,
         backgroundImage: "url('assets/map-nyc.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "52% 58%"

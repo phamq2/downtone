@@ -343,6 +343,30 @@
   pointer-events: none;
 }
 
+/* ── Mobile ─────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .dt-nav-inner {
+    padding: 0 20px;
+    gap: 16px;
+  }
+  .dt-nav-links { display: none; }
+
+  .dt-section { padding: 72px 24px; }
+
+  .dt-h-display {
+    font-size: clamp(40px, 11vw, 72px);
+  }
+  .dt-h-1 { font-size: 36px; }
+  .dt-h-2 { font-size: 26px; }
+
+  .dt-stat-num { font-size: 36px; }
+  .dt-stat-num-bandit { font-size: 44px; }
+
+  .dt-section-eyebrow { margin-bottom: 32px; flex-wrap: wrap; }
+
+  .dt-btn { padding: 12px 18px; font-size: 10px; }
+}
+
 /* "D" mark for editorial poster moments */
 .dt-d-mark {
   font-family: 'Outfit', sans-serif;

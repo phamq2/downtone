@@ -1,5 +1,17 @@
 // Shared data and helpers for the investor page
 
+// Reactive mobile hook — returns true when viewport ≤ 768px
+window.useMobile = function useMobile() {
+  const mq = window.matchMedia("(max-width: 768px)");
+  const [m, setM] = React.useState(mq.matches);
+  React.useEffect(() => {
+    const fn = e => setM(e.matches);
+    mq.addEventListener("change", fn);
+    return () => mq.removeEventListener("change", fn);
+  }, []);
+  return m;
+};
+
 window.DT_DATA = (function() {
   const NAV = [
     ["overview", "Overview"],
