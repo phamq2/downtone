@@ -86,7 +86,7 @@ window.DTPage = function DTPage({ variant = "signature", colorPair = null }) {
             aria-label="Downtone"
             style={{
               "--logo-mask": "url('assets/Downtone-logo-white.svg')",
-              width: 110,
+              width: 220,
               display: "block"
             }}
           />
@@ -99,8 +99,8 @@ window.DTPage = function DTPage({ variant = "signature", colorPair = null }) {
               </span>
             ))}
           </div>
-          <a href="https://app.fyxer.com/e/quoc-pham-198/30" target="_blank" rel="noopener noreferrer" className="dt-btn dt-btn-primary" style={{ padding: "10px 18px", fontSize: 11, textDecoration: "none", whiteSpace: "nowrap" }}>
-            {mobile ? "Meet" : "Schedule a Meeting"}
+          <a href="https://app.fyxer.com/e/quoc-pham-198/30" target="_blank" rel="noopener noreferrer" className="dt-btn dt-btn-primary" style={{ padding: "8px 16px", fontSize: 11, textDecoration: "none", whiteSpace: "nowrap" }}>
+            Meet Us
           </a>
         </div>
       </div>
@@ -115,6 +115,7 @@ window.DTPage = function DTPage({ variant = "signature", colorPair = null }) {
       <DTVenueMoment variant={variant}/>
       <DTWhy/>
       <DTCommunity/>
+      <DTPositioning/>
       <DTAssumptions/>
       <DTFinancials/>
       <DTRisks/>

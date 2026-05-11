@@ -20,6 +20,7 @@ window.DT_DATA = (function() {
     ["funding", "Funding"],
     ["timeline", "Timeline"],
     ["why", "Why Now"],
+    ["positioning", "Positioning"],
     ["assumptions", "Model"],
     ["financials", "Financials"],
     ["risks", "Risks"]
@@ -78,42 +79,80 @@ window.DT_DATA = (function() {
 
   const PHASES = [
     {
-      tag: "00", name: "Phase 0", date: "May–Sep 2026",
+      name: "Mobilize", date: "May 2026",
       kind: "active",
-      headline: "Soft launch · coffee + programming",
-      narrative: "We open the doors before the buildout begins. Phase 0 is a lean operation — coffee, pastry, and curated programming in the raw space. It lets us validate revenue assumptions with real customers, build the email list, and prove the concept before a dollar of investor capital is deployed. Funded entirely by operator capital.",
+      headline: "Concept becomes executable build plan",
       points: [
-        "Coffee program launches",
-        "Curated events + programming",
-        "Validate revenue assumptions",
-        "Build community + email list",
-        "Operator capital funds this"
+        "Lease signed; CB stipulation for liquor license secured",
+        "SBA closing requirements locked; capital stack confirmed",
+        "Architect, expeditor, MEP, and GC paths confirmed",
+        "Ground floor only — basement deferred from critical path"
       ]
     },
     {
-      tag: "01", name: "Construction", date: "Sep–Nov 2026",
+      name: "Design & Permits", date: "June 2026",
       kind: "next",
-      headline: "Buildout, hiring & sound system",
-      narrative: "With Phase 0 data in hand, we break ground. The full ground floor gets built out — bar, kitchen, acoustics, and the hi-fi sound system that defines the Downtone experience. SBA and investor capital are deployed here. We hire the core team: GM, bar lead, and baristas. Permitting and inspections run in parallel.",
+      headline: "Drawings finalized, permits filed, long-leads ordered",
       points: [
-        "Full ground floor buildout",
-        "SBA + investor capital deployed",
-        "Hiring: GM, bar, baristas",
-        "Sound system + acoustics",
-        "Permitting + inspections"
+        "Design development closes out — bar, coffee, service flow, seating locked",
+        "Sound system placement and acoustic strategy confirmed",
+        "MEP coordinated; permit package submitted",
+        "Long-lead equipment ordered against real quotes"
       ]
     },
     {
-      tag: "02", name: "Launch", date: "Dec 2026+",
+      name: "Buildout", date: "Jul–Aug 2026",
       kind: "future",
-      headline: "Day-to-night operations begin",
-      narrative: "Downtone opens fully — coffee in the morning, cocktails at night, listening sessions on the weekends. The Sound Room programming begins immediately. We're projecting positive EBITDA by the end of Year 1 and a stabilized, fully optimized operation by mid-Year 2. This is what everything has been building toward.",
+      headline: "Construction, equipment install, sound system tuning",
       points: [
-        "Day-to-night operations",
-        "Coffee → cocktails → listening",
-        "Positive EBITDA by end of Y1",
-        "Sound Room programming begins",
-        "Stabilized by mid-Year 2"
+        "Demolition, framing, MEP, and bar/coffee infrastructure go in",
+        "Acoustic treatments and sound system installed and tuned",
+        "Furniture, millwork, signage, POS, security, and connectivity installed",
+        "Hiring plan finalized; GM and COO operating systems built"
+      ]
+    },
+    {
+      name: "Training", date: "September 2026",
+      kind: "future",
+      headline: "Built space becomes an operating venue",
+      points: [
+        "Hire and train baristas, bartenders, servers, and support",
+        "All menus finalized and costed — coffee, bar, food",
+        "Sound system tuned for day and night modes",
+        "Service simulations run, SOPs prepared, soft-opening calendar confirmed"
+      ]
+    },
+    {
+      name: "Soft Open", date: "October 2026",
+      kind: "future",
+      headline: "Open carefully, learn quickly, stabilize",
+      points: [
+        "Friends and family, then limited public soft open — day-to-night online",
+        "Menus, staffing, seating, and service pacing adjust to real demand",
+        "Daily reporting on revenue, labor, COGS, and guest feedback",
+        "Opening press and community communications launch"
+      ]
+    },
+    {
+      name: "Stabilize", date: "Nov–Dec 2026",
+      kind: "future",
+      headline: "From opening mode to a repeatable rhythm",
+      points: [
+        "Staffing model refined; coffee throughput optimized",
+        "Evening seating and bar service tightened",
+        "Programming cadence built; private event outreach begins",
+        "First 60 days reviewed; basement feasibility timing set"
+      ]
+    },
+    {
+      name: "Phase 2", date: "2027 +",
+      kind: "future",
+      headline: "Basement activation as upside",
+      points: [
+        "Moves only after ground floor operates independently with clear cash flow",
+        "Possible uses: sound room, ticketed listening, private dining, activations, archive",
+        "Revisit after 6–12 months of stabilized operations",
+        "Sooner only if landlord, DOB path, and economics line up"
       ]
     }
   ];
@@ -155,6 +194,123 @@ window.DT_DATA = (function() {
      "Quoc Pham has spent 12 years proving people will show up when you give them great sound and a reason to be in the same room together — building a globally recognized collective, a record label, and a community that spans continents, all without a permanent home."]
   ];
 
+  // Positioning section. Coordinates are 0–100 on each axis (X = hospitality
+  // economics, Y = cultural differentiation). Downtone is featured but
+  // intentionally not isolated in the extreme corner.
+  const POSITIONING = {
+    intro: "Downtone sits at the intersection of hospitality performance and cultural gravity. Rather than operating as only a café, cocktail bar, or listening venue, Downtone is designed as an all-day hospitality engine where sound shapes the experience from morning coffee through late-night cocktails and listening.",
+    takeaway: "The result is a differentiated hospitality model designed for high dwell time, strong beverage economics, repeat visitation, and cultural defensibility.",
+    // Daypart bars are 0–100 relative throughput (AM, LUN, EVE, LATE).
+    // Avg check is a directional per-cover estimate.
+    nodes: [
+      {
+        id: "downtone", name: "Downtone", short: "DOWNTONE",
+        descriptor: "Sound-led hospitality, all day",
+        x: 76, y: 78, featured: true,
+        dayparts: [60, 90, 100, 60],
+        avgCheck: "~$24",
+        why: "Sound-led hospitality designed to monetize across morning coffee, afternoon work, aperitivo, and late-night listening on a single ground floor.",
+        takeaway: "Operates as the all-day hospitality engine the category currently lacks.",
+        points: [
+          "75 ground-floor seats",
+          "Sound system as defining experience",
+          "Cultural lineage from Dub-Stuy",
+          "Ground floor independent of basement upside"
+        ]
+      },
+      {
+        id: "dcp", name: "Double Chicken Please", short: "DOUBLE CHICKEN\nPLEASE",
+        descriptor: "Cocktail destination",
+        x: 88, y: 48,
+        dayparts: [0, 0, 55, 100],
+        avgCheck: "~$60",
+        why: "Demonstrates how a tightly run cocktail program sustains destination demand and high-margin throughput in Lower Manhattan.",
+        takeaway: "Validates the beverage economics ceiling. Downtone broadens the daypart and adds cultural identity.",
+        points: [
+          "~85 seats",
+          "Cocktails as primary revenue",
+          "Critical and cultural credibility",
+          "Single daypart limits revenue ceiling"
+        ]
+      },
+      {
+        id: "pr", name: "Public Records", short: "PUBLIC RECORDS",
+        descriptor: "Cultural venue and platform",
+        x: 45, y: 92,
+        dayparts: [20, 30, 70, 100],
+        avgCheck: "~$45",
+        why: "Shows the gravitational pull of music programming and curated identity in building a cultural destination.",
+        takeaway: "Cultural credibility matters. Downtone borrows that signal while running on a less programming-dependent operating model.",
+        points: [
+          "Multi-room venue (sound room, restaurant, garden)",
+          "Ticketed programming drives gravity",
+          "Strong dwell time and brand loyalty",
+          "Capital-intensive and team-heavy to operate"
+        ]
+      },
+      {
+        id: "eavesdrop", name: "Eavesdrop", short: "EAVESDROP",
+        descriptor: "Music-forward restaurant and bar",
+        x: 55, y: 60,
+        dayparts: [0, 10, 100, 70],
+        avgCheck: "~$45",
+        why: "Music-forward dining shows food and beverage can coexist with sound as a defining experience layer.",
+        takeaway: "Confirms guest appetite for music as ambience. Downtone extends earlier into the day and emphasizes coffee-led economics.",
+        points: [
+          "~50 seats",
+          "Music as ambience, not destination",
+          "Food and beverage as primary revenue",
+          "Newer concept, repeat behavior still proving out"
+        ]
+      },
+      {
+        id: "silence", name: "Silence Please", short: "SILENCE PLEASE",
+        descriptor: "Listening space",
+        x: 14, y: 85,
+        dayparts: [60, 100, 25, 0],
+        avgCheck: "~$18",
+        why: "A focused, listening-first format that proves there is real demand for attentive sound experiences.",
+        takeaway: "Validates the audience for listening-led programming. Downtone integrates that culture into a much broader hospitality model.",
+        points: [
+          "~30 seats",
+          "Listening-first format",
+          "Highly curated programming",
+          "Hospitality breadth limited by format"
+        ]
+      },
+      {
+        id: "devocion", name: "Devoción", short: "DEVOCIÓN",
+        descriptor: "Design café",
+        x: 38, y: 30,
+        dayparts: [100, 80, 30, 0],
+        avgCheck: "~$12",
+        why: "Sets a high bar for design-led specialty coffee and disciplined daytime economics.",
+        takeaway: "Confirms the value of architectural polish and coffee fundamentals. Downtone extends that polish into evening service.",
+        points: [
+          "Multi-location specialty coffee operator",
+          "Strong AOV per square foot",
+          "Architecturally distinctive interiors",
+          "Cultural defensibility tied mostly to aesthetics"
+        ]
+      },
+      {
+        id: "cecchis", name: "Cecchi’s", short: "CECCHI’S",
+        descriptor: "Neighborhood bar",
+        x: 72, y: 30,
+        dayparts: [0, 60, 100, 70],
+        avgCheck: "~$55",
+        why: "A reminder that disciplined neighborhood hospitality can sustain repeat behavior without leaning on programming.",
+        takeaway: "Proves the value of consistency and density. Downtone adds cultural and daytime layers on top of the same neighborhood discipline.",
+        points: [
+          "~70 seats",
+          "Food and beverage program",
+          "High repeat behavior in dense neighborhood",
+          "Less differentiated cultural identity"
+        ]
+      }
+    ]
+  };
+
   function fmt(n) {
     return Math.abs(n) >= 1e6
       ? "$" + (n / 1e6).toFixed(2) + "M"
@@ -179,5 +335,5 @@ window.DT_DATA = (function() {
     { id: "wine-lilac",    bg: "#330000", accent: "#A19AFF", field2: "#220000" }
   ];
 
-  return { NAV, TIER_MIN, PERKS, YR_DIST, YR_TOTAL, DAYPARTS, SEASON, DOW, USE_OF_FUNDS, PHASES, FIN_ROWS, RISKS, WHY, PAIRS, fmt };
+  return { NAV, TIER_MIN, PERKS, YR_DIST, YR_TOTAL, DAYPARTS, SEASON, DOW, USE_OF_FUNDS, PHASES, FIN_ROWS, RISKS, WHY, POSITIONING, PAIRS, fmt };
 })();
