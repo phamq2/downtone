@@ -130,7 +130,7 @@ window.DTPositioning = function DTPositioning() {
                         top: `calc(100% + ${isFeatured ? 18 : 8}px)`,
                         left: "50%",
                         transform: "translateX(-50%)",
-                        whiteSpace: "nowrap",
+                        whiteSpace: "pre-line",
                         textAlign: "center",
                         lineHeight: 1.15,
                         fontSize: mobile ? 9 : 10,
@@ -139,14 +139,7 @@ window.DTPositioning = function DTPositioning() {
                         fontWeight: isFeatured ? 800 : 600,
                         color: isFeatured ? "var(--accent)" : isActive ? "var(--fg)" : "rgba(245,241,234,0.65)",
                         transition: "color 200ms"
-                      }}>
-                        {n.short.split("\n").map((line, i, arr) => (
-                          <React.Fragment key={i}>
-                            {line}
-                            {i < arr.length - 1 && <br/>}
-                          </React.Fragment>
-                        ))}
-                      </div>
+                      }}>{n.short}</div>
                     </div>
                   );
                 })}
