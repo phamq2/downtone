@@ -69,7 +69,7 @@ window.DTPositioning = function DTPositioning() {
             <div style={{ position: "relative", paddingLeft: 60, paddingBottom: 44 }}>
               {/* Y-axis */}
               <div style={{ position: "absolute", left: 0, top: 0, bottom: 44, width: 60, display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center" }}>
-                <div className="dt-eyebrow dt-fg-soft" style={{ fontSize: 9 }}>Platform</div>
+                <div className="dt-eyebrow dt-fg-soft" style={{ fontSize: 9, alignSelf: "flex-end" }}>Platform</div>
                 <div className="dt-eyebrow" style={{
                   fontSize: 10, color: "var(--accent)",
                   transform: "rotate(-90deg)", whiteSpace: "nowrap"
