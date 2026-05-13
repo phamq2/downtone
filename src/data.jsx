@@ -279,33 +279,33 @@ window.DT_DATA = (function() {
         ]
       },
       {
-        id: "devocion", name: "Devoción", short: "DEVOCIÓN",
+        id: "lacabra", name: "La Cabra", short: "LA CABRA",
         descriptor: "Design café",
-        x: 38, y: 30,
+        x: 38, y: 34,
         dayparts: [100, 80, 30, 0],
-        avgCheck: "~$12",
-        why: "Sets a high bar for design-led specialty coffee and disciplined daytime economics.",
-        takeaway: "Confirms the value of architectural polish and coffee fundamentals. Downtone extends that polish into evening service.",
+        avgCheck: "~$18",
+        why: "Sets the visual bar for design-led specialty coffee. Architecture and craft are the brand.",
+        takeaway: "Confirms the pull of design polish in coffee economics. Downtone extends that polish across the full day and into evening service.",
         points: [
-          "Multi-location specialty coffee operator",
-          "Strong AOV per square foot",
-          "Architecturally distinctive interiors",
-          "Cultural defensibility tied mostly to aesthetics"
+          "Architecturally iconic flagship locations",
+          "Daytime coffee, pastry, and bakery",
+          "Design and craft as the primary brand signal",
+          "Single-daypart, no evening monetization"
         ]
       },
       {
-        id: "cecchis", name: "Cecchi’s", short: "CECCHI’S",
+        id: "oldtown", name: "Old Town Bar", short: "OLD TOWN BAR",
         descriptor: "Neighborhood bar",
         x: 72, y: 30,
         dayparts: [0, 60, 100, 70],
-        avgCheck: "~$55",
-        why: "A reminder that disciplined neighborhood hospitality can sustain repeat behavior without leaning on programming.",
-        takeaway: "Proves the value of consistency and density. Downtone adds cultural and daytime layers on top of the same neighborhood discipline.",
+        avgCheck: "~$45",
+        why: "Operating since 1892, Old Town proves that disciplined neighborhood hospitality can sustain repeat behavior across generations without leaning on programming.",
+        takeaway: "Validates the durability of consistency and density. Downtone adds cultural and daytime layers on top of the same neighborhood discipline.",
         points: [
-          "~70 seats",
-          "Food and beverage program",
-          "High repeat behavior in dense neighborhood",
-          "Less differentiated cultural identity"
+          "Operating in Flatiron since 1892",
+          "Lunch through late-night service",
+          "Bar-led, classic food menu alongside",
+          "Multi-generational repeat clientele"
         ]
       }
     ]
