@@ -66,9 +66,9 @@ window.DTPositioning = function DTPositioning() {
         <div style={{ display: "grid", gridTemplateColumns: mobile ? "1fr" : "1.05fr 1fr", gap: mobile ? 32 : 56, alignItems: "start" }}>
           {/* Quadrant chart */}
           <div>
-            <div style={{ position: "relative", paddingLeft: 60, paddingBottom: 44 }}>
+            <div style={{ position: "relative", paddingLeft: 60, paddingTop: 44, paddingBottom: 44 }}>
               {/* Y-axis */}
-              <div style={{ position: "absolute", left: 0, top: 0, bottom: 44, width: 60, display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center" }}>
+              <div style={{ position: "absolute", left: 0, top: 44, bottom: 44, width: 60, display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center" }}>
                 <div className="dt-eyebrow dt-fg-soft" style={{ fontSize: 9 }}>Platform</div>
                 <div className="dt-eyebrow" style={{
                   fontSize: 10, color: "var(--accent)",
