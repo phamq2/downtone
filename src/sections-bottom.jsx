@@ -69,12 +69,12 @@ window.DTPositioning = function DTPositioning() {
             <div style={{ position: "relative", paddingLeft: 44, paddingBottom: 44 }}>
               {/* Y-axis */}
               <div style={{ position: "absolute", left: 0, top: 0, bottom: 44, width: 44, display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center" }}>
-                <div className="dt-eyebrow dt-fg-soft" style={{ fontSize: 9 }}>HIGH</div>
+                <div className="dt-eyebrow dt-fg-soft" style={{ fontSize: 9 }}>Platform</div>
                 <div className="dt-eyebrow" style={{
                   fontSize: 10, color: "var(--accent)",
                   transform: "rotate(-90deg)", whiteSpace: "nowrap"
                 }}>Cultural Differentiation</div>
-                <div className="dt-eyebrow dt-fg-soft" style={{ fontSize: 9 }}>LOW</div>
+                <div className="dt-eyebrow dt-fg-soft" style={{ fontSize: 9 }}>None</div>
               </div>
 
               {/* Plot area */}
