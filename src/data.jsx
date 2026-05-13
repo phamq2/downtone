@@ -266,7 +266,7 @@ window.DT_DATA = (function() {
       {
         id: "silence", name: "Silence Please", short: "SILENCE\nPLEASE",
         descriptor: "Listening space",
-        x: 14, y: 85,
+        x: 14, y: 75,
         dayparts: [60, 100, 25, 0],
         avgCheck: "~$18",
         why: "A focused, listening-first format that proves there is real demand for attentive sound experiences.",
@@ -284,12 +284,12 @@ window.DT_DATA = (function() {
         x: 32, y: 82,
         dayparts: [0, 5, 60, 100],
         avgCheck: "~$25",
-        why: "Shows that programming and community can be the primary engine even at a smaller, leaner operating scale.",
+        why: "Shows that programming and community can be the primary engine even at a smaller, simpler operating scale.",
         takeaway: "Validates the cultural platform model. Downtone shares the community grounding but distributes revenue across a much broader daypart.",
         points: [
           "Cultural platform with community grounding",
           "Programming-heavy, club-like format",
-          "Lean operating model",
+          "Limited hospitality emphasis",
           "Evening and late-night focus"
         ]
       },
