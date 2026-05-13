@@ -66,15 +66,15 @@ window.DTPositioning = function DTPositioning() {
         <div style={{ display: "grid", gridTemplateColumns: mobile ? "1fr" : "1.05fr 1fr", gap: mobile ? 32 : 56, alignItems: "start" }}>
           {/* Quadrant chart */}
           <div>
-            <div style={{ position: "relative", paddingLeft: 60, paddingBottom: 44 }}>
+            <div style={{ position: "relative", paddingLeft: 76, paddingBottom: 44 }}>
               {/* Y-axis */}
-              <div style={{ position: "absolute", left: 0, top: 0, bottom: 44, width: 60, display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center" }}>
-                <div className="dt-eyebrow dt-fg-soft" style={{ fontSize: 9, alignSelf: "flex-end" }}>Platform</div>
+              <div style={{ position: "absolute", left: 0, top: 0, bottom: 44, width: 76, display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center" }}>
+                <div className="dt-eyebrow dt-fg-soft" style={{ fontSize: 9, alignSelf: "flex-end", marginRight: 16 }}>Platform</div>
                 <div className="dt-eyebrow" style={{
                   fontSize: 10, color: "var(--accent)",
                   transform: "rotate(-90deg)", whiteSpace: "nowrap"
                 }}>Cultural Differentiation</div>
-                <div className="dt-eyebrow dt-fg-soft" style={{ fontSize: 9, alignSelf: "flex-end" }}>None</div>
+                <div className="dt-eyebrow dt-fg-soft" style={{ fontSize: 9, alignSelf: "flex-end", marginRight: 16 }}>None</div>
               </div>
 
               {/* Plot area */}
@@ -153,7 +153,7 @@ window.DTPositioning = function DTPositioning() {
               </div>
 
               {/* X-axis */}
-              <div style={{ position: "absolute", left: 60, right: 0, bottom: 0, height: 44, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <div style={{ position: "absolute", left: 76, right: 0, bottom: 0, height: 44, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <div className="dt-eyebrow dt-fg-soft" style={{ fontSize: 9 }}>LOW</div>
                 <div className="dt-eyebrow" style={{ fontSize: 10, color: "var(--accent)" }}>Hospitality Economics</div>
                 <div className="dt-eyebrow dt-fg-soft" style={{ fontSize: 9 }}>HIGH</div>
