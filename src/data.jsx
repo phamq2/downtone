@@ -279,6 +279,21 @@ window.DT_DATA = (function() {
         ]
       },
       {
+        id: "madradio", name: "Mad Radio", short: "MAD\nRADIO",
+        descriptor: "Cultural platform",
+        x: 32, y: 82,
+        dayparts: [0, 5, 60, 100],
+        avgCheck: "~$25",
+        why: "Shows that programming and community can be the primary engine even at a smaller, leaner operating scale.",
+        takeaway: "Validates the cultural platform model. Downtone shares the community grounding but distributes revenue across a much broader daypart.",
+        points: [
+          "Cultural platform with community grounding",
+          "Programming-heavy, club-like format",
+          "Lean operating model",
+          "Evening and late-night focus"
+        ]
+      },
+      {
         id: "lacabra", name: "La Cabra", short: "LA CABRA",
         descriptor: "Design café",
         x: 38, y: 34,
