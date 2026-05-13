@@ -219,7 +219,7 @@ window.DT_DATA = (function() {
         ]
       },
       {
-        id: "dcp", name: "Double Chicken Please", short: "DOUBLE CHICKEN\nPLEASE",
+        id: "dcp", name: "Double Chicken Please", short: "DOUBLE\nCHICKEN\nPLEASE",
         descriptor: "Cocktail destination",
         x: 88, y: 48,
         dayparts: [0, 0, 55, 100],
