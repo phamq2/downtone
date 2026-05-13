@@ -294,7 +294,7 @@ window.DT_DATA = (function() {
         ]
       },
       {
-        id: "oldtown", name: "Old Town Bar", short: "OLD TOWN BAR",
+        id: "oldtown", name: "Old Town Bar", short: "OLD TOWN\nBAR",
         descriptor: "Neighborhood bar",
         x: 72, y: 30,
         dayparts: [0, 60, 100, 70],
