@@ -234,7 +234,7 @@ window.DT_DATA = (function() {
         ]
       },
       {
-        id: "pr", name: "Public Records", short: "PUBLIC RECORDS",
+        id: "pr", name: "Public Records", short: "PUBLIC\nRECORDS",
         descriptor: "Cultural venue and platform",
         x: 45, y: 92,
         dayparts: [20, 30, 70, 100],
@@ -264,7 +264,7 @@ window.DT_DATA = (function() {
         ]
       },
       {
-        id: "silence", name: "Silence Please", short: "SILENCE PLEASE",
+        id: "silence", name: "Silence Please", short: "SILENCE\nPLEASE",
         descriptor: "Listening space",
         x: 14, y: 85,
         dayparts: [60, 100, 25, 0],
