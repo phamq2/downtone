@@ -36,6 +36,219 @@ window.DTWhy = function DTWhy() {
   );
 };
 
+window.DTPositioning = function DTPositioning() {
+  const { POSITIONING } = window.DT_DATA;
+  const { useState } = React;
+  const mobile = useMobile();
+  const [activeId, setActiveId] = useState("downtone");
+  const active = POSITIONING.nodes.find(n => n.id === activeId) || POSITIONING.nodes[0];
+
+  return (
+    <section id="positioning" className="dt-section" style={{ paddingBottom: mobile ? 48 : 64 }}>
+      <div className="dt-section-inner">
+        <div className="dt-section-eyebrow">
+          <span className="dt-section-num">07 / Positioning</span>
+          <span className="dot"/>
+          <span className="dt-eyebrow dt-fg-soft">Where Downtone fits in the category</span>
+        </div>
+
+        <h2 className="dt-h-1" style={{ marginBottom: 24 }}>Positioning.</h2>
+
+        <div className="dt-body-lg" style={{ maxWidth: 760, marginBottom: 16 }}>
+          {POSITIONING.intro}
+        </div>
+        <div className="dt-serif-it" style={{ maxWidth: 760, marginBottom: 64, color: "var(--accent)", fontSize: mobile ? 18 : 20, lineHeight: 1.4 }}>
+          {POSITIONING.takeaway}
+        </div>
+
+        <div className="dt-eyebrow" style={{ marginBottom: 24 }}>The category map</div>
+
+        <div style={{ display: "grid", gridTemplateColumns: mobile ? "1fr" : "1.05fr 1fr", gap: mobile ? 32 : 56, alignItems: "start" }}>
+          {/* Quadrant chart */}
+          <div>
+            <div style={{ position: "relative", paddingLeft: 44, paddingBottom: 44 }}>
+              {/* Y-axis */}
+              <div style={{ position: "absolute", left: 0, top: 0, bottom: 44, width: 44, display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center" }}>
+                <div className="dt-eyebrow dt-fg-soft" style={{ fontSize: 9 }}>HIGH</div>
+                <div className="dt-eyebrow" style={{
+                  fontSize: 10, color: "var(--accent)",
+                  transform: "rotate(-90deg)", whiteSpace: "nowrap"
+                }}>Cultural Differentiation</div>
+                <div className="dt-eyebrow dt-fg-soft" style={{ fontSize: 9 }}>LOW</div>
+              </div>
+
+              {/* Plot area */}
+              <div style={{ position: "relative", width: "100%", aspectRatio: "1/1", border: "1px solid rgba(245,241,234,0.18)", background: "var(--field2)" }}>
+                {/* Quadrant cross */}
+                <div style={{ position: "absolute", left: 0, right: 0, top: "50%", borderTop: "1px dashed rgba(245,241,234,0.10)" }}/>
+                <div style={{ position: "absolute", top: 0, bottom: 0, left: "50%", borderLeft: "1px dashed rgba(245,241,234,0.10)" }}/>
+
+                {/* Whitespace label (subtle) */}
+                <div className="dt-eyebrow" style={{
+                  position: "absolute", top: 10, right: 12,
+                  fontSize: 9, color: "var(--accent)", opacity: 0.55, letterSpacing: "0.18em"
+                }}>Whitespace</div>
+
+                {/* Nodes — dot anchored at (x%, y%), label positioned below */}
+                {POSITIONING.nodes.map(n => {
+                  const isActive = n.id === activeId;
+                  const isFeatured = n.featured;
+                  const dotSize = isFeatured ? 16 : 10;
+                  return (
+                    <div
+                      key={n.id}
+                      onMouseEnter={() => setActiveId(n.id)}
+                      onClick={() => setActiveId(n.id)}
+                      style={{
+                        position: "absolute",
+                        left: `${n.x}%`,
+                        top: `${100 - n.y}%`,
+                        width: dotSize, height: dotSize,
+                        marginLeft: -dotSize / 2,
+                        marginTop: -dotSize / 2,
+                        borderRadius: "50%",
+                        background: isFeatured || isActive ? "var(--accent)" : "rgba(245,241,234,0.55)",
+                        boxShadow: isFeatured ? "0 0 0 1px var(--accent)" : "none",
+                        cursor: "pointer",
+                        zIndex: isFeatured ? 3 : isActive ? 2 : 1,
+                        transition: "background 200ms"
+                      }}
+                    >
+                      {/* Featured pulse ring */}
+                      {isFeatured && (
+                        <div className="dt-breathe" style={{
+                          position: "absolute", inset: -10,
+                          borderRadius: "50%",
+                          border: "1px solid var(--accent)",
+                          opacity: 0.45,
+                          pointerEvents: "none"
+                        }}/>
+                      )}
+                      {/* Label */}
+                      <div style={{
+                        position: "absolute",
+                        top: `calc(100% + ${isFeatured ? 18 : 8}px)`,
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        whiteSpace: "pre-line",
+                        textAlign: "center",
+                        lineHeight: 1.15,
+                        fontSize: mobile ? 9 : 10,
+                        letterSpacing: "0.10em",
+                        textTransform: "uppercase",
+                        fontWeight: isFeatured ? 800 : 600,
+                        color: isFeatured ? "var(--accent)" : isActive ? "var(--fg)" : "rgba(245,241,234,0.65)",
+                        transition: "color 200ms"
+                      }}>{n.short}</div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* X-axis */}
+              <div style={{ position: "absolute", left: 44, right: 0, bottom: 0, height: 44, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                <div className="dt-eyebrow dt-fg-soft" style={{ fontSize: 9 }}>LOW</div>
+                <div className="dt-eyebrow" style={{ fontSize: 10, color: "var(--accent)" }}>Hospitality Economics</div>
+                <div className="dt-eyebrow dt-fg-soft" style={{ fontSize: 9 }}>HIGH</div>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Active node card */}
+          <div style={{
+            background: "var(--field2)",
+            padding: mobile ? 24 : 32,
+            border: "1px solid rgba(245,241,234,0.15)",
+            borderLeft: "2px solid var(--accent)",
+            transition: "border-color 200ms"
+          }}>
+            <div className="dt-eyebrow" style={{ color: "var(--accent)", marginBottom: 16 }}>
+              {active.featured ? "Downtone" : "Reference"}
+            </div>
+            <div style={{ fontSize: mobile ? 22 : 26, fontWeight: 800, letterSpacing: "-0.02em", marginBottom: 4, textTransform: "uppercase" }}>
+              {active.name}
+            </div>
+            <div className="dt-fg-soft dt-serif-it" style={{ fontSize: 15, marginBottom: 24 }}>
+              {active.descriptor}
+            </div>
+
+            {/* Spec strip — daypart pattern + avg check */}
+            <div style={{
+              display: "flex",
+              gap: 16,
+              alignItems: "stretch",
+              marginBottom: 24,
+              padding: 16,
+              background: "rgba(245,241,234,0.04)",
+              border: "1px solid rgba(245,241,234,0.10)"
+            }}>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div className="dt-eyebrow dt-fg-soft" style={{ fontSize: 9, marginBottom: 10 }}>Daypart pattern · est. throughput</div>
+                <div style={{ display: "flex", gap: 4, alignItems: "flex-end", height: 48 }}>
+                  {active.dayparts.map((v, i) => (
+                    <div key={i} style={{
+                      flex: 1,
+                      height: Math.max(2, v * 0.46) + "px",
+                      background: v > 0 ? "var(--accent)" : "rgba(245,241,234,0.18)",
+                      opacity: v > 0 ? Math.max(0.35, v / 100) : 0.4,
+                      transition: "height 250ms, opacity 250ms"
+                    }}/>
+                  ))}
+                </div>
+                <div style={{ display: "flex", gap: 4, marginTop: 6 }}>
+                  {["AM", "LUN", "EVE", "LATE"].map((l, i) => (
+                    <div key={i} style={{ flex: 1, textAlign: "center", fontSize: 9, letterSpacing: "0.10em", color: "rgba(245,241,234,0.45)" }}>{l}</div>
+                  ))}
+                </div>
+              </div>
+              <div style={{ borderLeft: "1px solid rgba(245,241,234,0.15)", paddingLeft: 16, display: "flex", flexDirection: "column", justifyContent: "center", minWidth: 92 }}>
+                <div className="dt-eyebrow dt-fg-soft" style={{ fontSize: 9, marginBottom: 6 }}>Avg check</div>
+                <div style={{ fontFamily: "Bandit", fontSize: 24, color: "var(--accent)", lineHeight: 1 }}>{active.avgCheck}</div>
+                <div className="dt-fg-soft" style={{ fontSize: 10, marginTop: 4 }}>per cover</div>
+              </div>
+            </div>
+
+            <div className="dt-eyebrow dt-fg-soft" style={{ fontSize: 10, marginBottom: 8 }}>Why it matters</div>
+            <div className="dt-body" style={{ fontSize: 14, marginBottom: 24, color: "rgba(245,241,234,0.85)" }}>
+              {active.why}
+            </div>
+
+            <div className="dt-eyebrow dt-fg-soft" style={{ fontSize: 10, marginBottom: 12 }}>Characteristics</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              {active.points.map((pt, i) => (
+                <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
+                  <div style={{ width: 4, height: 4, background: "var(--accent)", marginTop: 8, flexShrink: 0 }}/>
+                  <div style={{ fontSize: 13, lineHeight: 1.55, color: "rgba(245,241,234,0.82)" }}>{pt}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Disclaimer — sits under the quadrant column only, matching its width */}
+        <div style={{
+          marginTop: mobile ? 32 : 40,
+          display: "grid",
+          gridTemplateColumns: mobile ? "1fr" : "1.05fr 1fr",
+          gap: mobile ? 32 : 56
+        }}>
+          <div className="dt-serif-it" style={{
+            paddingTop: 24,
+            borderTop: "1px solid rgba(245,241,234,0.15)",
+            fontSize: mobile ? 16 : 18,
+            lineHeight: 1.5,
+            color: "rgba(245,241,234,0.70)",
+            textAlign: "center"
+          }}>
+            All figures shown are approximations. Comparative positioning is directional and intended to illustrate business model characteristics rather than precise operating metrics.
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 window.DTCommunity = function DTCommunity() {
   const mobile = useMobile();
   return (
@@ -57,7 +270,7 @@ window.DTAssumptions = function DTAssumptions() {
     <section id="assumptions" className="dt-section">
       <div className="dt-section-inner">
         <div className="dt-section-eyebrow">
-          <span className="dt-section-num">07 / Model</span>
+          <span className="dt-section-num">08 / Model</span>
           <span className="dot"/>
           <span className="dt-eyebrow dt-fg-soft">How the day works</span>
         </div>
@@ -183,7 +396,7 @@ window.DTFinancials = function DTFinancials() {
     <section id="financials" className="dt-section" style={{ background: "var(--field2)" }}>
       <div className="dt-section-inner">
         <div className="dt-section-eyebrow">
-          <span className="dt-section-num">08 / Financials</span>
+          <span className="dt-section-num">09 / Financials</span>
           <span className="dot"/>
           <span className="dt-eyebrow dt-fg-soft">5-year income statement</span>
         </div>
@@ -270,7 +483,7 @@ window.DTRisks = function DTRisks() {
     <section id="risks" className="dt-section">
       <div className="dt-section-inner">
         <div className="dt-section-eyebrow">
-          <span className="dt-section-num">09 / Risks</span>
+          <span className="dt-section-num">10 / Risks</span>
           <span className="dot"/>
           <span className="dt-eyebrow dt-fg-soft">Read carefully</span>
         </div>

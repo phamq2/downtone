@@ -20,7 +20,7 @@ window.DTOverview = function DTOverview() {
               {[
                 ["The concept", "Specialty coffee by day, hi-fi listening bar by night. 75-seat ground floor + 30-seat Sound Room below. Built on a decade of programmed listening sessions and community."],
                 ["The location", "301 Grand Street — Chinatown, LES & SoHo. 2,600 sq ft. High-visibility corridor, excellent transit."],
-                ["The stage",    "Lease in final negotiation. Liquor license approved. Full team mobilized. Phase 0 under development, funded by operator capital."]
+                ["The stage",    "Lease signed. Liquor license: CB approved, SLA pending. SBA commitment in progress. Core team in place, mobilizing for design and buildout — fall 2026 opening target."]
               ].map(([t, b], i) => (
                 <div key={i} style={{ paddingTop: i ? 24 : 0 }}>
                   <div className="dt-eyebrow" style={{ marginBottom: 8 }}>{t}</div>
@@ -161,23 +161,23 @@ window.DTProjection = function DTProjection() {
         {/* Console — investor + class b + tier */}
         <div style={{
           background: "var(--field2)",
-          padding: 48,
+          padding: mobile ? 24 : 48,
           border: "1px solid rgba(245,241,234,0.15)"
         }}>
-          <div style={{ display: "grid", gridTemplateColumns: mobile ? "1fr 1fr" : "1.6fr 1fr 1fr", gap: mobile ? 24 : 48, alignItems: "flex-end" }}>
+          <div style={{ display: "grid", gridTemplateColumns: mobile ? "1fr" : "1.6fr 1fr 1fr", gap: mobile ? 20 : 48, alignItems: mobile ? "flex-start" : "flex-end" }}>
             <div>
               <div className="dt-eyebrow" style={{ marginBottom: 8 }}>Your investment</div>
-              <div style={{ fontFamily: "Outfit", fontWeight: 900, fontSize: 64, lineHeight: 1, letterSpacing: "-0.04em" }}>
+              <div style={{ fontFamily: "Outfit", fontWeight: 900, fontSize: mobile ? 44 : 64, lineHeight: 1, letterSpacing: "-0.04em" }}>
                 ${inv.toLocaleString()}
               </div>
             </div>
             <div>
               <div className="dt-eyebrow" style={{ marginBottom: 8 }}>Class B share</div>
-              <div style={{ fontFamily: "Bandit", fontSize: 48, lineHeight: 1, color: "var(--accent)" }}>
+              <div style={{ fontFamily: "Bandit", fontSize: mobile ? 36 : 48, lineHeight: 1, color: "var(--accent)" }}>
                 {(p * 100).toFixed(1)}%
               </div>
             </div>
-            <div style={{ textAlign: "right" }}>
+            <div style={{ textAlign: mobile ? "left" : "right" }}>
               <div className="dt-eyebrow" style={{ marginBottom: 8 }}>Tier unlocked</div>
               <div style={{
                 display: "inline-block",
@@ -240,14 +240,15 @@ window.DTProjection = function DTProjection() {
             <div className="dt-eyebrow" style={{ marginTop: 48, marginBottom: 16 }}>
               Year-by-year distributions (base case)
             </div>
-            <div style={{ display: "flex", gap: 8, alignItems: "flex-end", height: 160 }}>
+            <div style={{ display: "flex", gap: mobile ? 4 : 8, alignItems: "flex-end", height: mobile ? 200 : 200 }}>
               {my.map((v, i) => {
-                const h = Math.max((v / mxBar) * 140, 8);
+                const barMax = mobile ? 120 : 140;
+                const h = Math.max((v / mxBar) * barMax, 8);
                 return (
-                  <div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
-                    <div style={{ fontFamily: "Bandit", fontSize: 18, color: "var(--accent)" }}>~{fmt(v)}</div>
+                  <div key={i} style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", alignItems: "center", gap: mobile ? 6 : 8 }}>
+                    <div style={{ fontFamily: "Bandit", fontSize: mobile ? 11 : 18, color: "var(--accent)", whiteSpace: "nowrap" }}>~{fmt(v)}</div>
                     <div style={{ width: "100%", height: h, background: "var(--accent)" }}/>
-                    <div className="dt-eyebrow dt-fg-soft">Yr {i + 1}</div>
+                    <div className="dt-eyebrow dt-fg-soft" style={{ fontSize: mobile ? 10 : 11, letterSpacing: mobile ? "0.10em" : "0.18em" }}>Yr {i + 1}</div>
                   </div>
                 );
               })}
@@ -351,38 +352,84 @@ window.DTFunding = function DTFunding() {
         <div className="dt-section-eyebrow">
           <span className="dt-section-num">04 / Funding</span>
           <span className="dot"/>
-          <span className="dt-eyebrow dt-fg-soft">$1.15M total · $700K open</span>
+          <span className="dt-eyebrow dt-fg-soft">$1.15M total · $210K open</span>
         </div>
 
         <h2 className="dt-h-1" style={{ marginBottom: 48 }}>Funding<br/>Progress.</h2>
 
-        {/* Stack — three blocks side by side */}
-        <div style={{ display: "flex", flexDirection: mobile ? "column" : "row", height: mobile ? "auto" : 88, marginBottom: 12, border: "1px solid rgba(245,241,234,0.15)" }}>
-          <div style={{ flex: 450, background: "rgba(245,241,234,0.18)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: mobile ? 14 : 18, fontWeight: 800, letterSpacing: "0.06em", padding: mobile ? "20px 16px" : 0 }}>
-            $450K DEPLOYED
-          </div>
-          <div style={{ flex: 250, background: "rgba(245,241,234,0.06)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: mobile ? 13 : 16, fontWeight: 700, letterSpacing: "0.04em", color: "rgba(245,241,234,0.7)", padding: mobile ? "16px" : 0 }}>
-            $250K SOFT
-          </div>
-          <div style={{ flex: 450, background: "var(--accent)", color: "var(--bg)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: mobile ? 14 : 18, fontWeight: 800, letterSpacing: "0.06em", padding: mobile ? "20px 16px" : 0 }}>
-            $450K OPEN ↘
-          </div>
-        </div>
-        <div style={{ display: "flex", flexDirection: mobile ? "column" : "row", marginBottom: 56, gap: mobile ? 4 : 0 }}>
-          <div style={{ flex: 450, textAlign: "center", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(245,241,234,0.55)" }}>Operator Capital</div>
-          <div style={{ flex: 250, textAlign: "center", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(245,241,234,0.55)" }}>Investor Interest</div>
-          <div style={{ flex: 450, textAlign: "center", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--accent)" }}>Your Opportunity</div>
-        </div>
-
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 16 }}>
-          <div className="dt-eyebrow">Use of Funds · $1.15M Total</div>
-          <div style={{ display: "flex", gap: 20 }}>
-            {[["var(--accent)", "Spent"], ["rgba(245,241,234,0.15)", "Remaining"]].map(([bg, label]) => (
-              <div key={label} style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(245,241,234,0.45)" }}>
-                <div style={{ width: 8, height: 8, background: bg }}/> {label}
+        {(() => {
+          const segments = [
+            { amount: 450, label: "$450K", category: "SBA Bank Loan",        note: "Approved · closing in progress", bg: "rgba(245,241,234,0.22)", color: "var(--fg)" },
+            { amount: 350, label: "$350K", category: "Owner Investment",     bg: "rgba(245,241,234,0.14)", color: "var(--fg)" },
+            { amount: 140, label: "$140K", category: "Investor Soft Commit", bg: "rgba(245,241,234,0.06)", color: "rgba(245,241,234,0.75)" },
+            { amount: 210, label: "$210K", category: "Investor Open",        bg: "var(--accent)",          color: "var(--bg)", highlighted: true }
+          ];
+          return mobile ? (
+            <div style={{ marginBottom: 56, border: "1px solid rgba(245,241,234,0.15)" }}>
+              {segments.map((s, i) => (
+                <div key={s.category} style={{
+                  background: s.bg, color: s.color,
+                  padding: "16px 18px",
+                  display: "flex", justifyContent: "space-between", alignItems: "center", gap: 16,
+                  borderTop: i ? "1px solid rgba(245,241,234,0.10)" : "none"
+                }}>
+                  <div style={{ minWidth: 0 }}>
+                    <div style={{ fontSize: 11, letterSpacing: "0.10em", textTransform: "uppercase", opacity: 0.85 }}>{s.category}</div>
+                    {s.note && (
+                      <div className="dt-serif-it" style={{ fontSize: 12, marginTop: 4, opacity: 0.65 }}>{s.note}</div>
+                    )}
+                  </div>
+                  <span style={{ fontWeight: s.highlighted ? 800 : 700, fontSize: 16, whiteSpace: "nowrap" }}>{s.label}{s.highlighted ? " ↘" : ""}</span>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <>
+              <div style={{ display: "flex", height: 88, marginBottom: 12, border: "1px solid rgba(245,241,234,0.15)" }}>
+                {segments.map(s => (
+                  <div key={s.category} style={{
+                    flex: s.amount,
+                    background: s.bg,
+                    color: s.color,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    fontSize: s.amount < 100 ? 14 : 17,
+                    fontWeight: s.highlighted ? 800 : 700,
+                    letterSpacing: "0.04em",
+                    whiteSpace: "nowrap"
+                  }}>
+                    {s.label}{s.highlighted ? " ↘" : ""}
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+              <div style={{ display: "flex", marginBottom: 56, alignItems: "flex-start" }}>
+                {segments.map(s => (
+                  <div key={s.category + "-l"} style={{
+                    flex: s.amount,
+                    textAlign: "center",
+                    padding: "0 4px"
+                  }}>
+                    <div style={{
+                      fontSize: 10,
+                      letterSpacing: "0.10em",
+                      textTransform: "uppercase",
+                      color: s.highlighted ? "var(--accent)" : "rgba(245,241,234,0.55)"
+                    }}>
+                      {s.category}
+                    </div>
+                    {s.note && (
+                      <div className="dt-fg-soft dt-serif-it" style={{ fontSize: 11, marginTop: 4 }}>
+                        {s.note}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </>
+          );
+        })()}
+
+        <div style={{ marginBottom: 16 }}>
+          <div className="dt-eyebrow">Use of Funds · $1.15M Total</div>
         </div>
         <div style={{ overflowX: mobile ? "auto" : "visible" }}>
           <div style={{
@@ -393,8 +440,12 @@ window.DTFunding = function DTFunding() {
           }}>
             <div/>
             <div/>
-            <div className="dt-eyebrow dt-fg-soft" style={{ textAlign: "right", fontSize: 10 }}>Spent</div>
-            <div className="dt-eyebrow dt-fg-soft" style={{ textAlign: "right", fontSize: 10 }}>Remaining</div>
+            <div className="dt-eyebrow dt-fg-soft" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 6, fontSize: 10 }}>
+              <div style={{ width: 8, height: 8, background: "var(--accent)" }}/>Spent
+            </div>
+            <div className="dt-eyebrow dt-fg-soft" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 6, fontSize: 10 }}>
+              <div style={{ width: 8, height: 8, background: "rgba(245,241,234,0.15)" }}/>Remaining
+            </div>
           </div>
           {USE_OF_FUNDS.map(([label, budget, spent], i) => {
             const scale = 400000;
@@ -475,14 +526,14 @@ window.DTTimeline = function DTTimeline() {
           }}/>}
 
           {/* Nodes */}
-          <div style={{ display: "grid", gridTemplateColumns: mobile ? `repeat(${N}, minmax(80px, 1fr))` : `repeat(${N}, 1fr)` }}>
+          <div style={{ display: "grid", gridTemplateColumns: mobile ? `repeat(${N}, minmax(150px, 1fr))` : `repeat(${N}, 1fr)`, columnGap: mobile ? 16 : 0 }}>
             {PHASES.map((p, i) => {
               const isHov = i === hovered;
               const isActive = p.kind === "active";
               return (
                 <div key={i}
                   onMouseEnter={() => setHovered(i)}
-                  style={{ cursor: "default", paddingBottom: 32 }}>
+                  style={{ cursor: "default", paddingBottom: 32, paddingRight: mobile ? 8 : 16, minWidth: 0 }}>
                   {/* Dot */}
                   <div style={{ position: "relative", width: 12, height: 12, marginBottom: 24 }}>
                     {isActive && (
@@ -500,14 +551,16 @@ window.DTTimeline = function DTTimeline() {
                   </div>
                   {/* Name + date */}
                   <div style={{
-                    fontWeight: 800, fontSize: 18, textTransform: "uppercase",
+                    fontWeight: 800, fontSize: mobile ? 15 : 18, textTransform: "uppercase",
                     letterSpacing: "-0.02em", marginBottom: 4,
                     color: isHov ? "var(--fg)" : "rgba(245,241,234,0.45)",
-                    transition: "color 200ms"
+                    transition: "color 200ms",
+                    overflowWrap: "break-word"
                   }}>{p.name}</div>
                   <div className="dt-eyebrow" style={{
                     color: isHov ? "var(--accent)" : "rgba(245,241,234,0.30)",
-                    transition: "color 200ms"
+                    transition: "color 200ms",
+                    whiteSpace: "nowrap"
                   }}>{p.date}</div>
                 </div>
               );
@@ -533,8 +586,13 @@ window.DTTimeline = function DTTimeline() {
             </div>
             <div className="dt-fg-soft" style={{ fontSize: 13 }}>{ph.date}</div>
           </div>
-          <div style={{ fontSize: 16, lineHeight: 1.7, color: "rgba(245,241,234,0.80)" }}>
-            {ph.narrative}
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            {ph.points.map((pt, i) => (
+              <div key={i} style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
+                <div style={{ width: 6, height: 6, background: "var(--accent)", marginTop: 10, flexShrink: 0 }}/>
+                <div style={{ fontSize: 16, lineHeight: 1.6, color: "rgba(245,241,234,0.85)" }}>{pt}</div>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -546,7 +604,7 @@ window.DTTimeline = function DTTimeline() {
           fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase"
         }}>
           <span>May 2026 — Today</span>
-          <span>Stabilized · 2028</span>
+          <span>Phase 2 · 2027 +</span>
         </div>
       </div>
     </section>
