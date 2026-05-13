@@ -281,7 +281,7 @@ window.DT_DATA = (function() {
       {
         id: "madradio", name: "Mad Radio", short: "MAD\nRADIO",
         descriptor: "Cultural platform",
-        x: 32, y: 82,
+        x: 55, y: 82,
         dayparts: [0, 5, 60, 100],
         avgCheck: "~$25",
         why: "Shows that programming and community can be the primary engine even at a smaller, simpler operating scale.",
