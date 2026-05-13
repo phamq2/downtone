@@ -31,8 +31,8 @@ window.DTHero = function DTHero({ variant = "signature", scrollPct = 0 }) {
           <div className="dt-eyebrow" style={{ marginBottom: 32 }}>
             301 Grand St &nbsp;·&nbsp; Confidential &nbsp;·&nbsp; April 2026
           </div>
-          <h1 className="dt-h-display" style={{ maxWidth: 760 }}>
-            A Cultural<br/>Hub In Lower<br/>Manhattan.
+          <h1 className="dt-h-display" style={{ maxWidth: 900, fontSize: "clamp(40px, 5.5vw, 80px)" }}>
+            A Sound-Led<br/>Hospitality Engine<br/>In Lower Manhattan
           </h1>
           <div style={{ display: "flex", gap: 64, marginTop: 80, flexWrap: "wrap" }}>
             {[
