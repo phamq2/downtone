@@ -74,7 +74,7 @@ window.DTPositioning = function DTPositioning() {
                   fontSize: 10, color: "var(--accent)",
                   transform: "rotate(-90deg)", whiteSpace: "nowrap"
                 }}>Cultural Differentiation</div>
-                <div className="dt-eyebrow dt-fg-soft" style={{ fontSize: 9 }}>None</div>
+                <div className="dt-eyebrow dt-fg-soft" style={{ fontSize: 9, alignSelf: "flex-end" }}>None</div>
               </div>
 
               {/* Plot area */}
