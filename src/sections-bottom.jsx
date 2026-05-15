@@ -284,7 +284,7 @@ window.DTAssumptions = function DTAssumptions() {
 
         <h2 className="dt-h-1" style={{ marginBottom: 16 }}>Assumptions.</h2>
         <div className="dt-body-lg" style={{ marginBottom: 56, maxWidth: 700 }}>
-          Revenue is driven by four distinct dayparts across a 75-seat main floor.
+          Revenue is driven by four distinct dayparts across a 79-seat main floor.
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: mobile ? "1fr" : "1.4fr 1fr", gap: mobile ? 40 : 56 }}>
@@ -306,12 +306,16 @@ window.DTAssumptions = function DTAssumptions() {
               ))}
             </div>
 
+            <div className="dt-fg-soft dt-serif-it" style={{ fontSize: 12, marginTop: 12 }}>
+              *Brunch is Saturday and Sunday only.
+            </div>
+
             <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 24, marginTop: 32 }}>
               {[
-                ["378", "Daily covers"],
-                ["$23.78", "Blended check"],
-                ["~$9.4K", "Daily gross · Yr 2"],
-                ["~$5.9K", "Break-even / day"]
+                ["~365", "Daily covers · varies by day"],
+                ["~$30", "Blended check"],
+                ["~$10.3K", "Daily gross · Yr 2"],
+                ["~$6.6K", "Break-even / day"]
               ].map(([v, k]) => (
                 <div key={k}>
                   <div style={{ fontFamily: "Bandit", fontSize: 28, color: "var(--accent)", lineHeight: 1 }}>{v}</div>
@@ -360,11 +364,11 @@ window.DTAssumptions = function DTAssumptions() {
         <div className="dt-eyebrow" style={{ marginBottom: 24 }}>Cost Structure & Margins</div>
         <div style={{ display: "grid", gridTemplateColumns: mobile ? "repeat(2, 1fr)" : "repeat(5, 1fr)", gap: 24 }}>
           {[
-            ["31.7%", "COGS", "Bev 29% / Food 46%"],
-            ["34.3%", "Payroll", "Hourly + salary + benefits"],
-            ["16.2%", "Controllable", "Ops, marketing, admin"],
-            ["9.4%", "Occupancy", "Rent, insurance, utilities"],
-            ["12.9%", "EBITDA margin", "Stabilized · 7.1% Yr 1"]
+            ["29.5%", "COGS", "Bev 28% / Food 33%"],
+            ["33.2%", "Payroll", "Hourly + salary + benefits"],
+            ["14.6%", "Controllable", "Ops, marketing, admin"],
+            ["8.7%", "Occupancy", "Rent, insurance, utilities"],
+            ["13.1%", "EBITDA margin", "Y1 · 17.2% stabilized"]
           ].map(([v, k, sub], i) => (
             <div key={k} style={{ borderTop: "2px solid " + (i === 4 ? "var(--accent)" : "rgba(245,241,234,0.15)"), paddingTop: 16 }}>
               <div style={{ fontFamily: "Outfit", fontWeight: 800, fontSize: 30, color: i === 4 ? "var(--accent)" : "var(--fg)" }}>{v}</div>
@@ -381,9 +385,9 @@ window.DTAssumptions = function DTAssumptions() {
           {[
             ["1,400", "Main flr · sqft"],
             ["2,600", "Total · sqft"],
-            ["75", "Seats"],
-            ["~$2,080", "Rev / sqft"],
-            ["6.2%", "Rent / rev"]
+            ["79", "Seats"],
+            ["~$2,850", "Rev / sqft"],
+            ["~5.3%", "Rent / rev"]
           ].map(([v, k]) => (
             <div key={k}>
               <div style={{ fontFamily: "Bandit", fontSize: 36, color: "var(--accent)", lineHeight: 1 }}>{v}</div>
@@ -457,13 +461,13 @@ window.DTFinancials = function DTFinancials() {
         </div>
 
         <div className="dt-fg-soft dt-serif-it" style={{ fontSize: 13, marginTop: 16 }}>
-          *Distributable cash flow is net of operator draw ($100K/yr), working capital maintenance ($100K floor), and basement reserve ($100K in Year 1). % Rev based on Year 2 stabilized.
+          *Distributable cash flow is net of all debt service including SBA loans and owner financing. No operator draw — operator receives salary through payroll.
         </div>
 
         <div style={{ marginTop: 48, paddingTop: 32, borderTop: "1px solid var(--accent)" }}>
           <div className="dt-eyebrow" style={{ marginBottom: 16 }}>Projected Milestones · 3% Annual Growth</div>
           <div style={{ display: "grid", gridTemplateColumns: mobile ? "1fr" : "1fr 1fr", gap: 16 }}>
-            {[["Year 10", "$4.3M", "$555K"], ["Year 15", "$5.0M", "$643K"]].map(([y, r, e]) => (
+            {[["Year 10", "$5.1M", "$900K"], ["Year 15", "$5.9M", "$1.0M"]].map(([y, r, e]) => (
               <div key={y} style={{ background: "var(--bg)", padding: 32, display: "flex", gap: 32, alignItems: "center" }}>
                 <div style={{ fontFamily: "Bandit", fontSize: 32, color: "var(--accent)" }}>{y}</div>
                 <div>
