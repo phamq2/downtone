@@ -26,7 +26,7 @@ window.DT_DATA = (function() {
     ["risks", "Risks"]
   ];
 
-  const TIER_MIN = { Founder: 17500, Insider: 70000, Premium: 140000 };
+  const TIER_MIN = { Founder: 12500, Insider: 50000, Premium: 100000 };
 
   const PERKS = {
     Founder: [
@@ -45,14 +45,14 @@ window.DT_DATA = (function() {
     ]
   };
 
-  const YR_DIST = [89806, 268546, 373746, 439393, 205105];
-  const YR_TOTAL = 1376596;
+  const YR_DIST = [310000, 360000, 140000, 140000, 140000];
+  const YR_TOTAL = 1090000;
 
   const DAYPARTS = [
-    ["Breakfast", "8a–12p", "75", "$10.88"],
-    ["Lunch",     "12p–5p", "112", "$12.93"],
-    ["Dinner",    "5p–9p", "118", "$37.70"],
-    ["Late Night", "9p–2a", "73", "$31.20"]
+    ["Breakfast", "8a–12p", "80",  "$6.00"],
+    ["Lunch",     "12p–5p", "105", "$12.93"],
+    ["PM",        "5p–2a",  "180", "$42.95"],
+    ["Brunch*",   "10a–3p", "99",  "$25.70"]
   ];
 
   const SEASON = [
@@ -61,15 +61,15 @@ window.DT_DATA = (function() {
     ["S", 105], ["O", 110], ["N", 105], ["D", 110]
   ];
 
-  // [label, budget, spent]
+  // [label, budget]
   const USE_OF_FUNDS = [
-    ["Build Out",          390000,      0],
-    ["Working Capital",    290000,      0],
-    ["Equipment & FF&E",   158000,  18750],
-    ["Soft Costs",          99000,  44425],
-    ["Pre-Opening",         95000,      0],
-    ["Lease & Building",    83000,  75000],
-    ["Legal & Permits",     35000,  16629]
+    ["Build Out",                           475000],
+    ["Equipment & FF&E",                    318000],
+    ["Working Capital + Contingency",       205000],
+    ["Soft Costs",                          183000],
+    ["Pre-Opening + Startup",               100000],
+    ["Deposits & Financing",                 96000],
+    ["Pre-Opening Burn (rent + utilities)",  85000]
   ];
 
   const DOW = [
@@ -84,35 +84,35 @@ window.DT_DATA = (function() {
       headline: "Concept becomes executable build plan",
       points: [
         "Lease signed; CB stipulation for liquor license secured",
-        "SBA closing requirements locked; capital stack confirmed",
+        "SBA financing secured; capital stack confirmed",
         "Architect, expeditor, MEP, and GC paths confirmed",
-        "Ground floor only — basement deferred from critical path"
+        "Ground floor + basement built simultaneously"
       ]
     },
     {
-      name: "Design & Permits", date: "June 2026",
+      name: "Design & Permits", date: "June–July 2026",
       kind: "next",
       headline: "Drawings finalized, permits filed, long-leads ordered",
       points: [
         "Design development closes out — bar, coffee, service flow, seating locked",
-        "Sound system placement and acoustic strategy confirmed",
+        "Sound system placement and acoustic strategy confirmed for both floors",
         "MEP coordinated; permit package submitted",
         "Long-lead equipment ordered against real quotes"
       ]
     },
     {
-      name: "Buildout", date: "Jul–Aug 2026",
+      name: "Buildout", date: "Aug–Nov 2026",
       kind: "future",
       headline: "Construction, equipment install, sound system tuning",
       points: [
         "Demolition, framing, MEP, and bar/coffee infrastructure go in",
-        "Acoustic treatments and sound system installed and tuned",
+        "Acoustic treatments and sound system installed and tuned across both floors",
         "Furniture, millwork, signage, POS, security, and connectivity installed",
         "Hiring plan finalized; GM and COO operating systems built"
       ]
     },
     {
-      name: "Training", date: "September 2026",
+      name: "Training", date: "December 2026",
       kind: "future",
       headline: "Built space becomes an operating venue",
       points: [
@@ -123,7 +123,7 @@ window.DT_DATA = (function() {
       ]
     },
     {
-      name: "Soft Open", date: "October 2026",
+      name: "Soft Open", date: "January 2027",
       kind: "future",
       headline: "Open carefully, learn quickly, stabilize",
       points: [
@@ -134,53 +134,53 @@ window.DT_DATA = (function() {
       ]
     },
     {
-      name: "Stabilize", date: "Nov–Dec 2026",
+      name: "Stabilize", date: "Jan–Feb 2027",
       kind: "future",
       headline: "From opening mode to a repeatable rhythm",
       points: [
         "Staffing model refined; coffee throughput optimized",
         "Evening seating and bar service tightened",
         "Programming cadence built; private event outreach begins",
-        "First 60 days reviewed; basement feasibility timing set"
+        "First 60 days reviewed; basement programming sequencing finalized"
       ]
     },
     {
-      name: "Phase 2", date: "2027 +",
+      name: "Basement Launch", date: "March 2027",
       kind: "future",
-      headline: "Basement activation as upside",
+      headline: "Sound Room programming goes live",
       points: [
-        "Moves only after ground floor operates independently with clear cash flow",
-        "Possible uses: sound room, ticketed listening, private dining, activations, archive",
-        "Revisit after 6–12 months of stabilized operations",
-        "Sooner only if landlord, DOB path, and economics line up"
+        "Basement built and tuned alongside the ground floor — opens once main service is stable",
+        "Ticketed listening, private dining, and curated activations begin",
+        "Members and Founder-tier events activated downstairs",
+        "Second revenue engine layers onto an already-stabilized main floor"
       ]
     }
   ];
 
   const FIN_ROWS = [
-    ["Total Revenue",        ["$2.91M","$3.41M","$3.51M","$3.61M","$3.72M"], "100%",   "—",       "sub"],
-    ["Cost of Goods",        ["$930K","$1.09M","$1.12M","$1.15M","$1.19M"],  "31.9%",  "28–35%",  "det"],
-    ["Gross Profit",         ["$1.98M","$2.32M","$2.39M","$2.46M","$2.53M"], "68.1%",  "—",       "sub"],
-    ["Payroll & Benefits",   ["$1.00M","$1.05M","$1.08M","$1.11M","$1.15M"], "30.8%",  "25–35%",  "det"],
-    ["Controllable Exp.",    ["$471K","$541K","$550K","$556K","$569K"],      "15.9%",  "12–18%",  "det"],
-    ["Occupancy Costs",      ["$273K","$281K","$290K","$298K","$307K"],      "8.3%",   "6–10%",   "det"],
-    ["EBITDA — Main Floor",  ["$207K","$415K","$435K","$460K","$479K"],      "12.2%",  "8–15%",   "hl"],
-    ["Basement Phase 2",     ["—","$54K","$135K","$179K","$179K"],            "",       "",        "det"],
-    ["Less: SBA Service",    ["($73K)","($73K)","($73K)","($73K)","($73K)"], "",       "",        "det"],
-    ["Distributable Cash*",  ["$89K","$385K","$497K","$567K","$585K"],        "",       "",        "hl"]
+    ["Total Revenue",  ["$3.46M","$3.99M","$4.11M","$4.23M","$4.36M"],      "100%",  "—",      "sub"],
+    ["Cost of Goods",  ["$1.02M","$1.17M","$1.21M","$1.25M","$1.28M"],      "29.5%", "28–35%", "det"],
+    ["Gross Profit",   ["$2.44M","$2.81M","$2.90M","$2.98M","$3.07M"],      "70.5%", "—",      "sub"],
+    ["Payroll",        ["$1.15M","$1.20M","$1.24M","$1.28M","$1.32M"],      "33.2%", "25–35%", "det"],
+    ["Controllable",   ["$505K","$570K","$579K","$584K","$597K"],            "14.6%", "12–18%", "det"],
+    ["Occupancy",      ["$300K","$315K","$328K","$338K","$348K"],            "8.7%",  "6–10%",  "det"],
+    ["EBITDA",         ["$452K","$685K","$711K","$746K","$774K"],            "13.1%", "8–15%",  "hl"],
+    ["Basement",       ["$91K","$136K","$181K","$181K","$181K"],             "",      "",       "det"],
+    ["Debt Service",   ["($103K)","($168K)","($194K)","($227K)","($247K)"], "",      "",       "det"],
+    ["Distrib. Cash",  ["$440K","$653K","$699K","$701K","$708K"],            "",      "",       "hl"]
   ];
 
   const RISKS = [
     ["Projections are estimates",
      "All projections are forward-looking estimates. Actual results may differ materially. Distributions may be lower, delayed, or not paid."],
     ["Revenue may underperform",
-     "At 90% of projections, the business remains solvent by Year 2. At 75%, Year 1 EBITDA is negative, though the $226K reserve provides a buffer."],
+     "At 90% of projections, the business remains solvent by Year 2. At 75%, Year 1 EBITDA is negative, though the $175K reserve + $100K credit line provides buffer."],
     ["Key-person dependency",
      "Substantially dependent on the operator. Operating agreement includes key-person provisions and a salaried GM ($80K) for continuity."],
     ["Liquidity & liability",
      "No public market. Transfer subject to operator approval. Expect a multi-year hold. Liability limited to amount invested."],
     ["Distributions not guaranteed",
-     "Paid from distributable cash flow after expenses, debt, draw, and reserves. Early-stage venture with no operating history."]
+     "Paid from distributable cash flow after expenses, debt, and reserves. Early-stage venture with no operating history."]
   ];
 
   const WHY = [
@@ -208,14 +208,14 @@ window.DT_DATA = (function() {
         descriptor: "Sound-led hospitality, all day",
         x: 76, y: 78, featured: true,
         dayparts: [60, 90, 100, 60],
-        avgCheck: "~$24",
+        avgCheck: "~$30",
         why: "Sound-led hospitality designed to monetize across morning coffee, afternoon work, aperitivo, and late-night listening on a single ground floor.",
         takeaway: "Operates as the all-day hospitality engine the category currently lacks.",
         points: [
-          "75 ground-floor seats",
+          "79 ground-floor seats + 25-seat Sound Room",
           "Sound system as defining experience",
           "Cultural lineage from Dub-Stuy",
-          "Ground floor independent of basement upside"
+          "Basement built simultaneously, programming launches March 2027"
         ]
       },
       {

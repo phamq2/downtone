@@ -18,9 +18,10 @@ window.DTOverview = function DTOverview() {
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 24 }} className="dt-hairline-list">
               {[
-                ["The concept", "Specialty coffee by day, hi-fi listening bar by night. 75-seat ground floor + 30-seat Sound Room below. Built on a decade of programmed listening sessions and community."],
+                ["The concept", "Specialty coffee by day, hi-fi listening bar by night. 79-seat ground floor + 25-seat Sound Room below. Built on a decade of programmed listening sessions and community."],
                 ["The location", "301 Grand Street — Chinatown, LES & SoHo. 2,600 sq ft. High-visibility corridor, excellent transit."],
-                ["The stage",    "Lease signed. Liquor license: CB approved, SLA pending. SBA commitment in progress. Core team in place, mobilizing for design and buildout — fall 2026 opening target."]
+                ["The stage",    "Lease signed. Liquor license: CB approved, SLA pending. SBA financing secured. Core team in place, mobilizing for design and buildout — January 2027 opening target."],
+                ["The build",   "Ground floor + basement built simultaneously. Basement programming launches March 2027."]
               ].map(([t, b], i) => (
                 <div key={i} style={{ paddingTop: i ? 24 : 0 }}>
                   <div className="dt-eyebrow" style={{ marginBottom: 8 }}>{t}</div>
@@ -67,20 +68,20 @@ window.DTOpportunity = function DTOpportunity() {
 
         <h2 className="dt-h-1" style={{ marginBottom: 16 }}>The Opportunity.</h2>
         <div className="dt-body-lg" style={{ maxWidth: 760, marginBottom: 64 }}>
-          We are offering <span style={{ color: "var(--accent)" }}>$700,000 in equity</span> to accredited investors to build and launch Downtone NYC.
+          We are offering <span style={{ color: "var(--accent)" }}>$500,000 in equity</span> to accredited investors to build and launch Downtone NYC.
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: mobile ? "1fr" : "1.6fr 1fr", gap: 0, marginBottom: 56, border: "1px solid rgba(245,241,234,0.15)" }}>
           <div style={{ padding: 48, borderRight: "1px solid rgba(245,241,234,0.15)" }}>
             <div className="dt-eyebrow" style={{ marginBottom: 16 }}>Class B Membership Units</div>
             <div className="dt-body" style={{ maxWidth: 540 }}>
-              Class B collectively owns 20% of the company’s economics. Before the 1.6× preference threshold, investors receive 80% of distributable cash flow. After that, distributions revert to the permanent 20% share.
+              Class B collectively owns 20% of the company’s economics. Before the 1.25× preference threshold, investors receive 70% of distributable cash flow. After that, distributions revert to the permanent 20% share.
             </div>
           </div>
           <div style={{ padding: 48, display: "flex", flexDirection: "column", justifyContent: "center" }}>
             <div className="dt-eyebrow" style={{ marginBottom: 8 }}>Minimum</div>
-            <div style={{ fontFamily: "Bandit", fontSize: 72, lineHeight: 1, color: "var(--accent)" }}>$17,500</div>
-            <div className="dt-fg-soft" style={{ fontSize: 13, marginTop: 8 }}>2.5% of Class B</div>
+            <div style={{ fontFamily: "Bandit", fontSize: 72, lineHeight: 1, color: "var(--accent)" }}>$10,000</div>
+            <div className="dt-fg-soft" style={{ fontSize: 13, marginTop: 8 }}>1 unit · 2% of Class B</div>
           </div>
         </div>
 
@@ -88,8 +89,8 @@ window.DTOpportunity = function DTOpportunity() {
           <div className="dt-card" style={{ background: "var(--bg)" }}>
             <div className="dt-eyebrow" style={{ marginBottom: 24 }}>How it works</div>
             <div style={{ marginBottom: 20 }}>
-              <div style={{ fontSize: 22, fontWeight: 800, lineHeight: 1.2 }}>80% of distributable cash flow to you</div>
-              <div className="dt-body" style={{ marginTop: 4 }}>until you receive 1.6× your investment back</div>
+              <div style={{ fontSize: 22, fontWeight: 800, lineHeight: 1.2 }}>70% of distributable cash flow to you</div>
+              <div className="dt-body" style={{ marginTop: 4 }}>until you receive 1.25× your investment back</div>
             </div>
             <div style={{ marginBottom: 20 }}>
               <div style={{ fontSize: 22, fontWeight: 800, lineHeight: 1.2 }}>20% of distributable cash flow ongoing</div>
@@ -101,9 +102,9 @@ window.DTOpportunity = function DTOpportunity() {
             <div className="dt-eyebrow" style={{ marginBottom: 24 }}>Structured to protect you</div>
             <div className="dt-hairline-list" style={{ display: "flex", flexDirection: "column" }}>
               {[
-                "You get paid first — 80% until 1.6× return",
+                "You get paid first — 70% until 1.25× return",
                 "Operator earns more only after you’re made whole",
-                "$226K opening reserve covers ramp risk",
+                "$175K opening reserve + $100K credit line covers ramp risk",
                 "Quarterly reporting with full inspection rights",
                 "No personal liability for investors"
               ].map((x, i) => (
@@ -124,21 +125,22 @@ window.DTProjection = function DTProjection() {
   const { useState, useMemo } = React;
   const mobile = useMobile();
   const { TIER_MIN, PERKS, YR_DIST, YR_TOTAL, fmt } = window.DT_DATA;
-  const [inv, setInv] = useState(70000);
+  const [inv, setInv] = useState(50000);
 
-  const p = inv / 700000;
+  const p = inv / 500000;
   const my = YR_DIST.map(x => x * p);
   const m5 = YR_TOTAL * p;
-  const c5 = m5 * 0.76;
-  const u5 = m5 * 1.27;
-  const tier = inv >= 140000 ? "Premium" : inv >= 70000 ? "Insider" : "Founder";
+  const c5 = m5 * 0.688;
+  const u5 = m5 * 1.29;
+  const tier = inv >= 100000 ? "Premium" : inv >= 50000 ? "Insider" : "Founder";
 
-  // Long-term milestones
+  // Long-term milestones. Distributable cash held flat at Year 5 ($708K)
+  // since revenue growth is offset by rising debt service through Year 5.
   const ms = useMemo(() => {
     let cB = YR_TOTAL;
     const out = {};
+    const dc = 708000;
     for (let y = 6; y <= 15; y++) {
-      const dc = 585342 * Math.pow(1.03, y - 5);
       cB += dc * 0.2;
       if (y === 10 || y === 15) out[y] = { c: cB * p, m: (cB * p) / inv, a: dc * 0.2 * p };
     }
@@ -196,13 +198,13 @@ window.DTProjection = function DTProjection() {
             <input
               type="range"
               className="dt-slider"
-              min={17500} max={210000} step={1750}
+              min={10000} max={150000} step={1000}
               value={inv}
               onChange={e => setInv(+e.target.value)}
             />
             <div style={{ display: "flex", justifyContent: "space-between", marginTop: 12 }}>
-              <span className="dt-eyebrow dt-fg-soft">$17,500</span>
-              <span className="dt-eyebrow dt-fg-soft">$210,000</span>
+              <span className="dt-eyebrow dt-fg-soft">$10,000</span>
+              <span className="dt-eyebrow dt-fg-soft">$150,000</span>
             </div>
           </div>
         </div>
@@ -352,17 +354,18 @@ window.DTFunding = function DTFunding() {
         <div className="dt-section-eyebrow">
           <span className="dt-section-num">04 / Funding</span>
           <span className="dot"/>
-          <span className="dt-eyebrow dt-fg-soft">$1.15M total · $210K open</span>
+          <span className="dt-eyebrow dt-fg-soft">$1.46M total · $360K open</span>
         </div>
 
         <h2 className="dt-h-1" style={{ marginBottom: 48 }}>Funding<br/>Progress.</h2>
 
         {(() => {
           const segments = [
-            { amount: 450, label: "$450K", category: "SBA Bank Loan",        note: "Approved · closing in progress", bg: "rgba(245,241,234,0.22)", color: "var(--fg)" },
-            { amount: 350, label: "$350K", category: "Owner Investment",     bg: "rgba(245,241,234,0.14)", color: "var(--fg)" },
-            { amount: 140, label: "$140K", category: "Investor Soft Commit", bg: "rgba(245,241,234,0.06)", color: "rgba(245,241,234,0.75)" },
-            { amount: 210, label: "$210K", category: "Investor Open",        bg: "var(--accent)",          color: "var(--bg)", highlighted: true }
+            { amount: 471, label: "$471K", category: "SBA Bank Loan",        note: "Secured",         bg: "rgba(245,241,234,0.22)", color: "var(--fg)" },
+            { amount: 100, label: "$100K", category: "Credit Line",          note: "Ramp facility",   bg: "rgba(245,241,234,0.18)", color: "var(--fg)" },
+            { amount: 400, label: "$400K", category: "Owner Investment",                              bg: "rgba(245,241,234,0.14)", color: "var(--fg)" },
+            { amount: 140, label: "$140K", category: "Investor Soft Commit",                          bg: "rgba(245,241,234,0.06)", color: "rgba(245,241,234,0.75)" },
+            { amount: 360, label: "$360K", category: "Investor Open",        bg: "var(--accent)",     color: "var(--bg)", highlighted: true }
           ];
           return mobile ? (
             <div style={{ marginBottom: 56, border: "1px solid rgba(245,241,234,0.15)" }}>
@@ -429,62 +432,30 @@ window.DTFunding = function DTFunding() {
         })()}
 
         <div style={{ marginBottom: 16 }}>
-          <div className="dt-eyebrow">Use of Funds · $1.15M Total</div>
+          <div className="dt-eyebrow">Use of Funds · $1.46M Total</div>
         </div>
         <div style={{ overflowX: mobile ? "auto" : "visible" }}>
-          <div style={{
-            display: "grid", gridTemplateColumns: "180px 1fr 64px 80px",
-            minWidth: mobile ? 480 : "auto",
-            gap: 16, padding: "6px 0 10px",
-            borderBottom: "1px solid rgba(245,241,234,0.15)"
-          }}>
-            <div/>
-            <div/>
-            <div className="dt-eyebrow dt-fg-soft" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 6, fontSize: 10 }}>
-              <div style={{ width: 8, height: 8, background: "var(--accent)" }}/>Spent
-            </div>
-            <div className="dt-eyebrow dt-fg-soft" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 6, fontSize: 10 }}>
-              <div style={{ width: 8, height: 8, background: "rgba(245,241,234,0.15)" }}/>Remaining
-            </div>
-          </div>
-          {USE_OF_FUNDS.map(([label, budget, spent], i) => {
-            const scale = 400000;
+          {USE_OF_FUNDS.map(([label, budget], i) => {
+            const scale = 500000;
             const budgetPct = Math.min(budget / scale, 1) * 100;
-            const spentPct = Math.min(spent / scale, 1) * 100;
             return (
               <div key={i} style={{
-                display: "grid", gridTemplateColumns: "180px 1fr 64px 80px",
+                display: "grid", gridTemplateColumns: "220px 1fr",
+                minWidth: mobile ? 440 : "auto",
                 alignItems: "center", gap: 16,
-                padding: "9px 0",
-                borderTop: "1px solid rgba(245,241,234,0.08)"
+                padding: "12px 0",
+                borderTop: i ? "1px solid rgba(245,241,234,0.08)" : "1px solid rgba(245,241,234,0.15)"
               }}>
                 <div>
                   <div style={{ fontSize: 12, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em", color: "rgba(245,241,234,0.80)" }}>{label}</div>
-                  <div style={{ fontFamily: "Bandit", fontSize: 13, color: "rgba(245,241,234,0.40)", marginTop: 2 }}>{fmt(budget)}</div>
+                  <div style={{ fontFamily: "Bandit", fontSize: 13, color: "rgba(245,241,234,0.55)", marginTop: 2 }}>{fmt(budget)}</div>
                 </div>
                 <div style={{ height: 16, background: "rgba(245,241,234,0.06)", position: "relative" }}>
-                  <div style={{ position: "absolute", left: 0, top: 0, height: "100%", width: budgetPct + "%", background: "rgba(245,241,234,0.15)" }}/>
-                  <div style={{ position: "absolute", left: 0, top: 0, height: "100%", width: spentPct + "%", background: "var(--accent)" }}/>
+                  <div style={{ position: "absolute", left: 0, top: 0, height: "100%", width: budgetPct + "%", background: "var(--accent)" }}/>
                 </div>
-                <div style={{ fontFamily: "Bandit", fontSize: 13, color: "var(--accent)", textAlign: "right" }}>{fmt(spent)}</div>
-                <div style={{ fontFamily: "Bandit", fontSize: 13, color: "rgba(245,241,234,0.45)", textAlign: "right" }}>{fmt(budget - spent)}</div>
               </div>
             );
           })}
-          <div style={{
-            display: "grid", gridTemplateColumns: "180px 1fr 64px 80px",
-            alignItems: "center", gap: 16,
-            padding: "10px 0",
-            borderTop: "1px solid rgba(245,241,234,0.25)"
-          }}>
-            <div>
-              <div style={{ fontSize: 12, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.06em" }}>Total</div>
-              <div style={{ fontFamily: "Bandit", fontSize: 13, color: "rgba(245,241,234,0.40)", marginTop: 2 }}>$1.15M</div>
-            </div>
-            <div/>
-            <div style={{ fontFamily: "Bandit", fontSize: 14, color: "var(--accent)", textAlign: "right" }}>$155K</div>
-            <div style={{ fontFamily: "Bandit", fontSize: 14, color: "rgba(245,241,234,0.45)", textAlign: "right" }}>$995K</div>
-          </div>
         </div>
       </div>
     </section>
@@ -604,7 +575,7 @@ window.DTTimeline = function DTTimeline() {
           fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase"
         }}>
           <span>May 2026 — Today</span>
-          <span>Phase 2 · 2027 +</span>
+          <span>Basement Launch · March 2027</span>
         </div>
       </div>
     </section>

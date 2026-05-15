@@ -29,18 +29,18 @@ window.DTHero = function DTHero({ variant = "signature", scrollPct = 0 }) {
         <div className="dt-d-mark" style={{ top: -100, right: -80 }}>D</div>
         <div style={{ position: "relative", zIndex: 2, maxWidth: 1200, margin: "0 auto" }}>
           <div className="dt-eyebrow" style={{ marginBottom: 32 }}>
-            301 Grand St &nbsp;·&nbsp; Confidential &nbsp;·&nbsp; April 2026
+            301 Grand St &nbsp;·&nbsp; Confidential &nbsp;·&nbsp; May 2026
           </div>
           <h1 className="dt-h-display" style={{ maxWidth: 900, fontSize: "clamp(40px, 5.5vw, 80px)" }}>
             A Sound-Led<br/>Hospitality Engine<br/>In Lower Manhattan
           </h1>
           <div style={{ display: "flex", gap: 64, marginTop: 80, flexWrap: "wrap" }}>
             {[
-              ["Capital", "$1.15M"],
-              ["Equity raise", "$700K"],
-              ["IRR", "~28%"],
-              ["Payback", "~3.0 yrs"],
-              ["5-yr multiple", "~2.0×"]
+              ["Capital", "$1.46M"],
+              ["Equity raise", "$500K"],
+              ["IRR", "~42%"],
+              ["Payback", "~1.9 yrs"],
+              ["5-yr multiple", "~2.17×"]
             ].map(([k, v]) => (
               <div key={k}>
                 <div className="dt-stat-num-bandit">{v}</div>
@@ -63,7 +63,7 @@ window.DTHero = function DTHero({ variant = "signature", scrollPct = 0 }) {
       <section style={{ position: "relative", padding: "120px 0 0", overflow: "hidden" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 48px" }}>
           <div className="dt-eyebrow" style={{ marginBottom: 32 }}>
-            301 Grand St &nbsp;·&nbsp; Confidential &nbsp;·&nbsp; April 2026
+            301 Grand St &nbsp;·&nbsp; Confidential &nbsp;·&nbsp; May 2026
           </div>
           <h1 style={{
             fontFamily: "Outfit", fontWeight: 900,
@@ -89,15 +89,15 @@ window.DTHero = function DTHero({ variant = "signature", scrollPct = 0 }) {
             </div>
             <div style={{ marginTop: "auto", display: "flex", gap: 32, flexWrap: "wrap" }}>
               <div>
-                <div style={{ fontFamily: "Bandit", fontSize: 56, lineHeight: 1 }}>$700K</div>
+                <div style={{ fontFamily: "Bandit", fontSize: 56, lineHeight: 1 }}>$500K</div>
                 <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.16em", marginTop: 6 }}>Equity raise</div>
               </div>
               <div>
-                <div style={{ fontFamily: "Bandit", fontSize: 56, lineHeight: 1 }}>~28%</div>
+                <div style={{ fontFamily: "Bandit", fontSize: 56, lineHeight: 1 }}>~42%</div>
                 <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.16em", marginTop: 6 }}>IRR (base)</div>
               </div>
               <div>
-                <div style={{ fontFamily: "Bandit", fontSize: 56, lineHeight: 1 }}>~2.0×</div>
+                <div style={{ fontFamily: "Bandit", fontSize: 56, lineHeight: 1 }}>~2.17×</div>
                 <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.16em", marginTop: 6 }}>5-yr multiple</div>
               </div>
             </div>
@@ -117,7 +117,7 @@ window.DTHero = function DTHero({ variant = "signature", scrollPct = 0 }) {
     <section style={{ position: "relative", padding: mobile ? "100px 24px 72px" : "140px 48px 96px", overflow: "hidden" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <div className="dt-eyebrow" style={{ marginBottom: 48 }}>
-          301 Grand St &nbsp;·&nbsp; Confidential &nbsp;·&nbsp; April 2026 &nbsp;·&nbsp; Accredited investors
+          301 Grand St &nbsp;·&nbsp; Confidential &nbsp;·&nbsp; May 2026 &nbsp;·&nbsp; Accredited investors
         </div>
         <div style={{ display: "flex", alignItems: mobile ? "flex-start" : "flex-end", flexDirection: mobile ? "column" : "row", gap: 24 }}>
           <h1 className="dt-h-display" style={{ flex: 1 }}>
@@ -144,14 +144,14 @@ window.DTHero = function DTHero({ variant = "signature", scrollPct = 0 }) {
         }}>
           {!mobile && (
             <div className="dt-body-lg" style={{ paddingRight: 24 }}>
-              A sound-led hospitality space in Lower Manhattan where listening deepens as the day turns into night. <span className="dt-fg-soft">$700K equity raise on a $1.15M project.</span>
+              A sound-led hospitality space in Lower Manhattan where listening deepens as the day turns into night. <span className="dt-fg-soft">$500K equity raise on a $1.46M project.</span>
             </div>
           )}
           {[
-            ["Capital", "$1.15M"],
-            ["Equity", "$700K"],
-            ["IRR", "~28%"],
-            ["Payback", "~3.0 yrs"]
+            ["Capital", "$1.46M"],
+            ["Equity", "$500K"],
+            ["IRR", "~42%"],
+            ["Payback", "~1.9 yrs"]
           ].map(([k, v]) => (
             <div key={k}>
               <div className="dt-stat-num" style={{ fontSize: mobile ? 28 : 38 }}>{v}</div>
