@@ -238,9 +238,9 @@ window.DTProjection = function DTProjection() {
               </div>
             </div>
             <div>
-              <div className="dt-eyebrow" style={{ marginBottom: 8 }}>Class B share</div>
+              <div className="dt-eyebrow" style={{ marginBottom: 8 }}>Business ownership</div>
               <div style={{ fontFamily: "Bandit", fontSize: mobile ? 36 : 48, lineHeight: 1, color: "var(--accent)" }}>
-                {(p * 100).toFixed(1)}%
+                {(p * 20).toFixed(1)}%
               </div>
             </div>
             <div style={{ textAlign: mobile ? "left" : "right" }}>
