@@ -71,6 +71,65 @@ window.DTOpportunity = function DTOpportunity() {
           We are offering <span style={{ color: "var(--accent)" }}>$500,000 in equity</span> to accredited investors to build and launch Downtone NYC.
         </div>
 
+        {/* Ownership structure — three-class cap table */}
+        <div style={{ display: "grid", gridTemplateColumns: mobile ? "1fr" : "0.75fr 1.25fr", gap: 0, marginBottom: 24, border: "1px solid rgba(245,241,234,0.15)" }}>
+          <div style={{
+            padding: mobile ? 24 : 28,
+            borderRight: mobile ? "none" : "1px solid rgba(245,241,234,0.15)",
+            borderBottom: mobile ? "1px solid rgba(245,241,234,0.15)" : "none",
+            display: "flex", alignItems: "center", justifyContent: "center"
+          }}>
+            <svg viewBox="0 0 200 200" style={{ width: "100%", maxWidth: 240, height: "auto", display: "block" }} aria-label="Ownership pie chart: Class A 70%, Class B 20%, Class C 10%">
+              {(() => {
+                const r = 95, cx = 100, cy = 100, labelR = 58;
+                const point = (pct, rr) => {
+                  const a = pct * 2 * Math.PI - Math.PI / 2;
+                  return { x: cx + rr * Math.cos(a), y: cy + rr * Math.sin(a) };
+                };
+                const slice = (start, end) => {
+                  const p1 = point(start, r);
+                  const p2 = point(end, r);
+                  const large = end - start > 0.5 ? 1 : 0;
+                  return "M " + cx + "," + cy + " L " + p1.x + "," + p1.y +
+                         " A " + r + "," + r + " 0 " + large + ",1 " + p2.x + "," + p2.y + " Z";
+                };
+                const pA = point(0.35, labelR);
+                const pB = point(0.80, labelR);
+                const pC = point(0.95, labelR);
+                return (
+                  <>
+                    <path d={slice(0,    0.70)} fill="var(--fg)"                 stroke="var(--bg)" strokeWidth="1.5"/>
+                    <path d={slice(0.70, 0.90)} fill="var(--accent)"             stroke="var(--bg)" strokeWidth="1.5"/>
+                    <path d={slice(0.90, 1.00)} fill="rgba(245,241,234,0.40)"    stroke="var(--bg)" strokeWidth="1.5"/>
+                    <text x={pA.x} y={pA.y} fill="var(--bg)" fontFamily="Bandit" fontSize="24" textAnchor="middle" dominantBaseline="central">A</text>
+                    <text x={pB.x} y={pB.y} fill="var(--bg)" fontFamily="Bandit" fontSize="24" textAnchor="middle" dominantBaseline="central">B</text>
+                    <text x={pC.x} y={pC.y} fill="var(--fg)" fontFamily="Bandit" fontSize="24" textAnchor="middle" dominantBaseline="central">C</text>
+                  </>
+                );
+              })()}
+            </svg>
+          </div>
+
+          <div style={{ padding: mobile ? 24 : 32, display: "flex", flexDirection: "column", gap: 20 }}>
+            <div>
+              <div className="dt-eyebrow" style={{ color: "var(--accent)", marginBottom: 10 }}>Ownership Structure</div>
+              <div className="dt-body" style={{ maxWidth: "none" }}>
+                Downtone is structured as an LLC with three classes of membership units. Each class has a defined role and a fixed share of company economics.
+              </div>
+            </div>
+            {[
+              ["Class A — Operator · 70%",         "Held by the founder/operator. Holds decision-making control and manages day-to-day operations."],
+              ["Class B — Investors · 20%",        "Accredited investors participating in the capital raise. Receives cash distributions — full structure detailed below."],
+              ["Class C — Reserved pool · 10%",    "Reserved for future advisors and key team members brought on as the business grows."]
+            ].map(([t, b]) => (
+              <div key={t}>
+                <div className="dt-eyebrow" style={{ color: "var(--fg)", marginBottom: 8 }}>{t}</div>
+                <div className="dt-body" style={{ maxWidth: "none" }}>{b}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div style={{ display: "grid", gridTemplateColumns: mobile ? "1fr" : "1.6fr 1fr", gap: 0, marginBottom: 56, border: "1px solid rgba(245,241,234,0.15)" }}>
           <div style={{ padding: 48, borderRight: "1px solid rgba(245,241,234,0.15)" }}>
             <div className="dt-eyebrow" style={{ marginBottom: 16 }}>Class B Membership Units</div>
@@ -87,16 +146,21 @@ window.DTOpportunity = function DTOpportunity() {
 
         <div style={{ display: "grid", gridTemplateColumns: mobile ? "1fr" : "1fr 1fr", gap: 24 }}>
           <div className="dt-card" style={{ background: "var(--bg)" }}>
-            <div className="dt-eyebrow" style={{ marginBottom: 24 }}>How it works</div>
-            <div style={{ marginBottom: 20 }}>
-              <div style={{ fontSize: 22, fontWeight: 800, lineHeight: 1.2 }}>70% of distributable cash flow to you</div>
-              <div className="dt-body" style={{ marginTop: 4 }}>until you receive 1.25× your investment back</div>
+            <div className="dt-eyebrow" style={{ marginBottom: 8 }}>How it works</div>
+            <div className="dt-fg-soft" style={{ fontSize: 13, marginBottom: 24, lineHeight: 1.55 }}>
+              Free cash flow = revenue after all expenses and obligations.
+            </div>
+            <div style={{ marginBottom: 24 }}>
+              <div className="dt-eyebrow" style={{ color: "var(--accent)", marginBottom: 6 }}>Phase 1 · Preferred return</div>
+              <div style={{ fontSize: 22, fontWeight: 800, lineHeight: 1.2 }}>70% of free cash flow to you</div>
+              <div className="dt-body" style={{ marginTop: 4 }}>until you receive 1.25× your investment back.</div>
             </div>
             <div style={{ marginBottom: 20 }}>
-              <div style={{ fontSize: 22, fontWeight: 800, lineHeight: 1.2 }}>20% of distributable cash flow ongoing</div>
-              <div className="dt-body" style={{ marginTop: 4 }}>for as long as the business operates</div>
+              <div className="dt-eyebrow" style={{ color: "var(--accent)", marginBottom: 6 }}>Phase 2 · Perpetual income</div>
+              <div style={{ fontSize: 22, fontWeight: 800, lineHeight: 1.2 }}>20% of free cash flow, ongoing</div>
+              <div className="dt-body" style={{ marginTop: 4 }}>for as long as the business operates — no expiry.</div>
             </div>
-            <div className="dt-body dt-fg-soft" style={{ marginTop: 24 }}>Paid quarterly. Annual K-1s. Full inspection rights.</div>
+            <div className="dt-body dt-fg-soft" style={{ marginTop: 24 }}>Paid annually after year-end close. Annual K-1s. Full inspection rights.</div>
           </div>
           <div className="dt-card" style={{ background: "var(--bg)" }}>
             <div className="dt-eyebrow" style={{ marginBottom: 24 }}>Structured to protect you</div>
