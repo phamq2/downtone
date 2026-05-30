@@ -6,11 +6,12 @@
 // Uses HTTP Basic Auth. The browser prompts for a username + password, but we
 // only check the password — the username field can be left blank (or anything).
 //
-// The password defaults to the value below so it works immediately on deploy.
-// To change it without editing code, set PORTAL_PASSWORD in the Vercel
-// dashboard → Project → Settings → Environment Variables and redeploy.
+// The password is read from the PORTAL_PASSWORD environment variable — set it
+// in the Vercel dashboard → Project → Settings → Environment Variables, then
+// redeploy. It is intentionally NOT hardcoded here because this repo is public.
+// If PORTAL_PASSWORD is unset, the gate fails closed (denies everyone).
 
-const PASSWORD = process.env.PORTAL_PASSWORD || 'hifitothepeople';
+const PASSWORD = process.env.PORTAL_PASSWORD;
 
 export const config = {
   // Gate every path. There are no public assets to exclude — the whole brief

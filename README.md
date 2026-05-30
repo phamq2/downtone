@@ -62,12 +62,15 @@ served, so the confidential brief never reaches an unauthenticated browser.
 Works on the free (Hobby) plan — no need for Vercel's paid Deployment Protection.
 
 1. Connect the GitHub repo to Vercel and deploy (framework preset: **Other**).
-2. Visiting the site prompts for a username + password. **Leave the username
+2. Project → Settings → Environment Variables, add (Production + Preview):
+   - `PORTAL_PASSWORD` — the shared password investors will enter.
+3. Redeploy so the env var takes effect.
+4. Visiting the site prompts for a username + password. **Leave the username
    blank** (or type anything) — only the password is checked.
 
-The password is set in `middleware.js` (default: `hifitothepeople`). To rotate
-it, either edit that file, or set `PORTAL_PASSWORD` in Project → Settings →
-Environment Variables and redeploy (the env var overrides the default).
+The password lives only in the `PORTAL_PASSWORD` env var (never in this repo,
+which is public). To rotate it, change the env var and redeploy. If it's unset,
+the gate fails closed (denies everyone).
 
 > Note: this gates *access* to the page. Once an investor is authenticated, the
 > full brief is in their browser (it's a self-contained HTML file) — that's
