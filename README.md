@@ -55,8 +55,26 @@ GitHub Pages is **fully public**. If the brief is confidential, use Netlify or V
 1. Drag the project folder into [app.netlify.com/drop](https://app.netlify.com/drop), or connect the GitHub repo.
 2. Site settings → Access & security → Visitor access → Password protection.
 
-### Vercel
-Similar — connect the repo, deploy, then enable password protection on the deployment.
+### Vercel (with password — free)
+This repo ships a `middleware.js` at the root that puts the whole brief behind a
+password (HTTP Basic Auth). It runs on Vercel's edge **before** any file is
+served, so the confidential brief never reaches an unauthenticated browser.
+Works on the free (Hobby) plan — no need for Vercel's paid Deployment Protection.
+
+1. Connect the GitHub repo to Vercel and deploy (framework preset: **Other**).
+2. Project → Settings → Environment Variables, add (Production + Preview):
+   - `PORTAL_PASSWORD` — the shared password investors will enter.
+3. Redeploy so the env var takes effect.
+4. Visiting the site prompts for a username + password. **Leave the username
+   blank** (or type anything) — only the password is checked.
+
+The password lives only in the `PORTAL_PASSWORD` env var (never in this repo,
+which is public). To rotate it, change the env var and redeploy. If it's unset,
+the gate fails closed (denies everyone).
+
+> Note: this gates *access* to the page. Once an investor is authenticated, the
+> full brief is in their browser (it's a self-contained HTML file) — that's
+> inherent to any static brief and expected.
 
 ## Brand
 Logos, fonts, and color tokens are part of the existing **Downtone** brand system. Don't substitute web fonts — self-host the .otf/.ttf files in `src/fonts/`.
