@@ -57,20 +57,25 @@ GitHub Pages is **fully public**. If the brief is confidential, use Netlify or V
 
 ### Vercel (with password — free)
 This repo ships a `middleware.js` at the root that puts the whole brief behind a
-password (HTTP Basic Auth). It runs on Vercel's edge **before** any file is
-served, so the confidential brief never reaches an unauthenticated browser.
-Works on the free (Hobby) plan — no need for Vercel's paid Deployment Protection.
+password. It runs on Vercel's edge **before** any file is served, so the
+confidential brief never reaches an unauthenticated browser. Works on the free
+(Hobby) plan — no need for Vercel's paid Deployment Protection.
 
-1. Connect the GitHub repo to Vercel and deploy (framework preset: **Other**).
+Visitors see a custom, on-brand login page with a single password field (not the
+native browser auth dialog). Once they enter the password, a cookie remembers
+them for 30 days.
+
+1. Connect the GitHub repo to Vercel and deploy.
+   - **Set the project's Root Directory to the repo root** (not `src/`) so Vercel
+     serves the production `index.html` bundle *and* picks up `middleware.js`.
 2. Project → Settings → Environment Variables, add (Production + Preview):
    - `PORTAL_PASSWORD` — the shared password investors will enter.
 3. Redeploy so the env var takes effect.
-4. Visiting the site prompts for a username + password. **Leave the username
-   blank** (or type anything) — only the password is checked.
 
 The password lives only in the `PORTAL_PASSWORD` env var (never in this repo,
-which is public). To rotate it, change the env var and redeploy. If it's unset,
-the gate fails closed (denies everyone).
+which is public). To rotate it, change the env var and redeploy — existing
+sessions are invalidated automatically. If it's unset, the gate fails closed
+(denies everyone).
 
 > Note: this gates *access* to the page. Once an investor is authenticated, the
 > full brief is in their browser (it's a self-contained HTML file) — that's
