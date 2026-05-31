@@ -69,9 +69,10 @@ function loginPage(error, status) {
 <style>
   :root { --bg:#0F0F0F; --cream:#F5F1EA; --amber:#D9A441; --muted:#8A857C; --line:#2A2A2A; }
   * { box-sizing: border-box; }
-  html, body { height: 100%; margin: 0; }
+  html, body { margin: 0; background-color: var(--bg); }
+  html { min-height: 100%; }
   body {
-    background: var(--bg); color: var(--cream);
+    min-height: 100vh; color: var(--cream);
     font-family: 'Outfit', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
     display: grid; place-items: center; padding: 24px;
     -webkit-font-smoothing: antialiased;
