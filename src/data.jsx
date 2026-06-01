@@ -19,7 +19,7 @@ window.DT_DATA = (function() {
     ["projection", "Returns"],
     ["funding", "Funding"],
     ["timeline", "Timeline"],
-    ["why", "Why Now"],
+    ["why", "Thesis"],
     ["positioning", "Positioning"],
     ["assumptions", "Model"],
     ["financials", "Financials"],
@@ -61,15 +61,15 @@ window.DT_DATA = (function() {
     ["S", 105], ["O", 110], ["N", 105], ["D", 110]
   ];
 
-  // [label, budget]
+  // [label, budget, description]
   const USE_OF_FUNDS = [
-    ["Build Out",                           475000],
-    ["Equipment & FF&E",                    318000],
-    ["Working Capital + Contingency",       205000],
-    ["Soft Costs",                          183000],
-    ["Pre-Opening + Startup",               100000],
-    ["Deposits & Financing",                 96000],
-    ["Pre-Opening Burn (rent + utilities)",  85000]
+    ["Build Out",                           475000, "GC, millwork, MEP, and the Sound Room."],
+    ["Equipment & FF&E",                    318000, "Espresso, hi-fi, furniture, and kitchen gear."],
+    ["Working Capital + Contingency",       205000, "Operating cushion and overrun reserve."],
+    ["Soft Costs",                          183000, "Architecture, engineering, and permits."],
+    ["Pre-Opening + Startup",               100000, "Hiring, training, inventory, and launch."],
+    ["Deposits & Financing",                 96000, "Lease/utility deposits and financing costs."],
+    ["Pre-Opening Burn (rent + utilities)",  85000, "Rent and utilities carried before opening."]
   ];
 
   const DOW = [
@@ -183,16 +183,41 @@ window.DT_DATA = (function() {
      "Paid from distributable cash flow after expenses, debt, and reserves. Early-stage venture with no operating history."]
   ];
 
+  // Each thesis belief: a title, a few body paragraphs (lead), and a punch
+  // line — the standout statement rendered in the accent serif.
   const WHY = [
-    ["The correction.",
-     "The rise of third spaces is not a trend — it’s a correction. After years of isolation and digital overload, people are seeking genuine connection, sensory richness, and belonging. Vinyl sales are at a 30-year high. Listening bars are spreading globally. The experience economy continues to outpace traditional hospitality."],
-    ["The alternative.",
-     "Most of what’s being built is exclusive — members clubs, luxury lounges, velvet ropes. Downtone is the opposite. Rooted in community, accessibility, and culture."],
-    ["The neighborhood.",
-     "Lower Manhattan is at a crossroads. The spaces that defined Chinatown and the LES’s creative identity are disappearing. Downtone is built to be a gathering place that belongs to the community — not above it."],
-    ["The foundation.",
-     "Quoc Pham has spent 12 years proving people will show up when you give them great sound and a reason to be in the same room together — building a globally recognized collective, a record label, and a community that spans continents, all without a permanent home."]
+    {
+      t: "Hospitality first.",
+      lead: [
+        "Modern hospitality is too often optimized for novelty, visibility, and consumption. Beautiful spaces can feel emotionally cold — aesthetics prized over comfort, atmosphere, and the simple feeling of wanting to stay.",
+        "Downtone starts from a different belief:"
+      ],
+      punch: "Hospitality comes first. Everything else exists to deepen that experience."
+    },
+    {
+      t: "Sound shapes feeling.",
+      lead: [
+        "Music is often treated as decoration. We treat sound as part of the hospitality experience itself — it shapes mood, pacing, conversation, and memory, and how a room is remembered."
+      ],
+      punch: "Good sound should feel communal, not exclusive."
+    },
+    {
+      t: "Ritual over novelty.",
+      lead: [
+        "The strongest hospitality spaces become part of people’s routines — morning coffee, one drink after work, familiar faces, a favorite seat. Downtone is designed around repeat behavior, not constant reinvention."
+      ],
+      punch: "A healthy Tuesday matters more than a packed special event."
+    },
+    {
+      t: "Culture is earned.",
+      lead: [
+        "Programming can deepen a room, but it can’t substitute for one. Meaning emerges through consistency, trust, and repetition over time. We’re not trying to manufacture culture."
+      ],
+      punch: "We are creating the conditions for it to emerge."
+    }
   ];
+
+
 
   // Positioning section. Coordinates are 0–100 on each axis (X = hospitality
   // economics, Y = cultural differentiation). Downtone is featured but
@@ -314,7 +339,7 @@ window.DT_DATA = (function() {
         x: 72, y: 30,
         dayparts: [0, 60, 100, 70],
         avgCheck: "~$45",
-        why: "Operating since 1892, Old Town proves that disciplined neighborhood hospitality can sustain repeat behavior across generations without leaning on programming.",
+        why: "Open since 1892 — proof that disciplined neighborhood hospitality sustains repeat behavior for generations, without programming.",
         takeaway: "Validates the durability of consistency and density. Downtone adds cultural and daytime layers on top of the same neighborhood discipline.",
         points: [
           "Operating in Flatiron since 1892",
@@ -323,7 +348,20 @@ window.DT_DATA = (function() {
           "Multi-generational repeat clientele"
         ]
       }
-    ]
+    ],
+    // Approximate category economics for the comparison table — directional
+    // estimates only. covers = est. covers/day; low/high = annual revenue $M.
+    // Downtone is anchored to its own model (~365 covers, ~$11K/day, $3.5–4.4M).
+    econ: {
+      dcp:       { covers: 250, low: 4.5, high: 5.8 },
+      pr:        { covers: 475, low: 7.0, high: 8.0 },
+      oldtown:   { covers: 250, low: 3.5, high: 4.5 },
+      downtone:  { covers: 365, low: 3.5, high: 4.4 },
+      eavesdrop: { covers: 160, low: 2.0, high: 3.0 },
+      lacabra:   { covers: 350, low: 1.8, high: 2.4 },
+      madradio:  { covers: 260, low: 2.0, high: 2.5 },
+      silence:   { covers: 90,  low: 0.5, high: 0.8 }
+    }
   };
 
   function fmt(n) {

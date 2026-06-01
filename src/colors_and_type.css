@@ -61,6 +61,16 @@
   --dt-amber:   #FF9B00;
   --dt-green:   #00EB72;
 
+  /* Extended tints — for multi-series data viz (e.g. the funding pie). */
+  --dt-cream:   #FFCDA3;  /* orange cream */
+  --dt-butter:  #EEDFA2;  /* soft pale yellow */
+  --dt-sky:     #A9CCF5;  /* light blue */
+  --dt-mint:    #73F4B1;  /* light green — soft commitments (lighter --dt-green) */
+  --dt-gray-1:  #D8D4CB;
+  --dt-gray-2:  #BBB6AC;
+  --dt-gray-3:  #9E998F;
+  --dt-gray-4:  #847F77;
+
   /* Neutrals (used sparingly). */
   --dt-paper:   #F5F1EA;  /* soft off-white for long body copy */
   --dt-ink:     #141414;  /* same as dark-black */

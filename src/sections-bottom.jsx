@@ -2,33 +2,72 @@
 
 window.DTWhy = function DTWhy() {
   const { WHY } = window.DT_DATA;
+  const { useState, useEffect } = React;
   const mobile = useMobile();
+  const [active, setActive] = useState(0);
+
+  // Scroll-spy: highlight the index item whose belief is in the reading band.
+  useEffect(() => {
+    const els = WHY.map((_, i) => document.getElementById("thesis-" + i)).filter(Boolean);
+    if (!els.length) return;
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          const idx = els.indexOf(e.target);
+          if (idx !== -1) setActive(idx);
+        }
+      });
+    }, { rootMargin: "-14% 0px -80% 0px", threshold: 0 });
+    els.forEach((el) => obs.observe(el));
+    return () => obs.disconnect();
+  }, []);
+
+  const goTo = (i) => {
+    const el = document.getElementById("thesis-" + i);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   return (
     <section id="why" className="dt-section">
       <div className="dt-section-inner">
         <div className="dt-section-eyebrow">
-          <span className="dt-section-num">06 / Why Now</span>
+          <span className="dt-section-num">06 / Thesis</span>
           <span className="dot"/>
-          <span className="dt-eyebrow dt-fg-soft">The cultural read</span>
+          <span className="dt-eyebrow dt-fg-soft">The Downtone thesis</span>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: mobile ? "1fr" : "1fr 1.3fr", gap: mobile ? 32 : 80, alignItems: "start" }}>
           <div style={{ position: mobile ? "static" : "sticky", top: 96 }}>
-            <h2 className="dt-h-1" style={{ marginBottom: 24 }}>Why This.<br/>Why Now.</h2>
+            <h2 className="dt-h-1" style={{ marginBottom: 24 }}>Our beliefs.</h2>
             <div className="dt-serif-it" style={{ fontSize: mobile ? 20 : 24, color: "var(--accent)", lineHeight: 1.3 }}>
-              People are looking for real spaces again.
+              People return because of how a place makes them feel.
             </div>
+            {!mobile && (
+              <div style={{ marginTop: 40 }}>
+                {WHY.map((item, i) => (
+                  <div key={i} onClick={() => goTo(i)} style={{
+                    display: "flex", gap: 14, alignItems: "baseline",
+                    padding: "11px 0",
+                    cursor: "pointer",
+                    borderTop: i ? "1px solid rgba(245,241,234,0.08)" : "1px solid rgba(245,241,234,0.15)"
+                  }}>
+                    <span className="dt-eyebrow" style={{ fontSize: 11, color: active === i ? "var(--accent)" : "rgba(245,241,234,0.45)", transition: "color 200ms var(--ease-house)" }}>{String(i + 1).padStart(2, "0")}</span>
+                    <span className="dt-eyebrow" style={{ color: active === i ? "var(--accent)" : "var(--fg)", opacity: active === i ? 1 : 0.65, transition: "color 200ms var(--ease-house), opacity 200ms var(--ease-house)" }}>{item.t.replace(/\.$/, "")}</span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
           <div className="dt-hairline-list">
-            {WHY.map(([t, b], i) => (
-              <div key={i} style={{ padding: "32px 0" }}>
-                <div className="dt-eyebrow" style={{ color: "var(--accent)", marginBottom: 12 }}>{t}</div>
-                <div className="dt-body" style={{ fontSize: 16 }}>{b}</div>
+            {WHY.map((item, i) => (
+              <div key={i} id={"thesis-" + i} style={{ padding: "32px 0", scrollMarginTop: 96 }}>
+                <div className="dt-eyebrow" style={{ color: "var(--accent)", marginBottom: 16 }}>{item.t}</div>
+                {item.lead.map((p, j) => (
+                  <div key={j} className="dt-body" style={{ fontSize: 16, marginBottom: 12 }}>{p}</div>
+                ))}
+                <div className="dt-serif-it" style={{ fontSize: mobile ? 18 : 20, color: "var(--accent)", lineHeight: 1.4, marginTop: 4 }}>{item.punch}</div>
               </div>
             ))}
-            <div style={{ padding: "32px 0 0" }}>
-              <div className="dt-h-2" style={{ color: "var(--accent)" }}>Downtone is that home.</div>
-            </div>
           </div>
         </div>
       </div>
@@ -42,6 +81,15 @@ window.DTPositioning = function DTPositioning() {
   const mobile = useMobile();
   const [activeId, setActiveId] = useState("downtone");
   const active = POSITIONING.nodes.find(n => n.id === activeId) || POSITIONING.nodes[0];
+
+  // Estimated economics shown in the reference card (directional only).
+  const econ = POSITIONING.econ || {};
+  const checkVal = (n) => parseInt(String(n.avgCheck).replace(/[^0-9]/g, ""), 10) || 0;
+  const maxAnnual = Math.max(...POSITIONING.nodes.map(n => (econ[n.id] ? econ[n.id].high : 0)));
+  const scaleMax = Math.max(2, Math.ceil(maxAnnual / 2) * 2);
+  const trimNum = (x) => String(Math.round(x * 10) / 10);
+  const dailyRevK = (n) => { const e = econ[n.id]; return e ? trimNum((e.covers * checkVal(n)) / 1000) : ""; };
+  const activeEcon = econ[active.id] || null;
 
   return (
     <section id="positioning" className="dt-section" style={{ paddingBottom: mobile ? 48 : 64 }}>
@@ -160,6 +208,19 @@ window.DTPositioning = function DTPositioning() {
               </div>
             </div>
 
+            {/* Disclaimer — aligned to the map plot box (matches its 76px y-axis inset) */}
+            <div className="dt-serif-it" style={{
+              marginLeft: 76,
+              marginTop: 28,
+              paddingTop: 24,
+              borderTop: "1px solid rgba(245,241,234,0.15)",
+              fontSize: mobile ? 15 : 17,
+              lineHeight: 1.5,
+              color: "rgba(245,241,234,0.70)"
+            }}>
+              All figures shown are approximations. Comparative positioning is directional and intended to illustrate business model characteristics rather than precise operating metrics.
+            </div>
+
           </div>
 
           {/* Active node card */}
@@ -180,40 +241,69 @@ window.DTPositioning = function DTPositioning() {
               {active.descriptor}
             </div>
 
-            {/* Spec strip — daypart pattern + avg check */}
+            {/* Spec strip — daypart pattern, avg check, and estimated economics in one box */}
             <div style={{
-              display: "flex",
-              gap: 16,
-              alignItems: "stretch",
               marginBottom: 24,
               padding: 16,
               background: "rgba(245,241,234,0.04)",
               border: "1px solid rgba(245,241,234,0.10)"
             }}>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div className="dt-eyebrow dt-fg-soft" style={{ fontSize: 9, marginBottom: 10 }}>Daypart pattern · est. throughput</div>
-                <div style={{ display: "flex", gap: 4, alignItems: "flex-end", height: 48 }}>
-                  {active.dayparts.map((v, i) => (
-                    <div key={i} style={{
-                      flex: 1,
-                      height: Math.max(2, v * 0.46) + "px",
-                      background: v > 0 ? "var(--accent)" : "rgba(245,241,234,0.18)",
-                      opacity: v > 0 ? Math.max(0.35, v / 100) : 0.4,
-                      transition: "height 250ms, opacity 250ms"
+              <div style={{ display: "flex", gap: 16, alignItems: "stretch" }}>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div className="dt-eyebrow dt-fg-soft" style={{ fontSize: 9, marginBottom: 10 }}>Daypart pattern · est. throughput</div>
+                  <div style={{ display: "flex", gap: 4, alignItems: "flex-end", height: 48 }}>
+                    {active.dayparts.map((v, i) => (
+                      <div key={i} style={{
+                        flex: 1,
+                        height: Math.max(2, v * 0.46) + "px",
+                        background: v > 0 ? "var(--accent)" : "rgba(245,241,234,0.18)",
+                        opacity: v > 0 ? Math.max(0.35, v / 100) : 0.4,
+                        transition: "height 250ms, opacity 250ms"
+                      }}/>
+                    ))}
+                  </div>
+                  <div style={{ display: "flex", gap: 4, marginTop: 6 }}>
+                    {["AM", "LUN", "EVE", "LATE"].map((l, i) => (
+                      <div key={i} style={{ flex: 1, textAlign: "center", fontSize: 9, letterSpacing: "0.10em", color: "rgba(245,241,234,0.45)" }}>{l}</div>
+                    ))}
+                  </div>
+                </div>
+                <div style={{ borderLeft: "1px solid rgba(245,241,234,0.15)", paddingLeft: 16, display: "flex", flexDirection: "column", justifyContent: "center", minWidth: 92 }}>
+                  <div className="dt-eyebrow dt-fg-soft" style={{ fontSize: 9, marginBottom: 6 }}>Avg check</div>
+                  <div style={{ fontFamily: "Bandit", fontSize: 24, color: "var(--accent)", lineHeight: 1 }}>{active.avgCheck}</div>
+                  <div className="dt-fg-soft" style={{ fontSize: 10, marginTop: 4 }}>per cover</div>
+                </div>
+              </div>
+
+              {activeEcon && (
+                <div style={{ marginTop: 16, paddingTop: 16, borderTop: "1px solid rgba(245,241,234,0.10)" }}>
+                  <div style={{ display: "flex", gap: 16, marginBottom: 12 }}>
+                    {[
+                      ["Covers/day", "~" + activeEcon.covers, false],
+                      ["Daily rev", "~$" + dailyRevK(active) + "K", false],
+                      ["Annual rev", "~$" + trimNum(activeEcon.low) + "–" + trimNum(activeEcon.high) + "M", true]
+                    ].map(([label, val, hot], i) => (
+                      <div key={i} style={{ flex: hot ? 1.3 : 1, minWidth: 0 }}>
+                        <div className="dt-eyebrow dt-fg-soft" style={{ fontSize: 9, marginBottom: 5 }}>{label}</div>
+                        <div style={{ fontFamily: "Bandit", fontSize: 18, lineHeight: 1, color: hot ? "var(--accent)" : "var(--fg)", whiteSpace: "nowrap" }}>{val}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <div style={{ position: "relative", height: 7, background: "rgba(245,241,234,0.08)" }}>
+                    <div style={{
+                      position: "absolute", top: 0, height: "100%",
+                      left: ((activeEcon.low / scaleMax) * 100) + "%",
+                      width: (((activeEcon.high - activeEcon.low) / scaleMax) * 100) + "%",
+                      background: "var(--accent)",
+                      transition: "left 300ms var(--ease-house), width 300ms var(--ease-house)"
                     }}/>
-                  ))}
+                  </div>
+                  <div style={{ display: "flex", justifyContent: "space-between", marginTop: 5 }}>
+                    <div className="dt-fg-soft" style={{ fontSize: 9, fontFamily: "Bandit" }}>$0</div>
+                    <div className="dt-fg-soft" style={{ fontSize: 9, fontFamily: "Bandit" }}>${trimNum(scaleMax)}M</div>
+                  </div>
                 </div>
-                <div style={{ display: "flex", gap: 4, marginTop: 6 }}>
-                  {["AM", "LUN", "EVE", "LATE"].map((l, i) => (
-                    <div key={i} style={{ flex: 1, textAlign: "center", fontSize: 9, letterSpacing: "0.10em", color: "rgba(245,241,234,0.45)" }}>{l}</div>
-                  ))}
-                </div>
-              </div>
-              <div style={{ borderLeft: "1px solid rgba(245,241,234,0.15)", paddingLeft: 16, display: "flex", flexDirection: "column", justifyContent: "center", minWidth: 92 }}>
-                <div className="dt-eyebrow dt-fg-soft" style={{ fontSize: 9, marginBottom: 6 }}>Avg check</div>
-                <div style={{ fontFamily: "Bandit", fontSize: 24, color: "var(--accent)", lineHeight: 1 }}>{active.avgCheck}</div>
-                <div className="dt-fg-soft" style={{ fontSize: 10, marginTop: 4 }}>per cover</div>
-              </div>
+              )}
             </div>
 
             <div className="dt-eyebrow dt-fg-soft" style={{ fontSize: 10, marginBottom: 8 }}>Why it matters</div>
@@ -233,24 +323,6 @@ window.DTPositioning = function DTPositioning() {
           </div>
         </div>
 
-        {/* Disclaimer — sits under the quadrant column only, matching its width */}
-        <div style={{
-          marginTop: mobile ? 32 : 40,
-          display: "grid",
-          gridTemplateColumns: mobile ? "1fr" : "1.05fr 1fr",
-          gap: mobile ? 32 : 56
-        }}>
-          <div className="dt-serif-it" style={{
-            paddingTop: 24,
-            borderTop: "1px solid rgba(245,241,234,0.15)",
-            fontSize: mobile ? 16 : 18,
-            lineHeight: 1.5,
-            color: "rgba(245,241,234,0.70)",
-            textAlign: "center"
-          }}>
-            All figures shown are approximations. Comparative positioning is directional and intended to illustrate business model characteristics rather than precise operating metrics.
-          </div>
-        </div>
       </div>
     </section>
   );
@@ -283,8 +355,24 @@ window.DTAssumptions = function DTAssumptions() {
         </div>
 
         <h2 className="dt-h-1" style={{ marginBottom: 16 }}>Assumptions.</h2>
-        <div className="dt-body-lg" style={{ marginBottom: 56, maxWidth: 700 }}>
+        <div className="dt-body-lg" style={{ marginBottom: 32, maxWidth: 700 }}>
           Revenue is driven by four distinct dayparts across a 79-seat main floor.
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: mobile ? "1fr" : "repeat(3, 1fr)", gap: 16, marginBottom: 56 }}>
+          {[
+            "url('assets/menu/menu-morning.jpg')",
+            "url('assets/menu/menu-afternoon.jpg')",
+            "url('assets/menu/menu-evening.jpg')"
+          ].map((img, i) => (
+            <div key={i} className="grain" style={{
+              aspectRatio: "4 / 3",
+              backgroundImage: img,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              border: "1px solid rgba(245,241,234,0.10)"
+            }}/>
+          ))}
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: mobile ? "1fr" : "1.4fr 1fr", gap: mobile ? 40 : 56 }}>

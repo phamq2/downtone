@@ -46,6 +46,9 @@ INLINE_ASSETS = {
     "assets/photos/venue-frontage.jpg":    ("image/jpeg",      None),
     "assets/map-nyc.jpg":                  ("image/jpeg",      None),
     "assets/posters-collage.jpg":          ("image/jpeg",      2400),
+    "assets/menu/menu-morning.jpg":        ("image/jpeg",      1600),
+    "assets/menu/menu-afternoon.jpg":      ("image/jpeg",      1600),
+    "assets/menu/menu-evening.jpg":        ("image/jpeg",      1600),
     "assets/Downtone-Concept.pdf":         ("application/pdf", None),
 }
 
