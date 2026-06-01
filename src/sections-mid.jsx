@@ -189,7 +189,7 @@ window.DTProjection = function DTProjection() {
   const { useState, useMemo } = React;
   const mobile = useMobile();
   const { TIER_MIN, PERKS, YR_DIST, YR_TOTAL, fmt } = window.DT_DATA;
-  const [inv, setInv] = useState(50000);
+  const [inv, setInv] = useState(25000);
 
   const p = inv / 500000;
   const my = YR_DIST.map(x => x * p);
@@ -262,13 +262,13 @@ window.DTProjection = function DTProjection() {
             <input
               type="range"
               className="dt-slider"
-              min={10000} max={150000} step={1000}
+              min={12500} max={125000} step={2500}
               value={inv}
               onChange={e => setInv(+e.target.value)}
             />
             <div style={{ display: "flex", justifyContent: "space-between", marginTop: 12 }}>
-              <span className="dt-eyebrow dt-fg-soft">$10,000</span>
-              <span className="dt-eyebrow dt-fg-soft">$150,000</span>
+              <span className="dt-eyebrow dt-fg-soft">$12,500</span>
+              <span className="dt-eyebrow dt-fg-soft">$125,000</span>
             </div>
           </div>
         </div>
@@ -408,9 +408,171 @@ function Row({ label, cum, mult, note, hl }) {
   );
 }
 
-window.DTFunding = function DTFunding() {
+// Use-of-funds breakdown: interactive pie + table. Hover a slice or row to
+// link the two and surface the dollar amount; percentages sit on the slices.
+window.DTUseOfFunds = function DTUseOfFunds() {
   const { USE_OF_FUNDS, fmt } = window.DT_DATA;
+  const { useState } = React;
+  const mobile = useMobile();
+  const [active, setActive] = useState(null);
+
   const total = USE_OF_FUNDS.reduce((s, [, v]) => s + v, 0);
+
+  // Restrained palette — orange, orange-cream, light blue, then a gray ramp
+  // for the smaller line items. All light enough to carry dark on-slice labels.
+  const palette = [
+    "var(--dt-amber)",
+    "var(--dt-cream)",
+    "var(--dt-sky)",
+    "var(--dt-butter)",
+    "var(--dt-gray-1)",
+    "var(--dt-gray-2)",
+    "var(--dt-gray-3)"
+  ];
+
+  const size = mobile ? 240 : 300;
+  const r = size / 2;
+  let cum = 0;
+  const slices = USE_OF_FUNDS.map(([label, budget, desc], i) => {
+    const start = cum / total;
+    cum += budget;
+    const end = cum / total;
+    const mid = (start + end) / 2;
+    const a0 = 2 * Math.PI * start - Math.PI / 2;
+    const a1 = 2 * Math.PI * end - Math.PI / 2;
+    const am = 2 * Math.PI * mid - Math.PI / 2;
+    const x0 = r + r * Math.cos(a0), y0 = r + r * Math.sin(a0);
+    const x1 = r + r * Math.cos(a1), y1 = r + r * Math.sin(a1);
+    const large = end - start > 0.5 ? 1 : 0;
+    const d = `M ${r} ${r} L ${x0.toFixed(2)} ${y0.toFixed(2)} A ${r} ${r} 0 ${large} 1 ${x1.toFixed(2)} ${y1.toFixed(2)} Z`;
+    const labelR = r * 0.64;
+    const lx = r + labelR * Math.cos(am);
+    const ly = r + labelR * Math.sin(am);
+    return { d, color: palette[i % palette.length], label, desc, budget, pct: budget / total, mid: am, lx, ly };
+  });
+
+  const caption = active != null ? slices[active] : null;
+  const lift = 10;
+
+  return (
+    <div>
+      <div style={{ marginBottom: 24 }}>
+        <div className="dt-eyebrow">Use of Funds · $1.46M Total</div>
+      </div>
+      <div style={{
+        display: "flex",
+        flexDirection: mobile ? "column" : "row",
+        alignItems: "center",
+        gap: mobile ? 24 : 56
+      }}>
+        <div style={{ flexShrink: 0, alignSelf: "center" }}>
+          <svg
+            viewBox={`0 0 ${size} ${size}`}
+            width={mobile ? "100%" : size}
+            height={mobile ? "auto" : size}
+            style={{ maxWidth: size, display: "block", overflow: "visible" }}
+            role="img"
+            aria-label="Use of funds breakdown by category"
+          >
+            {slices.map((s, i) => {
+              const isActive = active === i;
+              const dimmed = active != null && !isActive;
+              const dx = isActive ? Math.cos(s.mid) * lift : 0;
+              const dy = isActive ? Math.sin(s.mid) * lift : 0;
+              return (
+                <g
+                  key={i}
+                  transform={`translate(${dx.toFixed(2)} ${dy.toFixed(2)})`}
+                  style={{
+                    transition: "transform 250ms var(--ease-house), opacity 250ms var(--ease-house)",
+                    opacity: dimmed ? 0.4 : 1,
+                    cursor: "pointer"
+                  }}
+                  onMouseEnter={() => setActive(i)}
+                  onMouseLeave={() => setActive(null)}
+                >
+                  <path d={s.d} fill={s.color} stroke="var(--field2)" strokeWidth="2" />
+                  {s.pct >= 0.05 && (
+                    <text
+                      x={s.lx} y={s.ly}
+                      fill="var(--bg)"
+                      fontFamily="Bandit"
+                      fontSize={mobile ? 13 : 15}
+                      textAnchor="middle"
+                      dominantBaseline="central"
+                      style={{ pointerEvents: "none" }}
+                    >
+                      {Math.round(s.pct * 100)}%
+                    </text>
+                  )}
+                </g>
+              );
+            })}
+          </svg>
+          <div style={{ textAlign: "center", marginTop: 16, minHeight: 48 }}>
+            <div style={{
+              fontSize: 11, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.10em",
+              color: caption ? caption.color : "rgba(245,241,234,0.55)",
+              transition: "color 250ms var(--ease-house)"
+            }}>
+              {caption ? caption.label : "Total Capital"}
+            </div>
+            <div style={{ fontFamily: "Bandit", fontSize: 22, color: "var(--fg)", marginTop: 4 }}>
+              {caption ? `${fmt(caption.budget)} · ${(caption.pct * 100).toFixed(0)}%` : fmt(total)}
+            </div>
+          </div>
+        </div>
+
+        <div style={{ flex: 1, minWidth: 0, width: mobile ? "100%" : "auto" }}>
+          {slices.map((s, i) => {
+            const isActive = active === i;
+            return (
+              <div
+                key={i}
+                onMouseEnter={() => setActive(i)}
+                onMouseLeave={() => setActive(null)}
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "auto 1fr auto auto",
+                  alignItems: "center",
+                  gap: 16,
+                  padding: "12px 12px",
+                  cursor: "pointer",
+                  background: isActive ? "rgba(245,241,234,0.06)" : "transparent",
+                  transition: "background 200ms var(--ease-house)",
+                  borderTop: i ? "1px solid rgba(245,241,234,0.08)" : "1px solid rgba(245,241,234,0.15)"
+                }}
+              >
+                <span style={{ width: 12, height: 12, background: s.color, flexShrink: 0, display: "inline-block" }}/>
+                <div style={{ display: "flex", alignItems: "baseline", gap: 10, minWidth: 0, flexWrap: "wrap" }}>
+                  <span style={{ fontSize: 12, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em", color: "rgba(245,241,234,0.85)", whiteSpace: "nowrap" }}>{s.label}</span>
+                  <span style={{ fontSize: 12.5, color: "rgba(245,241,234,0.45)" }}>{s.desc}</span>
+                </div>
+                <div style={{ fontFamily: "Bandit", fontSize: 14, color: "rgba(245,241,234,0.85)", textAlign: "right", whiteSpace: "nowrap" }}>{fmt(s.budget)}</div>
+                <div style={{ fontFamily: "Bandit", fontSize: 14, color: "rgba(245,241,234,0.50)", textAlign: "right", minWidth: 44, whiteSpace: "nowrap" }}>{(s.pct * 100).toFixed(0)}%</div>
+              </div>
+            );
+          })}
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "auto 1fr auto auto",
+            alignItems: "center",
+            gap: 16,
+            padding: "12px 12px",
+            borderTop: "1px solid rgba(245,241,234,0.15)"
+          }}>
+            <span style={{ width: 12, height: 12, flexShrink: 0, display: "inline-block" }}/>
+            <div style={{ fontSize: 12, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--fg)" }}>Total</div>
+            <div style={{ fontFamily: "Bandit", fontSize: 14, color: "var(--fg)", textAlign: "right", whiteSpace: "nowrap" }}>{fmt(total)}</div>
+            <div style={{ fontFamily: "Bandit", fontSize: 14, color: "rgba(245,241,234,0.50)", textAlign: "right", minWidth: 44, whiteSpace: "nowrap" }}>100%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+window.DTFunding = function DTFunding() {
   const mobile = useMobile();
   return (
     <section id="funding" className="dt-section" style={{ background: "var(--field2)" }}>
@@ -421,16 +583,69 @@ window.DTFunding = function DTFunding() {
           <span className="dt-eyebrow dt-fg-soft">$1.46M total · $360K open</span>
         </div>
 
-        <h2 className="dt-h-1" style={{ marginBottom: 48 }}>Funding<br/>Progress.</h2>
+        <h2 className="dt-h-1" style={{ marginBottom: 24 }}>Funding<br/>Progress.</h2>
+
+        <div style={{ maxWidth: 820, marginBottom: 48 }}>
+          <p className="dt-body" style={{ margin: "0 0 16px 0", color: "rgba(245,241,234,0.80)" }}>
+            We're raising in two milestones:
+          </p>
+          <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+            <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
+              <span style={{ width: 7, height: 7, background: "var(--accent)", marginTop: 9, flexShrink: 0 }}/>
+              <div style={{ color: "rgba(245,241,234,0.80)", lineHeight: 1.55 }}>
+                <strong style={{ fontWeight: 700, color: "var(--fg)" }}>Round 1</strong> targets <span style={{ color: "var(--accent)" }}>$1.26M by the end of June 2026</span>, funding construction, permitting, and development costs.
+              </div>
+            </div>
+            <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
+              <span style={{ width: 7, height: 7, background: "var(--accent)", marginTop: 9, flexShrink: 0 }}/>
+              <div style={{ color: "rgba(245,241,234,0.80)", lineHeight: 1.55 }}>
+                <strong style={{ fontWeight: 700, color: "var(--fg)" }}>Round 2</strong> closes the remaining <span style={{ color: "var(--accent)" }}>$200K</span> to support pre-opening costs and the operating reserve ahead of opening.
+              </div>
+            </div>
+          </div>
+        </div>
 
         {(() => {
           const segments = [
-            { amount: 471, label: "$471K", category: "SBA Bank Loan",        note: "Secured",         bg: "rgba(245,241,234,0.22)", color: "var(--fg)" },
-            { amount: 100, label: "$100K", category: "Credit Line",          note: "Ramp facility",   bg: "rgba(245,241,234,0.18)", color: "var(--fg)" },
-            { amount: 400, label: "$400K", category: "Owner Investment",                              bg: "rgba(245,241,234,0.14)", color: "var(--fg)" },
-            { amount: 140, label: "$140K", category: "Investor Soft Commit",                          bg: "rgba(245,241,234,0.06)", color: "rgba(245,241,234,0.75)" },
-            { amount: 360, label: "$360K", category: "Investor Open",        bg: "var(--accent)",     color: "var(--bg)", highlighted: true }
+            { amount: 471, label: "$471K", category: "SBA Bank Loan",           note: "Secured",                bg: "var(--dt-green)", color: "var(--bg)" },
+            { amount: 100, label: "$100K", category: "Credit Line",             note: "Ramp facility",          bg: "var(--dt-green)", color: "var(--bg)" },
+            { amount: 400, label: "$400K", category: "Owner Investment",        note: "Personal funds & HELOC", bg: "var(--dt-green)", color: "var(--bg)" },
+            { amount: 140, label: "$140K", category: "Investor\nRound 1 Commit", note: "Closing",                bg: "var(--dt-mint)",  color: "var(--bg)" },
+            { amount: 160, label: "$160K", category: "Investor\nRound 1 Open",   note: "In progress",            bg: "var(--accent)",   color: "var(--bg)", highlighted: true },
+            { amount: 200, label: "$200K", category: "Investor\nRound 2 Open",   note: "Not started",            bg: "var(--dt-gray-2)", color: "var(--bg)" }
           ];
+
+          // Two-round raise. Round 1 ($1.27M by end of June) covers everything
+          // through the first open segment; Round 2 ($200K by end of September)
+          // is the final open segment. The boundary is a real segment edge.
+          const totalK = segments.reduce((a, s) => a + s.amount, 0);
+          const round2K = segments[segments.length - 1].amount;
+          const round1K = totalK - round2K;
+          const r1pct = (round1K / totalK) * 100;
+
+          // Double-headed span arrow used to bracket each round above the bar.
+          const phaseArrow = (color) => (
+            <div style={{ position: "relative", height: 8 }}>
+              <div style={{ position: "absolute", left: 5, right: 5, top: "50%", transform: "translateY(-50%)", height: 2, background: color }}/>
+              <div style={{ position: "absolute", left: 0, top: "50%", transform: "translateY(-50%)", width: 0, height: 0, borderTop: "4px solid transparent", borderBottom: "4px solid transparent", borderRight: "6px solid " + color }}/>
+              <div style={{ position: "absolute", right: 0, top: "50%", transform: "translateY(-50%)", width: 0, height: 0, borderTop: "4px solid transparent", borderBottom: "4px solid transparent", borderLeft: "6px solid " + color }}/>
+            </div>
+          );
+
+          const roundArrows = (
+            <div style={{ position: "relative", height: 54, marginBottom: 12 }}>
+              <div style={{ position: "absolute", left: 0, bottom: 0, width: "calc(" + r1pct + "% - 5px)", textAlign: "center" }}>
+                <div className="dt-eyebrow" style={{ color: "var(--fg)" }}>Round 1</div>
+                <div className="dt-serif-it" style={{ fontSize: 12, color: "rgba(245,241,234,0.55)", marginTop: 2, marginBottom: 8, whiteSpace: "nowrap" }}>Closes June 30th</div>
+                {phaseArrow("var(--fg)")}
+              </div>
+              <div style={{ position: "absolute", right: 0, bottom: 0, width: "calc(" + (100 - r1pct) + "% - 5px)", textAlign: "center" }}>
+                <div className="dt-eyebrow" style={{ color: "var(--fg)" }}>Round 2</div>
+                <div className="dt-serif-it" style={{ fontSize: 12, color: "rgba(245,241,234,0.55)", marginTop: 2, marginBottom: 8, whiteSpace: "nowrap" }}>Closes September 30th</div>
+                {phaseArrow("var(--fg)")}
+              </div>
+            </div>
+          );
           return mobile ? (
             <div style={{ marginBottom: 56, border: "1px solid rgba(245,241,234,0.15)" }}>
               {segments.map((s, i) => (
@@ -438,7 +653,7 @@ window.DTFunding = function DTFunding() {
                   background: s.bg, color: s.color,
                   padding: "16px 18px",
                   display: "flex", justifyContent: "space-between", alignItems: "center", gap: 16,
-                  borderTop: i ? "1px solid rgba(245,241,234,0.10)" : "none"
+                  borderTop: i ? "2px solid var(--field2)" : "none"
                 }}>
                   <div style={{ minWidth: 0 }}>
                     <div style={{ fontSize: 11, letterSpacing: "0.10em", textTransform: "uppercase", opacity: 0.85 }}>{s.category}</div>
@@ -446,13 +661,14 @@ window.DTFunding = function DTFunding() {
                       <div className="dt-serif-it" style={{ fontSize: 12, marginTop: 4, opacity: 0.65 }}>{s.note}</div>
                     )}
                   </div>
-                  <span style={{ fontWeight: s.highlighted ? 800 : 700, fontSize: 16, whiteSpace: "nowrap" }}>{s.label}{s.highlighted ? " ↘" : ""}</span>
+                  <span style={{ fontWeight: (s.highlighted || s.open) ? 800 : 700, fontSize: 16, whiteSpace: "nowrap" }}>{s.label}{s.highlighted ? " ↘" : ""}</span>
                 </div>
               ))}
             </div>
           ) : (
             <>
-              <div style={{ display: "flex", height: 88, marginBottom: 12, border: "1px solid rgba(245,241,234,0.15)" }}>
+              {roundArrows}
+              <div style={{ display: "flex", gap: 2, height: 88, marginBottom: 12, border: "1px solid rgba(245,241,234,0.15)" }}>
                 {segments.map(s => (
                   <div key={s.category} style={{
                     flex: s.amount,
@@ -460,7 +676,7 @@ window.DTFunding = function DTFunding() {
                     color: s.color,
                     display: "flex", alignItems: "center", justifyContent: "center",
                     fontSize: s.amount < 100 ? 14 : 17,
-                    fontWeight: s.highlighted ? 800 : 700,
+                    fontWeight: (s.highlighted || s.open) ? 800 : 700,
                     letterSpacing: "0.04em",
                     whiteSpace: "nowrap"
                   }}>
@@ -468,7 +684,7 @@ window.DTFunding = function DTFunding() {
                   </div>
                 ))}
               </div>
-              <div style={{ display: "flex", marginBottom: 56, alignItems: "flex-start" }}>
+              <div style={{ display: "flex", gap: 2, marginBottom: 56, alignItems: "flex-start" }}>
                 {segments.map(s => (
                   <div key={s.category + "-l"} style={{
                     flex: s.amount,
@@ -479,7 +695,8 @@ window.DTFunding = function DTFunding() {
                       fontSize: 10,
                       letterSpacing: "0.10em",
                       textTransform: "uppercase",
-                      color: s.highlighted ? "var(--accent)" : "rgba(245,241,234,0.55)"
+                      whiteSpace: "pre-line",
+                      color: (s.highlighted || s.open) ? "var(--accent)" : "rgba(245,241,234,0.55)"
                     }}>
                       {s.category}
                     </div>
@@ -495,32 +712,7 @@ window.DTFunding = function DTFunding() {
           );
         })()}
 
-        <div style={{ marginBottom: 16 }}>
-          <div className="dt-eyebrow">Use of Funds · $1.46M Total</div>
-        </div>
-        <div style={{ overflowX: mobile ? "auto" : "visible" }}>
-          {USE_OF_FUNDS.map(([label, budget], i) => {
-            const scale = 500000;
-            const budgetPct = Math.min(budget / scale, 1) * 100;
-            return (
-              <div key={i} style={{
-                display: "grid", gridTemplateColumns: "220px 1fr",
-                minWidth: mobile ? 440 : "auto",
-                alignItems: "center", gap: 16,
-                padding: "12px 0",
-                borderTop: i ? "1px solid rgba(245,241,234,0.08)" : "1px solid rgba(245,241,234,0.15)"
-              }}>
-                <div>
-                  <div style={{ fontSize: 12, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em", color: "rgba(245,241,234,0.80)" }}>{label}</div>
-                  <div style={{ fontFamily: "Bandit", fontSize: 13, color: "rgba(245,241,234,0.55)", marginTop: 2 }}>{fmt(budget)}</div>
-                </div>
-                <div style={{ height: 16, background: "rgba(245,241,234,0.06)", position: "relative" }}>
-                  <div style={{ position: "absolute", left: 0, top: 0, height: "100%", width: budgetPct + "%", background: "var(--accent)" }}/>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+        <DTUseOfFunds />
       </div>
     </section>
   );
