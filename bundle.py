@@ -20,7 +20,7 @@ OUT = ROOT / "index.html"
 
 # Cache for compressed image versions so we don't re-encode per call site.
 _compressed_cache = {}
-JSX_FILES = ["data.jsx", "hero.jsx", "sections-mid.jsx", "sections-bottom.jsx", "page.jsx"]
+JSX_FILES = ["data.jsx", "hero.jsx", "sections-mid.jsx", "sections-bottom.jsx", "scenarios.jsx", "page.jsx"]
 
 
 def downscale_jpeg(src_path, max_dim):
