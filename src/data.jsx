@@ -48,6 +48,38 @@ window.DT_DATA = (function() {
   const YR_DIST = [310000, 360000, 140000, 140000, 140000];
   const YR_TOTAL = 1090000;
 
+  // Company distributable cash by year — numeric source for both the
+  // financials statement row and the investor scenario model.
+  const DIST_CASH = [440000, 653000, 699000, 701000, 708000];
+
+  // Scenario presets for the advanced taxes-and-reserves view in Returns.
+  // A single illustrative year: `cashFlow` is the company's distributable
+  // cash before the reserve decision, `kept` is cash held back (reserves +
+  // reinvestment) — the key lever. taxableIncome is deliberately independent
+  // of cash flow: depreciation, amortization, and tax-allocation schedules
+  // separate the two, and none are modeled here. Values are illustrative
+  // placeholders.
+  const SCENARIOS = [
+    { id: "plan", name: "At plan",
+      tag: "Everything distributed.",
+      narrative: "The company hits plan and pays out all distributable cash — no extra reserves held. Your distribution comfortably covers the tax on your K-1 allocation, so the tax advance is just a slice of money you were receiving anyway. This is the clean case: cash and taxes move together.",
+      cashFlow: 440000, kept: 0, taxableIncome: 250000, taxRate: 0.40 },
+    { id: "reserve", name: "Prudent reserve",
+      tag: "Cushion held back first.",
+      narrative: "Same year, but the company holds back $150K to build its operating cushion — the prudent move for a young venue. Less cash reaches you, but your taxes stay fully covered by the advance. You trade some of this year's distribution for a safer company.",
+      cashFlow: 440000, kept: 150000, taxableIncome: 250000, taxRate: 0.40 },
+    { id: "phantom", name: "Phantom income",
+      tag: "Taxed on cash you didn't get.",
+      narrative: "The company is profitable on paper but keeps most of its cash. Your K-1 shows income even though little cash reaches you — phantom income. As set here, the tax advance exactly covers your tax and you break even: no cash in pocket, nothing owed. Drag reserves any higher and the advance falls short — the difference comes out of your pocket.",
+      // kept is tuned so the advance exactly equals the tax (break-even);
+      // keptPost is the equivalent break-even reserve level post-flip (1% share)
+      cashFlow: 440000, kept: 360000, keptPost: 160000, taxableIncome: 560000, taxRate: 0.50 },
+    { id: "loss", name: "Loss year",
+      tag: "No income, no tax, no cash.",
+      narrative: "The company posts a taxable loss. Cash is tight, nothing is distributed, and there is no tax to owe — so no advance is needed. The allocated loss may offset your other income, subject to basis, at-risk, and passive-activity limitations.",
+      cashFlow: 0, kept: 0, taxableIncome: -200000, taxRate: 0.40 }
+  ];
+
   const DAYPARTS = [
     ["Breakfast", "8a–12p", "80",  "$6.00"],
     ["Lunch",     "12p–5p", "105", "$12.93"],
@@ -167,7 +199,7 @@ window.DT_DATA = (function() {
     ["EBITDA",         ["$452K","$685K","$711K","$746K","$774K"],            "13.1%", "8–15%",  "hl"],
     ["Basement",       ["$91K","$136K","$181K","$181K","$181K"],             "",      "",       "det"],
     ["Debt Service",   ["($103K)","($168K)","($194K)","($227K)","($247K)"], "",      "",       "det"],
-    ["Distrib. Cash",  ["$440K","$653K","$699K","$701K","$708K"],            "",      "",       "hl"]
+    ["Distrib. Cash",  DIST_CASH.map(fmt),                                   "",      "",       "hl"]
   ];
 
   const RISKS = [
@@ -388,5 +420,5 @@ window.DT_DATA = (function() {
     { id: "wine-lilac",    bg: "#330000", accent: "#A19AFF", field2: "#220000" }
   ];
 
-  return { NAV, TIER_MIN, PERKS, YR_DIST, YR_TOTAL, DAYPARTS, SEASON, DOW, USE_OF_FUNDS, PHASES, FIN_ROWS, RISKS, WHY, POSITIONING, PAIRS, fmt };
+  return { NAV, TIER_MIN, PERKS, YR_DIST, YR_TOTAL, DIST_CASH, SCENARIOS, DAYPARTS, SEASON, DOW, USE_OF_FUNDS, PHASES, FIN_ROWS, RISKS, WHY, POSITIONING, PAIRS, fmt };
 })();

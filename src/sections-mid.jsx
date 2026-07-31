@@ -381,6 +381,8 @@ window.DTProjection = function DTProjection() {
             </div>
           </div>
         </div>
+
+        <DTTaxWaterfall inv={inv}/>
       </div>
     </section>
   );
