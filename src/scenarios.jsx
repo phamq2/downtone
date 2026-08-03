@@ -257,7 +257,7 @@ window.DTTaxPage = function DTTaxPage() {
             <span className="dt-eyebrow dt-fg-soft">Investor tool · Confidential</span>
           </div>
 
-          <h1 className="dt-h-1" style={{ marginBottom: 12 }}>Taxes &amp; Reserves.</h1>
+          <h1 className="dt-h-1" style={{ marginBottom: 12 }}>Advanced Calculator.</h1>
           <div className="dt-serif-it" style={{ fontSize: 17, color: "var(--accent)", marginBottom: 36, maxWidth: 720 }}>
             Reserves decide how much cash reaches you. Taxable income — a separate assumption —
             decides what you owe the IRS. This shows the tension between the two.

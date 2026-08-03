@@ -184,7 +184,7 @@ body { font-family: 'Outfit', system-ui, sans-serif; color: #F5F1EA; overflow: h
 
 build_page(
     OUT_ADVANCED,
-    "Downtone — Taxes &amp; Reserves",
+    "Downtone — Advanced Calculator",
     """html, body { margin: 0; padding: 0; background: #141414; }
 body { font-family: 'Outfit', system-ui, sans-serif; color: #F5F1EA; }""",
     ADVANCED_JSX,
