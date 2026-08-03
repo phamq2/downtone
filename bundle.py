@@ -17,10 +17,13 @@ from pathlib import Path
 ROOT = Path(__file__).parent
 SRC = ROOT / "src"
 OUT = ROOT / "index.html"
+# Standalone taxes-and-reserves tool — unlinked sub-URL, same password gate.
+OUT_ADVANCED = ROOT / "advanced" / "index.html"
 
 # Cache for compressed image versions so we don't re-encode per call site.
 _compressed_cache = {}
-JSX_FILES = ["data.jsx", "hero.jsx", "sections-mid.jsx", "sections-bottom.jsx", "scenarios.jsx", "page.jsx"]
+JSX_FILES = ["data.jsx", "hero.jsx", "sections-mid.jsx", "sections-bottom.jsx", "page.jsx"]
+ADVANCED_JSX = ["data.jsx", "scenarios.jsx"]
 
 
 def downscale_jpeg(src_path, max_dim):
@@ -131,42 +134,60 @@ def read_jsx(name):
     return inline_href_assets(inline_asset_urls(raw))
 
 
-# Build the HTML
-parts = []
-parts.append("""<!doctype html>
+CDN_SCRIPTS = """<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin></script>"""
+
+
+def build_page(out, title, base_style, jsx_files, boot, head_extra="", pre_scripts=""):
+    parts = []
+    parts.append(f"""<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Downtone — Investor Brief</title>
+<title>{title}</title>{head_extra}
 <style>
-html, body { margin: 0; padding: 0; height: 100%; background: #0F0F0F; }
-body { font-family: 'Outfit', system-ui, sans-serif; color: #F5F1EA; overflow: hidden; }
-#root { width: 100vw; height: 100vh; }
+{base_style}
 </style>""")
 
-for css_name in ["colors_and_type.css", "page.css"]:
-    parts.append(f"<style>\n{read_css(css_name)}\n</style>")
+    for css_name in ["colors_and_type.css", "page.css"]:
+        parts.append(f"<style>\n{read_css(css_name)}\n</style>")
 
-parts.append("""<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin></script>
-</head>
-<body>
-<div id="root"></div>""")
+    parts.append(CDN_SCRIPTS)
+    parts.append("</head>\n<body>\n<div id=\"root\"></div>")
 
-parts.append(build_asset_table_script())
+    if pre_scripts:
+        parts.append(pre_scripts)
 
-for jsx_name in JSX_FILES:
-    parts.append(f'<script type="text/babel" data-presets="env,react">\n{read_jsx(jsx_name)}\n</script>')
+    for jsx_name in jsx_files:
+        parts.append(f'<script type="text/babel" data-presets="env,react">\n{read_jsx(jsx_name)}\n</script>')
 
-parts.append("""<script type="text/babel" data-presets="env,react">
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <DTPage variant="editorial" colorPair="black-amber" />
-);
-</script>
-</body>
-</html>""")
+    parts.append(f'<script type="text/babel" data-presets="env,react">\n{boot}\n</script>')
+    parts.append("</body>\n</html>")
 
-OUT.write_text("\n".join(parts))
-print(f"Wrote {OUT} ({OUT.stat().st_size / 1024 / 1024:.1f} MB)")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text("\n".join(parts))
+    print(f"Wrote {out} ({out.stat().st_size / 1024 / 1024:.1f} MB)")
+
+
+build_page(
+    OUT,
+    "Downtone — Investor Brief",
+    """html, body { margin: 0; padding: 0; height: 100%; background: #0F0F0F; }
+body { font-family: 'Outfit', system-ui, sans-serif; color: #F5F1EA; overflow: hidden; }
+#root { width: 100vw; height: 100vh; }""",
+    JSX_FILES,
+    'ReactDOM.createRoot(document.getElementById("root")).render(\n  <DTPage variant="editorial" colorPair="black-amber" />\n);',
+    pre_scripts=build_asset_table_script(),
+)
+
+build_page(
+    OUT_ADVANCED,
+    "Downtone — Taxes &amp; Reserves",
+    """html, body { margin: 0; padding: 0; background: #141414; }
+body { font-family: 'Outfit', system-ui, sans-serif; color: #F5F1EA; }""",
+    ADVANCED_JSX,
+    'ReactDOM.createRoot(document.getElementById("root")).render(<DTTaxPage/>);',
+    head_extra='\n<meta name="robots" content="noindex, nofollow">',
+)
