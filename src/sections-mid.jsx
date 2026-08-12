@@ -20,8 +20,8 @@ window.DTOverview = function DTOverview() {
               {[
                 ["The concept", "Specialty coffee by day, hi-fi listening bar by night. 79-seat ground floor + 25-seat Sound Room below. Built on a decade of programmed listening sessions and community."],
                 ["The location", "301 Grand Street — Chinatown, LES & SoHo. 2,600 sq ft. High-visibility corridor, excellent transit."],
-                ["The stage",    "Lease signed. Liquor license: CB approved, SLA pending. SBA financing secured. Core team in place, mobilizing for design and buildout — January 2027 opening target."],
-                ["The build",   "Ground floor + basement built simultaneously. Basement programming launches March 2027."]
+                ["The stage",    "Lease signed. Liquor license: CB approved, SLA pending. SBA financing secured. Core team in place, mobilizing for design and buildout — May 2027 opening target."],
+                ["The build",   "Ground floor + basement built simultaneously. Basement programming launches September 2027."]
               ].map(([t, b], i) => (
                 <div key={i} style={{ paddingTop: i ? 24 : 0 }}>
                   <div className="dt-eyebrow" style={{ marginBottom: 8 }}>{t}</div>
@@ -139,8 +139,8 @@ window.DTOpportunity = function DTOpportunity() {
           </div>
           <div style={{ padding: 48, display: "flex", flexDirection: "column", justifyContent: "center" }}>
             <div className="dt-eyebrow" style={{ marginBottom: 8 }}>Minimum</div>
-            <div style={{ fontFamily: "Bandit", fontSize: 72, lineHeight: 1, color: "var(--accent)" }}>$10,000</div>
-            <div className="dt-fg-soft" style={{ fontSize: 13, marginTop: 8 }}>1 unit · 2% of Class B</div>
+            <div style={{ fontFamily: "Bandit", fontSize: 72, lineHeight: 1, color: "var(--accent)" }}>$12,500</div>
+            <div className="dt-fg-soft" style={{ fontSize: 13, marginTop: 8 }}>1 unit · 2.5% of Class B</div>
           </div>
         </div>
 
@@ -362,23 +362,6 @@ window.DTProjection = function DTProjection() {
                 );
               })}
             </div>
-
-            <div style={{
-              marginTop: 32,
-              padding: "20px 24px",
-              border: "1px solid var(--accent)",
-              display: "flex",
-              gap: 16,
-              alignItems: "center"
-            }}>
-              <div className="dt-breathe" style={{
-                width: 10, height: 10, borderRadius: "50%", background: "var(--accent)", flexShrink: 0
-              }}/>
-              <div style={{ fontSize: 13, lineHeight: 1.5 }}>
-                <span className="dt-eyebrow" style={{ color: "var(--accent)" }}>Early bird ·&nbsp;</span>
-                Commit before May 30, 2026 for an automatic upgrade to the next perk tier.
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -593,13 +576,13 @@ window.DTFunding = function DTFunding() {
             <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
               <span style={{ width: 7, height: 7, background: "var(--accent)", marginTop: 9, flexShrink: 0 }}/>
               <div style={{ color: "rgba(245,241,234,0.80)", lineHeight: 1.55 }}>
-                <strong style={{ fontWeight: 700, color: "var(--fg)" }}>Round 1</strong> targets <span style={{ color: "var(--accent)" }}>$1.26M by the end of July 2026</span>, funding construction, permitting, and development costs.
+                <strong style={{ fontWeight: 700, color: "var(--fg)" }}>Round 1</strong> targets <span style={{ color: "var(--accent)" }}>$1.26M by September 15, 2026</span>, funding construction, permitting, and development costs.
               </div>
             </div>
             <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
               <span style={{ width: 7, height: 7, background: "var(--accent)", marginTop: 9, flexShrink: 0 }}/>
               <div style={{ color: "rgba(245,241,234,0.80)", lineHeight: 1.55 }}>
-                <strong style={{ fontWeight: 700, color: "var(--fg)" }}>Round 2</strong> closes the remaining <span style={{ color: "var(--accent)" }}>$200K</span> to support pre-opening costs and the operating reserve ahead of opening.
+                <strong style={{ fontWeight: 700, color: "var(--fg)" }}>Round 2</strong> closes the remaining <span style={{ color: "var(--accent)" }}>$200K in Q1 2027</span> to support pre-opening costs and the operating reserve ahead of opening.
               </div>
             </div>
           </div>
@@ -615,8 +598,8 @@ window.DTFunding = function DTFunding() {
             { amount: 200, label: "$200K", category: "Investor\nRound 2 Open",   note: "Not started",            bg: "var(--dt-gray-2)", color: "var(--bg)" }
           ];
 
-          // Two-round raise. Round 1 ($1.27M by end of July) covers everything
-          // through the first open segment; Round 2 ($200K by end of October)
+          // Two-round raise. Round 1 ($1.26M by September 15) covers everything
+          // through the first open segment; Round 2 ($200K in Q1 2027)
           // is the final open segment. The boundary is a real segment edge.
           const totalK = segments.reduce((a, s) => a + s.amount, 0);
           const round2K = segments[segments.length - 1].amount;
@@ -636,12 +619,12 @@ window.DTFunding = function DTFunding() {
             <div style={{ position: "relative", height: 54, marginBottom: 12 }}>
               <div style={{ position: "absolute", left: 0, bottom: 0, width: "calc(" + r1pct + "% - 5px)", textAlign: "center" }}>
                 <div className="dt-eyebrow" style={{ color: "var(--fg)" }}>Round 1</div>
-                <div className="dt-serif-it" style={{ fontSize: 12, color: "rgba(245,241,234,0.55)", marginTop: 2, marginBottom: 8, whiteSpace: "nowrap" }}>Closes July 31st</div>
+                <div className="dt-serif-it" style={{ fontSize: 12, color: "rgba(245,241,234,0.55)", marginTop: 2, marginBottom: 8, whiteSpace: "nowrap" }}>Closes September 15th</div>
                 {phaseArrow("var(--fg)")}
               </div>
               <div style={{ position: "absolute", right: 0, bottom: 0, width: "calc(" + (100 - r1pct) + "% - 5px)", textAlign: "center" }}>
                 <div className="dt-eyebrow" style={{ color: "var(--fg)" }}>Round 2</div>
-                <div className="dt-serif-it" style={{ fontSize: 12, color: "rgba(245,241,234,0.55)", marginTop: 2, marginBottom: 8, whiteSpace: "nowrap" }}>Closes October 31st</div>
+                <div className="dt-serif-it" style={{ fontSize: 12, color: "rgba(245,241,234,0.55)", marginTop: 2, marginBottom: 8, whiteSpace: "nowrap" }}>Closes Q1 2027</div>
                 {phaseArrow("var(--fg)")}
               </div>
             </div>
@@ -806,7 +789,7 @@ window.DTTimeline = function DTTimeline() {
         }}>
           <div>
             <div className="dt-eyebrow" style={{ color: "var(--accent)", marginBottom: 16 }}>
-              {ph.kind === "active" ? "Now · in progress" : ph.kind === "next" ? "Next up" : "Then"}
+              {ph.kind === "done" ? "Complete" : ph.kind === "active" ? "Now · in progress" : ph.kind === "next" ? "Next up" : "Then"}
             </div>
             <div className="dt-serif-it" style={{ fontSize: 28, lineHeight: 1.25, marginBottom: 12 }}>
               {ph.headline}
@@ -831,7 +814,7 @@ window.DTTimeline = function DTTimeline() {
           fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase"
         }}>
           <span>May 2026 — Today</span>
-          <span>Basement Launch · March 2027</span>
+          <span>Basement Launch · September 2027</span>
         </div>
       </div>
     </section>
