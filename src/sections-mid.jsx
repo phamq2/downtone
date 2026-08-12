@@ -362,23 +362,6 @@ window.DTProjection = function DTProjection() {
                 );
               })}
             </div>
-
-            <div style={{
-              marginTop: 32,
-              padding: "20px 24px",
-              border: "1px solid var(--accent)",
-              display: "flex",
-              gap: 16,
-              alignItems: "center"
-            }}>
-              <div className="dt-breathe" style={{
-                width: 10, height: 10, borderRadius: "50%", background: "var(--accent)", flexShrink: 0
-              }}/>
-              <div style={{ fontSize: 13, lineHeight: 1.5 }}>
-                <span className="dt-eyebrow" style={{ color: "var(--accent)" }}>Early bird ·&nbsp;</span>
-                Commit before May 30, 2026 for an automatic upgrade to the next perk tier.
-              </div>
-            </div>
           </div>
         </div>
       </div>
