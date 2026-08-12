@@ -593,13 +593,13 @@ window.DTFunding = function DTFunding() {
             <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
               <span style={{ width: 7, height: 7, background: "var(--accent)", marginTop: 9, flexShrink: 0 }}/>
               <div style={{ color: "rgba(245,241,234,0.80)", lineHeight: 1.55 }}>
-                <strong style={{ fontWeight: 700, color: "var(--fg)" }}>Round 1</strong> targets <span style={{ color: "var(--accent)" }}>$1.26M by the end of July 2026</span>, funding construction, permitting, and development costs.
+                <strong style={{ fontWeight: 700, color: "var(--fg)" }}>Round 1</strong> targets <span style={{ color: "var(--accent)" }}>$1.26M by September 15, 2026</span>, funding construction, permitting, and development costs.
               </div>
             </div>
             <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
               <span style={{ width: 7, height: 7, background: "var(--accent)", marginTop: 9, flexShrink: 0 }}/>
               <div style={{ color: "rgba(245,241,234,0.80)", lineHeight: 1.55 }}>
-                <strong style={{ fontWeight: 700, color: "var(--fg)" }}>Round 2</strong> closes the remaining <span style={{ color: "var(--accent)" }}>$200K</span> to support pre-opening costs and the operating reserve ahead of opening.
+                <strong style={{ fontWeight: 700, color: "var(--fg)" }}>Round 2</strong> closes the remaining <span style={{ color: "var(--accent)" }}>$200K in Q1 2027</span> to support pre-opening costs and the operating reserve ahead of opening.
               </div>
             </div>
           </div>
@@ -615,8 +615,8 @@ window.DTFunding = function DTFunding() {
             { amount: 200, label: "$200K", category: "Investor\nRound 2 Open",   note: "Not started",            bg: "var(--dt-gray-2)", color: "var(--bg)" }
           ];
 
-          // Two-round raise. Round 1 ($1.27M by end of July) covers everything
-          // through the first open segment; Round 2 ($200K by end of October)
+          // Two-round raise. Round 1 ($1.26M by September 15) covers everything
+          // through the first open segment; Round 2 ($200K in Q1 2027)
           // is the final open segment. The boundary is a real segment edge.
           const totalK = segments.reduce((a, s) => a + s.amount, 0);
           const round2K = segments[segments.length - 1].amount;
@@ -636,12 +636,12 @@ window.DTFunding = function DTFunding() {
             <div style={{ position: "relative", height: 54, marginBottom: 12 }}>
               <div style={{ position: "absolute", left: 0, bottom: 0, width: "calc(" + r1pct + "% - 5px)", textAlign: "center" }}>
                 <div className="dt-eyebrow" style={{ color: "var(--fg)" }}>Round 1</div>
-                <div className="dt-serif-it" style={{ fontSize: 12, color: "rgba(245,241,234,0.55)", marginTop: 2, marginBottom: 8, whiteSpace: "nowrap" }}>Closes July 31st</div>
+                <div className="dt-serif-it" style={{ fontSize: 12, color: "rgba(245,241,234,0.55)", marginTop: 2, marginBottom: 8, whiteSpace: "nowrap" }}>Closes September 15th</div>
                 {phaseArrow("var(--fg)")}
               </div>
               <div style={{ position: "absolute", right: 0, bottom: 0, width: "calc(" + (100 - r1pct) + "% - 5px)", textAlign: "center" }}>
                 <div className="dt-eyebrow" style={{ color: "var(--fg)" }}>Round 2</div>
-                <div className="dt-serif-it" style={{ fontSize: 12, color: "rgba(245,241,234,0.55)", marginTop: 2, marginBottom: 8, whiteSpace: "nowrap" }}>Closes October 31st</div>
+                <div className="dt-serif-it" style={{ fontSize: 12, color: "rgba(245,241,234,0.55)", marginTop: 2, marginBottom: 8, whiteSpace: "nowrap" }}>Closes Q1 2027</div>
                 {phaseArrow("var(--fg)")}
               </div>
             </div>
