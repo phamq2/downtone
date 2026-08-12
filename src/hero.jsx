@@ -29,7 +29,7 @@ window.DTHero = function DTHero({ variant = "signature", scrollPct = 0 }) {
         <div className="dt-d-mark" style={{ top: -100, right: -80 }}>D</div>
         <div style={{ position: "relative", zIndex: 2, maxWidth: 1200, margin: "0 auto" }}>
           <div className="dt-eyebrow" style={{ marginBottom: 32 }}>
-            301 Grand St &nbsp;·&nbsp; Confidential &nbsp;·&nbsp; May 2026
+            301 Grand St &nbsp;·&nbsp; Confidential &nbsp;·&nbsp; August 2026
           </div>
           <h1 className="dt-h-display" style={{ maxWidth: 900, fontSize: "clamp(40px, 5.5vw, 80px)" }}>
             A Sound-Led<br/>Hospitality Engine<br/>In Lower Manhattan
@@ -63,7 +63,7 @@ window.DTHero = function DTHero({ variant = "signature", scrollPct = 0 }) {
       <section style={{ position: "relative", padding: "120px 0 0", overflow: "hidden" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 48px" }}>
           <div className="dt-eyebrow" style={{ marginBottom: 32 }}>
-            301 Grand St &nbsp;·&nbsp; Confidential &nbsp;·&nbsp; May 2026
+            301 Grand St &nbsp;·&nbsp; Confidential &nbsp;·&nbsp; August 2026
           </div>
           <h1 style={{
             fontFamily: "Outfit", fontWeight: 900,
@@ -117,7 +117,7 @@ window.DTHero = function DTHero({ variant = "signature", scrollPct = 0 }) {
     <section style={{ position: "relative", padding: mobile ? "100px 24px 72px" : "140px 48px 96px", overflow: "hidden" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <div className="dt-eyebrow" style={{ marginBottom: 48 }}>
-          301 Grand St &nbsp;·&nbsp; Confidential &nbsp;·&nbsp; May 2026 &nbsp;·&nbsp; Accredited investors
+          301 Grand St &nbsp;·&nbsp; Confidential &nbsp;·&nbsp; August 2026 &nbsp;·&nbsp; Accredited investors
         </div>
         <div style={{ display: "flex", alignItems: mobile ? "flex-start" : "flex-end", flexDirection: mobile ? "column" : "row", gap: 24 }}>
           <h1 className="dt-h-display" style={{ flex: 1 }}>
