@@ -139,8 +139,8 @@ window.DTOpportunity = function DTOpportunity() {
           </div>
           <div style={{ padding: 48, display: "flex", flexDirection: "column", justifyContent: "center" }}>
             <div className="dt-eyebrow" style={{ marginBottom: 8 }}>Minimum</div>
-            <div style={{ fontFamily: "Bandit", fontSize: 72, lineHeight: 1, color: "var(--accent)" }}>$10,000</div>
-            <div className="dt-fg-soft" style={{ fontSize: 13, marginTop: 8 }}>1 unit · 2% of Class B</div>
+            <div style={{ fontFamily: "Bandit", fontSize: 72, lineHeight: 1, color: "var(--accent)" }}>$12,500</div>
+            <div className="dt-fg-soft" style={{ fontSize: 13, marginTop: 8 }}>1 unit · 2.5% of Class B</div>
           </div>
         </div>
 
