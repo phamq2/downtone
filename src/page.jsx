@@ -108,6 +108,7 @@ window.DTPage = function DTPage({ variant = "signature", colorPair = null }) {
       <DTHero variant={variant} scrollPct={pct}/>
       <DTMarquee variant={variant}/>
       <DTOverview/>
+      <DTSpace/>
       <DTOpportunity/>
       <DTProjection/>
       <DTFunding/>

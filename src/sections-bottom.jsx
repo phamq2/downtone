@@ -31,7 +31,7 @@ window.DTWhy = function DTWhy() {
     <section id="why" className="dt-section">
       <div className="dt-section-inner">
         <div className="dt-section-eyebrow">
-          <span className="dt-section-num">06 / Thesis</span>
+          <span className="dt-section-num">07 / Thesis</span>
           <span className="dot"/>
           <span className="dt-eyebrow dt-fg-soft">The Downtone thesis</span>
         </div>
@@ -95,7 +95,7 @@ window.DTPositioning = function DTPositioning() {
     <section id="positioning" className="dt-section" style={{ paddingBottom: mobile ? 48 : 64 }}>
       <div className="dt-section-inner">
         <div className="dt-section-eyebrow">
-          <span className="dt-section-num">07 / Positioning</span>
+          <span className="dt-section-num">08 / Positioning</span>
           <span className="dot"/>
           <span className="dt-eyebrow dt-fg-soft">Where Downtone fits in the category</span>
         </div>
@@ -349,7 +349,7 @@ window.DTAssumptions = function DTAssumptions() {
     <section id="assumptions" className="dt-section">
       <div className="dt-section-inner">
         <div className="dt-section-eyebrow">
-          <span className="dt-section-num">08 / Model</span>
+          <span className="dt-section-num">09 / Model</span>
           <span className="dot"/>
           <span className="dt-eyebrow dt-fg-soft">How the day works</span>
         </div>
@@ -495,7 +495,7 @@ window.DTFinancials = function DTFinancials() {
     <section id="financials" className="dt-section" style={{ background: "var(--field2)" }}>
       <div className="dt-section-inner">
         <div className="dt-section-eyebrow">
-          <span className="dt-section-num">09 / Financials</span>
+          <span className="dt-section-num">10 / Financials</span>
           <span className="dot"/>
           <span className="dt-eyebrow dt-fg-soft">5-year income statement</span>
         </div>
@@ -582,7 +582,7 @@ window.DTRisks = function DTRisks() {
     <section id="risks" className="dt-section">
       <div className="dt-section-inner">
         <div className="dt-section-eyebrow">
-          <span className="dt-section-num">10 / Risks</span>
+          <span className="dt-section-num">11 / Risks</span>
           <span className="dot"/>
           <span className="dt-eyebrow dt-fg-soft">Read carefully</span>
         </div>
