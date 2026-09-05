@@ -100,8 +100,15 @@ window.DTSpace = function DTSpace() {
         )}
 
         <div style={{ marginBottom: 24, maxWidth: 720 }}>
-          <div className="dt-eyebrow" style={{ color: "var(--accent)", marginBottom: 8 }}>{m.stat}</div>
-          <div className="dt-body" style={{ maxWidth: "none" }}>{m.blurb}</div>
+          <div className="dt-eyebrow" style={{ color: "var(--accent)", marginBottom: 10 }}>{m.stat}</div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            {m.points.map((pt, i) => (
+              <div key={i} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
+                <div style={{ width: 5, height: 5, background: "var(--accent)", marginTop: 8, flexShrink: 0 }}/>
+                <div style={{ fontSize: 14, lineHeight: 1.55, color: "rgba(245,241,234,0.85)" }}>{pt}</div>
+              </div>
+            ))}
+          </div>
         </div>
 
         <div style={{
