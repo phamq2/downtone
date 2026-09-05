@@ -356,7 +356,7 @@ window.DTAssumptions = function DTAssumptions() {
 
         <h2 className="dt-h-1" style={{ marginBottom: 16 }}>Assumptions.</h2>
         <div className="dt-body-lg" style={{ marginBottom: 32, maxWidth: 700 }}>
-          Revenue is driven by four distinct dayparts across a 79-seat main floor.
+          Revenue is driven by four distinct dayparts across a 70-seat main floor.
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: mobile ? "1fr" : "repeat(3, 1fr)", gap: 16, marginBottom: 56 }}>
@@ -473,7 +473,7 @@ window.DTAssumptions = function DTAssumptions() {
           {[
             ["1,400", "Main flr · sqft"],
             ["2,600", "Total · sqft"],
-            ["79", "Seats"],
+            ["70", "Seats"],
             ["~$2,850", "Rev / sqft"],
             ["~5.3%", "Rent / rev"]
           ].map(([v, k]) => (
