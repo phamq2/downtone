@@ -18,7 +18,7 @@ window.DTOverview = function DTOverview() {
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 24 }} className="dt-hairline-list">
               {[
-                ["The concept", "Specialty coffee by day, hi-fi listening bar by night. 79-seat ground floor + 25-seat Sound Room below. Built on a decade of programmed listening sessions and community."],
+                ["The concept", "Specialty coffee by day, hi-fi listening bar by night. 70-seat ground floor + 25-seat Sound Room below. Built on a decade of programmed listening sessions and community."],
                 ["The location", "301 Grand Street — Chinatown, LES & SoHo. 2,600 sq ft. High-visibility corridor, excellent transit."],
                 ["The stage",    "Lease signed. Liquor license: CB approved, SLA pending. SBA financing secured. Core team in place, design underway ahead of permits and buildout — May 2027 opening target."],
                 ["The build",   "Ground floor + lower level built simultaneously. Lower level programming launches September 2027."]
@@ -75,7 +75,7 @@ window.DTSpace = function DTSpace() {
           <span className="dt-eyebrow dt-fg-soft">301 Grand St in 3D</span>
         </div>
 
-        <h2 className="dt-h-1" style={{ marginBottom: 16 }}>Walk the Space.</h2>
+        <h2 className="dt-h-1" style={{ marginBottom: 16 }}>The Space.</h2>
         <div className="dt-body-lg" style={{ maxWidth: 720, marginBottom: 40 }}>
           The working design model of the venue. Drag to orbit, scroll to zoom, go fullscreen.
         </div>
@@ -98,6 +98,11 @@ window.DTSpace = function DTSpace() {
             })}
           </div>
         )}
+
+        <div style={{ marginBottom: 24, maxWidth: 720 }}>
+          <div className="dt-eyebrow" style={{ color: "var(--accent)", marginBottom: 8 }}>{m.stat}</div>
+          <div className="dt-body" style={{ maxWidth: "none" }}>{m.blurb}</div>
+        </div>
 
         <div style={{
           position: "relative", width: "100%",
