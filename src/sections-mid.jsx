@@ -21,7 +21,7 @@ window.DTOverview = function DTOverview() {
                 ["The concept", "Specialty coffee by day, hi-fi listening bar by night. 79-seat ground floor + 25-seat Sound Room below. Built on a decade of programmed listening sessions and community."],
                 ["The location", "301 Grand Street — Chinatown, LES & SoHo. 2,600 sq ft. High-visibility corridor, excellent transit."],
                 ["The stage",    "Lease signed. Liquor license: CB approved, SLA pending. SBA financing secured. Core team in place, design underway ahead of permits and buildout — May 2027 opening target."],
-                ["The build",   "Ground floor + basement built simultaneously. Basement programming launches September 2027."]
+                ["The build",   "Ground floor + lower level built simultaneously. Lower level programming launches September 2027."]
               ].map(([t, b], i) => (
                 <div key={i} style={{ paddingTop: i ? 24 : 0 }}>
                   <div className="dt-eyebrow" style={{ marginBottom: 8 }}>{t}</div>
@@ -55,13 +55,103 @@ window.DTOverview = function DTOverview() {
   );
 };
 
+// 3D walkthrough of the venue — Sketchfab design models, one per floor.
+// The heavy viewer iframe only loads after an explicit click (per model),
+// so the brief's initial load stays fast.
+window.DTSpace = function DTSpace() {
+  const { useState } = React;
+  const mobile = useMobile();
+  const { SPACE_MODELS } = window.DT_DATA;
+  const [selIdx, setSelIdx] = useState(0);
+  const [loaded, setLoaded] = useState({});
+  const m = SPACE_MODELS[selIdx];
+
+  return (
+    <section id="space" className="dt-section">
+      <div className="dt-section-inner">
+        <div className="dt-section-eyebrow">
+          <span className="dt-section-num">02 / The Space</span>
+          <span className="dot"/>
+          <span className="dt-eyebrow dt-fg-soft">301 Grand St in 3D</span>
+        </div>
+
+        <h2 className="dt-h-1" style={{ marginBottom: 16 }}>Walk the Space.</h2>
+        <div className="dt-body-lg" style={{ maxWidth: 720, marginBottom: 40 }}>
+          The working design model of the venue. Drag to orbit, scroll to zoom, go fullscreen.
+        </div>
+
+        {SPACE_MODELS.length > 1 && (
+          <div style={{ display: "flex", gap: 8, marginBottom: 24, flexWrap: "wrap" }}>
+            {SPACE_MODELS.map((mod, i) => {
+              const active = i === selIdx;
+              return (
+                <div key={mod.id} onClick={() => setSelIdx(i)} style={{
+                  cursor: "pointer", padding: "12px 20px",
+                  border: "1px solid " + (active ? "var(--accent)" : "rgba(245,241,234,0.15)"),
+                  background: active ? "var(--field2)" : "transparent",
+                  fontWeight: 800, fontSize: 13, textTransform: "uppercase",
+                  letterSpacing: "0.08em",
+                  color: active ? "var(--accent)" : "var(--fg)",
+                  transition: "border-color 200ms, color 200ms"
+                }}>{mod.label}</div>
+              );
+            })}
+          </div>
+        )}
+
+        <div style={{
+          position: "relative", width: "100%",
+          aspectRatio: mobile ? "4 / 3" : "16 / 9",
+          border: "1px solid rgba(245,241,234,0.15)",
+          background: "rgba(245,241,234,0.04)"
+        }}>
+          {loaded[m.id] ? (
+            <iframe
+              title={m.title}
+              src={"https://sketchfab.com/models/" + m.id + "/embed?ui_theme=dark"}
+              frameBorder="0"
+              allowFullScreen
+              allow="autoplay; fullscreen; xr-spatial-tracking"
+              style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
+            />
+          ) : (
+            <div
+              onClick={() => setLoaded(p => ({ ...p, [m.id]: true }))}
+              style={{
+                position: "absolute", inset: 0, cursor: "pointer",
+                display: "flex", flexDirection: "column",
+                alignItems: "center", justifyContent: "center", gap: 14,
+                textAlign: "center", padding: 24
+              }}>
+              <div className="dt-breathe" style={{ width: 12, height: 12, borderRadius: "50%", background: "var(--accent)" }}/>
+              <div className="dt-eyebrow" style={{ color: "var(--accent)" }}>3D Model · {m.label}</div>
+              <div className="dt-serif-it" style={{ fontSize: mobile ? 26 : 34, lineHeight: 1.2 }}>Enter the space</div>
+              <div className="dt-fg-soft" style={{ fontSize: 13 }}>Click to load the interactive viewer</div>
+            </div>
+          )}
+        </div>
+
+        <div className="dt-fg-soft" style={{ fontSize: 12, marginTop: 12, display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
+          <span>Drag to orbit · Scroll to zoom · Fullscreen supported</span>
+          <span>
+            <a href={m.url} target="_blank" rel="noopener noreferrer" style={{ color: "var(--accent)", textDecoration: "none" }}>Design model</a>
+            {" by "}
+            <a href={m.authorUrl} target="_blank" rel="noopener noreferrer" style={{ color: "var(--accent)", textDecoration: "none" }}>{m.author}</a>
+            {" on Sketchfab"}
+          </span>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 window.DTOpportunity = function DTOpportunity() {
   const mobile = useMobile();
   return (
     <section id="opportunity" className="dt-section" style={{ background: "var(--field2)" }}>
       <div className="dt-section-inner">
         <div className="dt-section-eyebrow">
-          <span className="dt-section-num">02 / Offer</span>
+          <span className="dt-section-num">03 / Offer</span>
           <span className="dot"/>
           <span className="dt-eyebrow dt-fg-soft">Class B membership units</span>
         </div>
@@ -217,7 +307,7 @@ window.DTProjection = function DTProjection() {
     <section id="projection" className="dt-section">
       <div className="dt-section-inner">
         <div className="dt-section-eyebrow">
-          <span className="dt-section-num">03 / Returns</span>
+          <span className="dt-section-num">04 / Returns</span>
           <span className="dot"/>
           <span className="dt-eyebrow dt-fg-soft">Drag to model your investment</span>
         </div>
@@ -561,7 +651,7 @@ window.DTFunding = function DTFunding() {
     <section id="funding" className="dt-section" style={{ background: "var(--field2)" }}>
       <div className="dt-section-inner">
         <div className="dt-section-eyebrow">
-          <span className="dt-section-num">04 / Funding</span>
+          <span className="dt-section-num">05 / Funding</span>
           <span className="dot"/>
           <span className="dt-eyebrow dt-fg-soft">$1.46M total · $287.5K open</span>
         </div>
@@ -715,7 +805,7 @@ window.DTTimeline = function DTTimeline() {
     <section id="timeline" className="dt-section">
       <div className="dt-section-inner">
         <div className="dt-section-eyebrow">
-          <span className="dt-section-num">05 / Timeline</span>
+          <span className="dt-section-num">06 / Timeline</span>
           <span className="dot"/>
           <span className="dt-eyebrow dt-fg-soft">Phased to de-risk</span>
         </div>
@@ -814,7 +904,7 @@ window.DTTimeline = function DTTimeline() {
           fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase"
         }}>
           <span>May 2026 — Today</span>
-          <span>Basement Launch · September 2027</span>
+          <span>Lower Level Launch · September 2027</span>
         </div>
       </div>
     </section>
