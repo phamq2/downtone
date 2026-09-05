@@ -21,7 +21,7 @@ window.DTOverview = function DTOverview() {
                 ["The concept", "Specialty coffee by day, hi-fi listening bar by night. 79-seat ground floor + 25-seat Sound Room below. Built on a decade of programmed listening sessions and community."],
                 ["The location", "301 Grand Street — Chinatown, LES & SoHo. 2,600 sq ft. High-visibility corridor, excellent transit."],
                 ["The stage",    "Lease signed. Liquor license: CB approved, SLA pending. SBA financing secured. Core team in place, design underway ahead of permits and buildout — May 2027 opening target."],
-                ["The build",   "Ground floor + basement built simultaneously. Basement programming launches September 2027."]
+                ["The build",   "Ground floor + lower level built simultaneously. Lower level programming launches September 2027."]
               ].map(([t, b], i) => (
                 <div key={i} style={{ paddingTop: i ? 24 : 0 }}>
                   <div className="dt-eyebrow" style={{ marginBottom: 8 }}>{t}</div>
@@ -904,7 +904,7 @@ window.DTTimeline = function DTTimeline() {
           fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase"
         }}>
           <span>May 2026 — Today</span>
-          <span>Basement Launch · September 2027</span>
+          <span>Lower Level Launch · September 2027</span>
         </div>
       </div>
     </section>

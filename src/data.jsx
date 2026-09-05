@@ -41,7 +41,7 @@ window.DT_DATA = (function() {
     },
     {
       id: "1b7b7845f98e4b05ac12ab8d16e71b34",
-      label: "Sound Room · Basement",
+      label: "Sound Room · Lower Level",
       title: "DOWNTONE_CELLAR_ROUGH",
       url: "https://sketchfab.com/3d-models/downtone-cellar-rough-1b7b7845f98e4b05ac12ab8d16e71b34",
       author: "HouseUnderMagic",
@@ -141,7 +141,7 @@ window.DT_DATA = (function() {
         "Lease signed; CB stipulation for liquor license secured",
         "SBA financing secured; capital stack confirmed",
         "Architect, expeditor, MEP, and GC paths confirmed",
-        "Ground floor + basement built simultaneously"
+        "Ground floor + lower level built simultaneously"
       ]
     },
     {
@@ -200,11 +200,11 @@ window.DT_DATA = (function() {
       ]
     },
     {
-      name: "Basement Launch", date: "September 2027",
+      name: "Lower Level Launch", date: "September 2027",
       kind: "future",
       headline: "Sound Room programming goes live",
       points: [
-        "Basement built and tuned alongside the ground floor — opens once main service is stable",
+        "Lower level built and tuned alongside the ground floor — opens once main service is stable",
         "Ticketed listening, private dining, and curated activations begin",
         "Members and Founder-tier events activated downstairs",
         "Second revenue engine layers onto an already-stabilized main floor"
@@ -220,7 +220,7 @@ window.DT_DATA = (function() {
     ["Controllable",   ["$505K","$570K","$579K","$584K","$597K"],            "14.6%", "12–18%", "det"],
     ["Occupancy",      ["$300K","$315K","$328K","$338K","$348K"],            "8.7%",  "6–10%",  "det"],
     ["EBITDA",         ["$452K","$685K","$711K","$746K","$774K"],            "13.1%", "8–15%",  "hl"],
-    ["Basement",       ["$91K","$136K","$181K","$181K","$181K"],             "",      "",       "det"],
+    ["Lower Level",    ["$91K","$136K","$181K","$181K","$181K"],             "",      "",       "det"],
     ["Debt Service",   ["($103K)","($168K)","($194K)","($227K)","($247K)"], "",      "",       "det"],
     ["Distrib. Cash",  DIST_CASH.map(fmt),                                   "",      "",       "hl"]
   ];
@@ -295,7 +295,7 @@ window.DT_DATA = (function() {
           "79 ground-floor seats + 25-seat Sound Room",
           "Sound system as defining experience",
           "Cultural lineage from Dub-Stuy",
-          "Basement built simultaneously, programming launches September 2027"
+          "Lower level built simultaneously, programming launches September 2027"
         ]
       },
       {
